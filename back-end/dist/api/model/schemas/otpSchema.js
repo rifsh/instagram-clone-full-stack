@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const userSignupSchema_1 = require("./userSignupSchema");
+const userSchema_1 = require("./userSchema");
 const otpSchema = new mongoose_1.default.Schema({
     userID: {
         type: mongoose_1.default.Types.ObjectId,
-        ref: userSignupSchema_1.userSignupModel
+        ref: userSchema_1.userSignupModel
     },
     phoneNumber: String,
     otp: String,
@@ -32,7 +32,7 @@ const otpModel = mongoose_1.default.model('otp', otpSchema);
 mongoose_1.default.connection.on('connected', () => __awaiter(void 0, void 0, void 0, function* () {
     setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            otpModel.deleteMany({ expiresAt: { $lt: new Date() } });
+            const otpDeletion = yield otpModel.deleteMany({ expiresAt: { $lt: new Date() } });
             console.log('Expired otp deleted successfully');
         }
         catch (error) {

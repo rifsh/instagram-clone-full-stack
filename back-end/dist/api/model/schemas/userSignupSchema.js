@@ -25,13 +25,13 @@ const schema = new mongoose_1.default.Schema({
         type: String,
         required: [true, 'Password is required']
     },
-    firstname: {
+    fullname: {
         type: String,
-        default: ''
+        required: [true, 'Your name is required']
     },
-    lastname: {
+    username: {
         type: String,
-        default: ''
+        required: [true, 'Username is required']
     },
     createdOn: {
         type: Date,
@@ -65,4 +65,4 @@ schema.methods.comparePassword = function (candidatePassword, dbpswrd) {
         return bcrypt_1.default.compare(candidatePassword, dbpswrd); // Compare candidate password with stored hash
     });
 };
-exports.userSignupModel = mongoose_1.default.model('otpCreation', schema);
+exports.userSignupModel = mongoose_1.default.model('userSignup', schema);

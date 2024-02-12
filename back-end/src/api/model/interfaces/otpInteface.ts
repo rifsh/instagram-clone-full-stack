@@ -1,6 +1,6 @@
 import { ObjectId } from "mongoose";
 
-export interface otpInterface {
+export interface OtpInterface {
     userID:ObjectId;
     phoneNumber: string;
     otp:string;

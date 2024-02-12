@@ -10,4 +10,5 @@ _1.default.use(errorMiddleare_1.errorHandler);
 (0, dbconnection_1.connection)();
 _1.default.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
+    // console.log(new Date());
 });

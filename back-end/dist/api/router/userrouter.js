@@ -5,11 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRouter = void 0;
 const express_1 = __importDefault(require("express"));
-const authConstroller_1 = require("../controllers/authConstroller");
-const otpController_1 = __importDefault(require("../controllers/otpController"));
+const userController_1 = require("../controllers/userController");
+const routeProtectorMiddleware_1 = require("../middlewares/routeProtectorMiddleware");
+const imageUploading_1 = require("../middlewares/imageUploading");
 exports.userRouter = express_1.default.Router();
-exports.userRouter.post('/otpGeneration', authConstroller_1.UserController.userOtpSend)
-    //auth
-    .post('/reg/:id', authConstroller_1.UserController.userRegistration)
-    .post('/otpvalidation/:id', otpController_1.default)
-    .post('/login', authConstroller_1.UserController.userLogin);
+exports.userRouter
+    .use(routeProtectorMiddleware_1.userRouteProtector)
+    .put('/user-profile/:id', imageUploading_1.userProfileimgUpload, userController_1.userController.userProfile)
+    .post('/add-post/:id', imageUploading_1.userAddPostimgUpload, userController_1.userController.userAddPost);

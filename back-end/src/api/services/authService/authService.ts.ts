@@ -1,26 +1,35 @@
-import { NextFunction } from "express";
-import { userLoginInterface, userRegInterface, userSighnup } from "../../model/interfaces/userSighnupInterface";
-import { userSignupModel } from "../../model/schemas/userSignupSchema";
-import { CustomeError } from "../../utils/customeErrorHandler";
+import { Response } from "express";
+import { UserLoginInterface, UserDobInterface, UserSighnupInterface } from "../../model/interfaces/userSighnupInterface";
+import { userSignupModel } from "../../model/schemas/userSchema";
 import otpModel from "../../model/schemas/otpSchema";
 import { userToken } from "../../utils/token";
-// import { userRegistrationModel } from "../../model/schemas/userRegistrationSchema";
 
-const userSighnupSrvc = async (userDetails: userSighnup, next: NextFunction) => {
+const userSighnupSrvc = async (userDetails: UserSighnupInterface): Promise<UserSighnupInterface> => {
+
     try {
         if (userDetails) {
-            const userDetail = await userSignupModel.create({ password: userDetails.password, emailOrPhone: userDetails.emailOrPhone });
+            const userDetail = await userSignupModel.create({
+                phone: `+91${userDetails.phone}`,
+                fullname: userDetails.fullname,
+                username: userDetails.username,
+                password: userDetails.password
+            });
             return userDetail
         }
     } catch (err) {
-        next(new CustomeError('User details required', 303));
+        console.log(err);
+
     }
 }
 const userOtpValidationSrvc = async (phNUmber?: string, otp?: string): Promise<boolean> => {
     try {
         const phNum: string = `+91${phNUmber}`;
         const validation = await otpModel.findOne({ phoneNumber: phNum });
+
         const validated = validation.otp === otp;
+        if (!phNum) {
+            return false
+        }
 
         if (validated) {
             return true
@@ -31,43 +40,67 @@ const userOtpValidationSrvc = async (phNUmber?: string, otp?: string): Promise<b
         console.log(error);
     }
 }
-const userRegistrationSrvc = async (userRegDetails: userRegInterface, userId: string) => {
-    const userFinding = await userSignupModel.findById(userId);
+const userDobSrvc = async (dob: UserDobInterface, userId: string, phone: string): Promise<boolean | UserSighnupInterface> => {
+    const dbDob: string = `${dob.month}-${dob.day + 1}-${dob.year}`;
+    const mainDob: Date = new Date(dbDob);
+
     try {
-        if (userFinding.isVerified === true) {
-            const updatedUser = await userSignupModel.findByIdAndUpdate(userId, { $set: { firstname: userRegDetails.firstname, lastname: userRegDetails.lastname } });
-            updatedUser.save();
+        if (await userSignupModel.findOne({ _id: userId, phone: `+91${phone}` })) {
+            const dobUpdate = await userSignupModel.findByIdAndUpdate(userId, { $set: { dateOfBirth: mainDob } });
+            dobUpdate.save();
+            return dobUpdate
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.log(error.message);
+
+    }
+
+
+}
+const userLoginSrvc = async (res: Response, userValues: UserLoginInterface): Promise<boolean | string> => {
+    const user = await userSignupModel.findOne({ username: userValues.username, phone: `+91${userValues.phone}` });
+
+    if (user) {
+        try {
+
+            if (!await user.comparePassword(userValues.password, user.password) || !user) {
+                return false
+            }
+            else if (user.isVerified === true) {
+                const isLogged = await userSignupModel.findOneAndUpdate({ username: userValues.username }, { $set: { isLogged: true } });
+                isLogged.save();
+                const token = userToken(user.id);
+                return token
+            } else {
+                return false
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }else {
+        return false
+    }
+}
+const userDeletingSrvc = async (userId: string): Promise<boolean> => {
+    try {
+        const userDeleting = await userSignupModel.findByIdAndDelete(userId);
+        if (userDeleting) {
             return true
         } else {
-            console.log('not verified');
             return false
         }
     } catch (error) {
         console.log(error);
+
     }
 }
-const userLoginSrvc = async (userValues: userLoginInterface, next): Promise<string> => {
-    try {
-        const userFinding = await userSignupModel.findOne({ emailOrPhone: `+91${userValues.phoneNumber}` }).select('+password');
-        if (!userFinding || !await userFinding.comparePassword(userValues.password, userFinding.password)) {
-            const error = new CustomeError('Incorrect username or password', 404);
-            next(error)
-        } else {
-            const logged = await userSignupModel.findOneAndUpdate({ emailOrPhone: `+91${userValues.phoneNumber}` }, { $set: { isLogged: true } });
-            logged.save();
 
-            const token = userToken(userFinding)
-            return token
-        }
-    } catch (error) {
-        console.log(error);
-    }
-
-}
-
-export const userService = {
+export const userAuthService = {
     userSighnupSrvc,
-    userOtpValidation: userOtpValidationSrvc,
-    userRegistration: userRegistrationSrvc,
-    userLoginSrvc
+    userOtpValidationSrvc,
+    userDobSrvc,
+    userLoginSrvc,
+    userDeletingSrvc,
 }

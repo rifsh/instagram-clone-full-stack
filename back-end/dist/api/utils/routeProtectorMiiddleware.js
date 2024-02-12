@@ -16,7 +16,7 @@ exports.RouteProtecter = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const asyncHandler_1 = __importDefault(require("../middlewares/asyncHandler"));
 const customeErrorHandler_1 = require("./customeErrorHandler");
-const userSignupSchema_1 = require("../model/schemas/userSignupSchema");
+const userSchema_1 = require("../model/schemas/userSchema");
 exports.RouteProtecter = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     //Reading the token and check if it exist
     let token;
@@ -32,7 +32,7 @@ exports.RouteProtecter = (0, asyncHandler_1.default)((req, res, next) => __await
     const tokenDecode = yield jsonwebtoken_1.default.verify(token, process.env.jwt_string);
     const tokenDec = tokenDecode;
     //If the user exist
-    let user = yield userSignupSchema_1.userSignupModel.findById(tokenDec.id);
+    let user = yield userSchema_1.userSignupModel.findById(tokenDec.id);
     if (!user) {
         next(new customeErrorHandler_1.CustomeError('User is not present', 401));
     }

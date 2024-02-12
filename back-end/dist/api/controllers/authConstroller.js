@@ -17,17 +17,17 @@ const asyncHandler_1 = __importDefault(require("../middlewares/asyncHandler"));
 const otpService_1 = require("../services/authService/otpService");
 const authService_ts_1 = require("../services/authService/authService.ts");
 const token_1 = require("../utils/token");
+const customeErrorHandler_1 = require("../utils/customeErrorHandler");
 exports.userOtpSend = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const userDetails = req.body;
     const userId = req.params.id;
     const sentOtp = yield otpService_1.otpService.sentEmail(userId, userDetails.emailOrPhone);
     if (sentOtp) {
-        // await userService.userRegSrvc(userDetails, next);
         const datas = yield authService_ts_1.userService.userSighnupSrvc(userDetails, next);
-        // const token = userSignupToken();
         res.json({
             status: 200,
-            message: "Otp sent successfully"
+            message: "Otp sent successfully",
+            datas
         });
     }
     else {
@@ -55,9 +55,13 @@ const userRegistration = (0, asyncHandler_1.default)((req, res, next) => __await
         });
     }
 }));
+const userLocation = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    authService_ts_1.userService.userLocationSrvc(req.params.id);
+}));
 const userLogin = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const userValues = req.body;
     const token = yield authService_ts_1.userService.userLoginSrvc(userValues, next);
+    // console.log(await userService.userOtpValidation());
     if (token) {
         res.status(200).json({
             status: "OK",
@@ -66,8 +70,22 @@ const userLogin = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void
         });
     }
 }));
+const userDelting = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.params.id;
+    const userDeleting = authService_ts_1.userService.userDeletingSrvc(userId);
+    if (userDeleting) {
+        res.status(200).json({
+            status: "OK"
+        });
+    }
+    else {
+        next(new customeErrorHandler_1.CustomeError('Something went wrong', 404));
+    }
+}));
 exports.UserController = {
     userOtpSend: exports.userOtpSend,
     userRegistration,
-    userLogin
+    userLocation,
+    userLogin,
+    userDelting
 };

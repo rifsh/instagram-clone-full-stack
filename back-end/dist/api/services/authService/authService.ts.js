@@ -12,21 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userService = void 0;
-const userSignupSchema_1 = require("../../model/schemas/userSignupSchema");
-const customeErrorHandler_1 = require("../../utils/customeErrorHandler");
+exports.userAuthService = void 0;
+const userSchema_1 = require("../../model/schemas/userSchema");
 const otpSchema_1 = __importDefault(require("../../model/schemas/otpSchema"));
 const token_1 = require("../../utils/token");
-// import { userRegistrationModel } from "../../model/schemas/userRegistrationSchema";
-const userSighnupSrvc = (userDetails, next) => __awaiter(void 0, void 0, void 0, function* () {
+const userSighnupSrvc = (userDetails) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (userDetails) {
-            const userDetail = yield userSignupSchema_1.userSignupModel.create({ password: userDetails.password, emailOrPhone: userDetails.emailOrPhone });
+            const userDetail = yield userSchema_1.userSignupModel.create({
+                phone: `+91${userDetails.phone}`,
+                fullname: userDetails.fullname,
+                username: userDetails.username,
+                password: userDetails.password
+            });
             return userDetail;
         }
     }
     catch (err) {
-        next(new customeErrorHandler_1.CustomeError('User details required', 303));
+        console.log(err);
     }
 });
 const userOtpValidationSrvc = (phNUmber, otp) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,6 +37,9 @@ const userOtpValidationSrvc = (phNUmber, otp) => __awaiter(void 0, void 0, void 
         const phNum = `+91${phNUmber}`;
         const validation = yield otpSchema_1.default.findOne({ phoneNumber: phNum });
         const validated = validation.otp === otp;
+        if (!phNum) {
+            return false;
+        }
         if (validated) {
             return true;
         }
@@ -45,16 +51,55 @@ const userOtpValidationSrvc = (phNUmber, otp) => __awaiter(void 0, void 0, void 
         console.log(error);
     }
 });
-const userRegistrationSrvc = (userRegDetails, userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const userFinding = yield userSignupSchema_1.userSignupModel.findById(userId);
+const userDobSrvc = (dob, userId, phone) => __awaiter(void 0, void 0, void 0, function* () {
+    const dbDob = `${dob.month}-${dob.day + 1}-${dob.year}`;
+    const mainDob = new Date(dbDob);
     try {
-        if (userFinding.isVerified === true) {
-            const updatedUser = yield userSignupSchema_1.userSignupModel.findByIdAndUpdate(userId, { $set: { firstname: userRegDetails.firstname, lastname: userRegDetails.lastname } });
-            updatedUser.save();
+        if (yield userSchema_1.userSignupModel.findOne({ _id: userId, phone: `+91${phone}` })) {
+            const dobUpdate = yield userSchema_1.userSignupModel.findByIdAndUpdate(userId, { $set: { dateOfBirth: mainDob } });
+            dobUpdate.save();
+            return dobUpdate;
+        }
+        else {
+            return false;
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+});
+const userLoginSrvc = (res, userValues) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield userSchema_1.userSignupModel.findOne({ username: userValues.username, phone: `+91${userValues.phone}` });
+    if (user) {
+        try {
+            if (!(yield user.comparePassword(userValues.password, user.password)) || !user) {
+                return false;
+            }
+            else if (user.isVerified === true) {
+                const isLogged = yield userSchema_1.userSignupModel.findOneAndUpdate({ username: userValues.username }, { $set: { isLogged: true } });
+                isLogged.save();
+                const token = (0, token_1.userToken)(user.id);
+                return token;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    }
+    else {
+        return false;
+    }
+});
+const userDeletingSrvc = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userDeleting = yield userSchema_1.userSignupModel.findByIdAndDelete(userId);
+        if (userDeleting) {
             return true;
         }
         else {
-            console.log('not verified');
             return false;
         }
     }
@@ -62,27 +107,10 @@ const userRegistrationSrvc = (userRegDetails, userId) => __awaiter(void 0, void 
         console.log(error);
     }
 });
-const userLoginSrvc = (userValues, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const userFinding = yield userSignupSchema_1.userSignupModel.findOne({ emailOrPhone: `+91${userValues.phoneNumber}` }).select('+password');
-        if (!userFinding || !(yield userFinding.comparePassword(userValues.password, userFinding.password))) {
-            const error = new customeErrorHandler_1.CustomeError('Incorrect username or password', 404);
-            next(error);
-        }
-        else {
-            const logged = yield userSignupSchema_1.userSignupModel.findOneAndUpdate({ emailOrPhone: `+91${userValues.phoneNumber}` }, { $set: { isLogged: true } });
-            logged.save();
-            const token = (0, token_1.userToken)(userFinding);
-            return token;
-        }
-    }
-    catch (error) {
-        console.log(error);
-    }
-});
-exports.userService = {
+exports.userAuthService = {
     userSighnupSrvc,
-    userOtpValidation: userOtpValidationSrvc,
-    userRegistration: userRegistrationSrvc,
-    userLoginSrvc
+    userOtpValidationSrvc,
+    userDobSrvc,
+    userLoginSrvc,
+    userDeletingSrvc,
 };

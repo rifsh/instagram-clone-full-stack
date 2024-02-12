@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import { NextFunction } from "express";
-import { userSignupModel } from "./userSignupSchema";
-import { otpInterface } from "../interfaces/otpInteface";
+import { userSignupModel } from "./userSchema";
+import { OtpInterface } from "../interfaces/otpInteface";
 
-const otpSchema = new mongoose.Schema<otpInterface>({
+const otpSchema = new mongoose.Schema<OtpInterface>({
     userID: {
         type: mongoose.Types.ObjectId,
         ref: userSignupModel
@@ -26,7 +26,7 @@ const otpModel = mongoose.model('otp', otpSchema);
 mongoose.connection.on('connected', async () => {
     setInterval(async () => {
         try {
-            otpModel.deleteMany({ expiresAt: { $lt: new Date() } });
+            const otpDeletion = await otpModel.deleteMany({ expiresAt: { $lt: new Date() } });
             console.log('Expired otp deleted successfully');
         } catch (error) {
             console.log('Error deleting expired otp', error);

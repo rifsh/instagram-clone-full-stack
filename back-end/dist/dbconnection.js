@@ -33,7 +33,7 @@ const path_1 = __importDefault(require("path"));
 dotenv.config({ path: path_1.default.join(__dirname, '../config.env') });
 function connection() {
     mongoose_1.default.connect(process.env.DATABASE_URL, {
-        dbName: 'linkedin'
+        dbName: 'instagram'
     }).then((res) => {
         // console.log("Connected");
     }, (err) => {

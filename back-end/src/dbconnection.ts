@@ -6,7 +6,7 @@ dotenv.config({path: path.join(__dirname, '../config.env')});
 
 export function connection() {
     mongoose.connect(process.env.DATABASE_URL,{
-        dbName:'linkedin'
+        dbName:'instagram'
     }).then((res)=>{
         // console.log("Connected");
     },(err)=>{

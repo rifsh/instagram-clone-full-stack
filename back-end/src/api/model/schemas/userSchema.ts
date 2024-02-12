@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcrypt'
-import { userSighnup } from "../interfaces/userSighnupInterface";
+import { UserSighnupInterface } from "../interfaces/userSighnupInterface";
 import { NextFunction } from "express";
 
-const schema = new mongoose.Schema<userSighnup>({
-    emailOrPhone: {
+const schema = new mongoose.Schema<UserSighnupInterface>({
+    phone: {
         type: String,
         required: [true, 'Emial or phone number is required'],
         unique: true
@@ -13,28 +13,56 @@ const schema = new mongoose.Schema<userSighnup>({
         type: String,
         required: [true, 'Password is required']
     },
-    firstname: {
+    fullname: {
         type: String,
-        default:''
+        required: [true, 'Your name is required']
+
     },
-    lastname: {
+    username: {
         type: String,
-        default:''
+        required: [true, 'Username is required'],
+        unique:true
+
     },
-    createdOn:{
+    profilePic:{
+        type:String,
+        default:""
+    },
+    followers:[{
+        userId:mongoose.Types.ObjectId,
+        type:String
+    }],
+    following:[{
+        userId:mongoose.Types.ObjectId,
+        type:String
+    }],
+    links:[{
+        type:String
+    }],
+    gender:{
+        type:String
+    },
+    dateOfBirth:{
         type:Date,
-        default:Date.now()
     },
-    isVerified:{
+    bio:{
+        type:String,
+        default:""
+    },
+    createdOn: {
+        type: Date,
+        default: Date.now()
+    },
+    isVerified: {
         type: Boolean,
         default: false
     },
-    isDeleted:{
+    isDeleted: {
         type: Boolean,
         default: false
     },
-    isLogged:{
-        type:Boolean,
+    isLogged: {
+        type: Boolean,
         default: false
     }
 })
@@ -53,4 +81,4 @@ schema.methods.comparePassword = async function (candidatePassword: string, dbps
 };
 
 
-export const userSignupModel = mongoose.model('otpCreation', schema);
+export const userSignupModel = mongoose.model('userSignup', schema);

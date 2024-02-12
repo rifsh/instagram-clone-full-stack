@@ -10,10 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const authService_ts_js_1 = require("../services/authService/authService.ts.js");
-const customeErrorHandler_js_1 = require("../utils/customeErrorHandler.js");
 const otpService_js_1 = require("../services/authService/otpService.js");
-const otpValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const validating = yield authService_ts_js_1.userService.userOtpValidation(req.params.id, req.body.otp);
+const otpValidation = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const validating = yield authService_ts_js_1.userAuthService.userOtpValidationSrvc(req.params.id, req.body.otp);
     if (validating) {
         otpService_js_1.otpService.otpVerfying(req.params.id);
         res.status(200).json({
@@ -22,7 +21,10 @@ const otpValidation = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         });
     }
     else {
-        next(new customeErrorHandler_js_1.CustomeError("Invalid OTP", 400));
+        res.status(402).json({
+            status: "OK",
+            message: "Invalid OTP"
+        });
     }
 });
 exports.default = otpValidation;

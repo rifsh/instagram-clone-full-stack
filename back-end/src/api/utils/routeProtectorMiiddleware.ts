@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import catchAsync from '../middlewares/asyncHandler';
 import { CustomeError } from './customeErrorHandler';
-import { userSignupModel } from '../model/schemas/userSignupSchema';
+import { userSignupModel } from '../model/schemas/userSchema';
 
 export const RouteProtecter = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //Reading the token and check if it exist

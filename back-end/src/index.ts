@@ -1,14 +1,17 @@
 import exp, { Express,NextFunction, Request, Response } from 'express';
-import { userRouter } from './api/router/userrouter';
+import { userAuthRouter } from './api/router/authRouter';
 import { CustomeError } from './api/utils/customeErrorHandler';
 import bodyparser from 'body-parser'
+import cors from 'cors'
+import { userRouter } from './api/router/userRouter';
 
 const app:Express = exp();
 
 app.use(bodyparser.json())
 app.use(exp.json());
+app.use(cors());
 
-app.use('/linkedin',userRouter);
+app.use('/clone',userAuthRouter,userRouter);
 
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
     const err = new CustomeError(`Can't find url '${req.originalUrl}' on the server!`, 404);

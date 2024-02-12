@@ -1,11 +1,12 @@
 import exp from 'express'
-import { UserController } from '../controllers/authConstroller';
-import otpValidation from '../controllers/otpController';
+import {userController} from '../controllers/userController'
+import { userRouteProtector } from '../middlewares/routeProtectorMiddleware';
+import { userAddPostimgUpload, userProfileimgUpload } from '../middlewares/imageUploading';
 
 export const userRouter = exp.Router();
 
-userRouter.post('/otpGeneration', UserController.userOtpSend)
-//auth
-.post('/reg/:id',UserController.userRegistration)
-.post('/otpvalidation/:id',otpValidation)
-.post('/login',UserController.userLogin)
+
+userRouter
+.use(userRouteProtector)
+.put('/user-profile/:id',userProfileimgUpload,userController.userProfile)
+.post('/add-post/:id',userAddPostimgUpload,userController.userAddPost)
