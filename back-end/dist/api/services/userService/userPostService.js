@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userPostService = exports.getPostByid = exports.getPostSrvc = exports.userAddPostSrvc = void 0;
+exports.userPostService = exports.deletePostSSrvc = exports.getPostByidSrvc = exports.getPostSrvc = exports.userAddPostSrvc = void 0;
 const postSchema_1 = require("../../model/schemas/postSchema");
 const userSchema_1 = require("../../model/schemas/userSchema");
 const userAddPostSrvc = (userId, postDetails) => __awaiter(void 0, void 0, void 0, function* () {
@@ -53,18 +53,40 @@ const getPostSrvc = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getPostSrvc = getPostSrvc;
-const getPostByid = (postId) => __awaiter(void 0, void 0, void 0, function* () {
+const getPostByidSrvc = (postId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const postFinding = yield postSchema_1.postModel.findById(postId);
-        console.log(postFinding);
+        if (postFinding) {
+            return postFinding;
+        }
+        else {
+            return;
+        }
     }
     catch (error) {
         console.log(error.message);
     }
 });
-exports.getPostByid = getPostByid;
+exports.getPostByidSrvc = getPostByidSrvc;
+const deletePostSSrvc = (postId) => __awaiter(void 0, void 0, void 0, function* () {
+    const postFinding = yield postSchema_1.postModel.findById(postId);
+    try {
+        if (postFinding) {
+            const postDeleting = yield postSchema_1.postModel.findByIdAndDelete(postId);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+});
+exports.deletePostSSrvc = deletePostSSrvc;
 exports.userPostService = {
     userAddPostSrvc: exports.userAddPostSrvc,
     getPostSrvc: exports.getPostSrvc,
-    getPostByid: exports.getPostByid
+    getPostByidSrvc: exports.getPostByidSrvc,
+    deletePostSSrvc: exports.deletePostSSrvc
 };

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userPostController = exports.getPostById = exports.getPost = exports.userAddPost = void 0;
+exports.userPostController = exports.deletePost = exports.getPostById = exports.getPost = exports.userAddPost = void 0;
 const asyncHandler_1 = __importDefault(require("../middlewares/asyncHandler"));
 const userPostService_1 = require("../services/userService/userPostService");
 exports.userAddPost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -44,10 +44,35 @@ exports.getPost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void
     }
 }));
 exports.getPostById = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    userPostService_1.userPostService.getPostByid(req.params.id);
+    const datas = yield userPostService_1.userPostService.getPostByidSrvc(req.params.id);
+    if (datas) {
+        res.status(200).json({
+            message: "Success",
+            datas
+        });
+    }
+    else {
+        res.status(404).json({
+            message: "Something went wrong"
+        });
+    }
+}));
+exports.deletePost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const postDeleting = yield userPostService_1.userPostService.deletePostSSrvc(req.params.id);
+    if (postDeleting) {
+        res.status(200).json({
+            message: "Successfully removed",
+        });
+    }
+    else {
+        res.status(404).json({
+            message: "Error to deleting post"
+        });
+    }
 }));
 exports.userPostController = {
     userAddPost: exports.userAddPost,
     getPost: exports.getPost,
-    getPostById: exports.getPostById
+    getPostById: exports.getPostById,
+    deletePost: exports.deletePost
 };

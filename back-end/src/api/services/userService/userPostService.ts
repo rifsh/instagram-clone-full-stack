@@ -41,19 +41,37 @@ export const getPostSrvc = async (): Promise<object> => {
 
     }
 }
-export const getPostByid = async (postId: string) => {
+export const getPostByidSrvc = async (postId: string):Promise<UserPostInterface> => {
     try {
         const postFinding = await postModel.findById(postId);
-        console.log(postFinding);
-        
+        if (postFinding) {
+            return postFinding
+        } else {
+            return
+        }
     } catch (error) {
         console.log(error.message);
-        
+
+    }
+}
+export const deletePostSSrvc = async (postId: string):Promise<boolean> => {
+    const postFinding = await postModel.findById(postId);
+    try {
+        if (postFinding) {
+            const postDeleting = await postModel.findByIdAndDelete(postId);
+            return true
+        }else {
+            return false
+        }
+    } catch (error) {
+        console.log(error.message);
+
     }
 }
 
 export const userPostService = {
     userAddPostSrvc,
     getPostSrvc,
-    getPostByid
+    getPostByidSrvc,
+    deletePostSSrvc
 }
