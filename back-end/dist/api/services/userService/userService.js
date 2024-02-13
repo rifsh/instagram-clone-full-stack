@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userService = exports.userAddPostSrvc = exports.userProfileSrvc = void 0;
+exports.userService = exports.userProfileSrvc = void 0;
 const userSchema_1 = require("../../model/schemas/userSchema");
 const customeErrorHandler_1 = require("../../utils/customeErrorHandler");
 const userProfileSrvc = (profileDetails, userId, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,16 +41,6 @@ const userProfileSrvc = (profileDetails, userId, next) => __awaiter(void 0, void
     }
 });
 exports.userProfileSrvc = userProfileSrvc;
-const userAddPostSrvc = (userId, postDetails) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        console.log(postDetails.img);
-    }
-    catch (error) {
-        console.log(error.message);
-    }
-});
-exports.userAddPostSrvc = userAddPostSrvc;
 exports.userService = {
-    userProfileSrvc: exports.userProfileSrvc,
-    userAddPostSrvc: exports.userAddPostSrvc
+    userProfileSrvc: exports.userProfileSrvc
 };

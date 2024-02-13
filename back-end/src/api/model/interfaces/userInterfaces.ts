@@ -12,15 +12,16 @@ export interface UserProfileInterface {
 
 export interface UserPostInterface {
     postedBy:ObjectId;
-    text:string;
-    img:string;
-    likes:[{
-        userId:ObjectId
-    }];
-    replies:[{
-        userId:ObjectId,
-        text:string
-    }];
+    caption:string;
+    mediaType:string;
+    image:string;
+    hashtags:[string];
+    likes:[ObjectId];
+    comments:[ObjectId];
     createdAt:Date;
     updatedAt:Date;
+    location:{
+        type:string,
+        coordinates:[string]
+    }
 }

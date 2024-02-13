@@ -1,5 +1,5 @@
 import { NextFunction } from "express"
-import { UserPostInterface, UserProfileInterface } from "../../model/interfaces/userInterfaces"
+import { UserProfileInterface } from "../../model/interfaces/userInterfaces"
 import { userSignupModel } from "../../model/schemas/userSchema"
 import { CustomeError } from "../../utils/customeErrorHandler";
 
@@ -30,18 +30,9 @@ export const userProfileSrvc = async (profileDetails: UserProfileInterface, user
         console.log(error.message);
     }
 }
-export const userAddPostSrvc = async (userId:string,postDetails:UserPostInterface) => {
-    try {
-        console.log(postDetails.img);
-        
-    } catch (error) {
-        console.log(error.message);
-        
-    }
-}
+
 
 
 export const userService = {
-    userProfileSrvc,
-    userAddPostSrvc
+    userProfileSrvc
 }

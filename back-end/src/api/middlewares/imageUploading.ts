@@ -42,12 +42,12 @@ export const userProfileimgUpload = async(req: Request, res: Response, next: Nex
             })
             next()
         } catch (error) {
-            next(new CustomeError('Error uploading products file to Cloudinary', 404));
+            next(new CustomeError('Error uploading image file to Cloudinary', 404));
         }
     })
 } 
 
-export const userAddPostimgUpload = async(req: Request, res: Response, next: NextFunction) => {
+export const  userAddPostimgUpload = async(req: Request, res: Response, next: NextFunction) => {
     upload.single("img")(req, res, async (err) => {
         // const file = req.file;
         // console.log(req.file);

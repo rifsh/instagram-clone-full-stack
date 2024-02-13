@@ -9,11 +9,13 @@ const customeErrorHandler_1 = require("./api/utils/customeErrorHandler");
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const userRouter_1 = require("./api/router/userRouter");
+const userPostRouter_1 = require("./api/router/userPostRouter");
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use('/clone', authRouter_1.userAuthRouter, userRouter_1.userRouter);
+app.use('/post', userPostRouter_1.postRouter);
 app.all('*', (req, res, next) => {
     const err = new customeErrorHandler_1.CustomeError(`Can't find url '${req.originalUrl}' on the server!`, 404);
     next(err);

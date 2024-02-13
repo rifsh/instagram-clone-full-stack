@@ -5,12 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.postModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const schema = require('mongoose');
 const postSchema = new mongoose_1.default.Schema({
     // User who created the post
-    userId: {
+    postedBy: {
         type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'userSignup',
         // required: true
     },
     // Caption of the post
@@ -24,7 +23,7 @@ const postSchema = new mongoose_1.default.Schema({
         // required: true
     },
     // Media URL (e.g., image path, video link)
-    mediaUrl: {
+    image: {
         type: String,
         // required: true
     },
@@ -62,5 +61,4 @@ const postSchema = new mongoose_1.default.Schema({
         }
     },
 });
-module.exports = mongoose_1.default.model('Post', postSchema);
-exports.postModel = mongoose_1.default.model('post', schema);
+exports.postModel = mongoose_1.default.model('Post', postSchema);

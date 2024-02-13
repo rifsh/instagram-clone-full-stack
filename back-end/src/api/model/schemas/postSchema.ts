@@ -1,15 +1,11 @@
 import mongoose from "mongoose";
-import { userSignupModel } from "./userSchema";
 import { UserPostInterface } from "../interfaces/userInterfaces";
 
-
-const schema = require('mongoose');
-
-const postSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema<UserPostInterface>({
     // User who created the post
-    userId: {
+    postedBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'userSignup',
         // required: true
     },
     // Caption of the post
@@ -23,7 +19,7 @@ const postSchema = new mongoose.Schema({
         // required: true
     },
     // Media URL (e.g., image path, video link)
-    mediaUrl: {
+    image: {
         type: String,
         // required: true
     },
@@ -62,7 +58,4 @@ const postSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Post', postSchema);
-
-
-export const postModel = mongoose.model('post', schema); 
+export const postModel = mongoose.model('Post', postSchema); 

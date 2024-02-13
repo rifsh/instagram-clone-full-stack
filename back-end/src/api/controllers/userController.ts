@@ -7,7 +7,7 @@ import { CustomeError } from "../utils/customeErrorHandler";
 
 export const userProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const userProfileDetails: UserProfileInterface = req.body;
-    const datas = await userService.userProfileSrvc(req.body, req.params.id,next);
+    const datas = await userService.userProfileSrvc(req.body, req.params.id, next);
 
     if (datas) {
         res.status(200).json({
@@ -15,15 +15,11 @@ export const userProfile = catchAsync(async (req: Request, res: Response, next: 
             datas
         })
     } else {
-        next(new CustomeError('Something went wrong',404));
+        next(new CustomeError('Something went wrong', 404));
     }
 })
 
-export const userAddPost = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    userService.userAddPostSrvc(req.params.id,req.body)
-})
 
 export const userController = {
     userProfile,
-    userAddPost
 }   

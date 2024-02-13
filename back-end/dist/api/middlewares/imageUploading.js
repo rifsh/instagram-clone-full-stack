@@ -53,7 +53,7 @@ const userProfileimgUpload = (req, res, next) => __awaiter(void 0, void 0, void 
             next();
         }
         catch (error) {
-            next(new customeErrorHandler_1.CustomeError('Error uploading products file to Cloudinary', 404));
+            next(new customeErrorHandler_1.CustomeError('Error uploading image file to Cloudinary', 404));
         }
     }));
 });
