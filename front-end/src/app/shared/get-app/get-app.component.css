@@ -1,0 +1,13 @@
+.get-app {
+    padding: 20px;
+    margin-top: 10px;
+    margin-right: 160px;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img {
+    width: 160px;
+}

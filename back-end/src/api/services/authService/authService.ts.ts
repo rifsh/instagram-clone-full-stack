@@ -21,9 +21,12 @@ const userSighnupSrvc = async (userDetails: UserSighnupInterface): Promise<UserS
 
     }
 }
-const userOtpValidationSrvc = async (phNUmber?: string, otp?: string): Promise<boolean> => {
+const userOtpValidationSrvc = async (userId?: string, otp?: string): Promise<boolean> => {
     try {
-        const phNum: string = `+91${phNUmber}`;
+        const user = userSignupModel.findById(userId);
+
+        const phNum: string = (await user).phone;
+
         const validation = await otpModel.findOne({ phoneNumber: phNum });
 
         const validated = validation.otp === otp;
@@ -41,11 +44,11 @@ const userOtpValidationSrvc = async (phNUmber?: string, otp?: string): Promise<b
     }
 }
 const userDobSrvc = async (dob: UserDobInterface, userId: string, phone: string): Promise<boolean | UserSighnupInterface> => {
-    const dbDob: string = `${dob.month}-${dob.day + 1}-${dob.year}`;
+    const dbDob: string = `${dob.month}-${dob.day}-${dob.year}`;
     const mainDob: Date = new Date(dbDob);
 
     try {
-        if (await userSignupModel.findOne({ _id: userId, phone: `+91${phone}` })) {
+        if (await userSignupModel.findById(userId)) {
             const dobUpdate = await userSignupModel.findByIdAndUpdate(userId, { $set: { dateOfBirth: mainDob } });
             dobUpdate.save();
             return dobUpdate
@@ -59,19 +62,42 @@ const userDobSrvc = async (dob: UserDobInterface, userId: string, phone: string)
 
 
 }
+const phoneNumberCahngeSrvc = async (userId: string, phone: string): Promise<boolean> => {
+    try {
+        const user = await userSignupModel.findById(userId);
+        if (user) {
+            await userSignupModel.findByIdAndUpdate(userId, { $set: { phone: `+91${phone}` } });
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+
+    }
+}
+const userOtpSendingSrvc = async (userId: string) => {
+    // try {
+    //     const otp = await otpService.sentEmail(userId);
+    //     console.log(otp);
+
+    // } catch (error) {
+    //     console.log(error.message);
+    // }
+}
 const userLoginSrvc = async (res: Response, userValues: UserLoginInterface): Promise<boolean | string> => {
-    const user = await userSignupModel.findOne({ username: userValues.username, phone: `+91${userValues.phone}` });
+    const userByUsername = await userSignupModel.findOne({ username: userValues.phoneorusername });
+    const userByUserPhone = await userSignupModel.findOne({ phone: `+91${userValues.phoneorusername}` });
 
-    if (user) {
+    if (userByUserPhone || !userByUsername) {
         try {
-
-            if (!await user.comparePassword(userValues.password, user.password) || !user) {
+            if (!await userByUserPhone.comparePassword(userValues.password, userByUserPhone.password) || !userByUserPhone) {
                 return false
             }
-            else if (user.isVerified === true) {
-                const isLogged = await userSignupModel.findOneAndUpdate({ username: userValues.username }, { $set: { isLogged: true } });
+            else if (userByUserPhone.isVerified === true) {
+                const isLogged = await userSignupModel.findOneAndUpdate({ phone: `+91${userValues.phoneorusername}` }, { $set: { isLogged: true } });
+                // console.log(isLogged);
                 isLogged.save();
-                const token = userToken(user.id);
+                const token = userToken(userByUserPhone.id);
                 return token
             } else {
                 return false
@@ -79,7 +105,24 @@ const userLoginSrvc = async (res: Response, userValues: UserLoginInterface): Pro
         } catch (error) {
             console.log(error.message);
         }
-    }else {
+    } else if (!userByUserPhone || userByUsername) {
+        try {
+            if (!await userByUsername.comparePassword(userValues.password, userByUsername.password) || !userByUsername) {
+                return false
+            }
+            else if (userByUsername.isVerified === true) {
+                const isLogged = await userSignupModel.findOneAndUpdate({ username: userValues.phoneorusername }, { $set: { isLogged: true } });
+                // console.log(isLogged);
+                isLogged.save();
+                const token = userToken(userByUsername.id);
+                return token
+            } else {
+                return false
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    } else {
         return false
     }
 }
@@ -101,6 +144,8 @@ export const userAuthService = {
     userSighnupSrvc,
     userOtpValidationSrvc,
     userDobSrvc,
+    phoneNumberCahngeSrvc,
+    userOtpSendingSrvc,
     userLoginSrvc,
     userDeletingSrvc,
 }

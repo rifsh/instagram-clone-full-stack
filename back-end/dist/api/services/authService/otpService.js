@@ -19,8 +19,10 @@ const generateOtp_1 = __importDefault(require("../../utils/generateOtp"));
 const otpSchema_1 = __importDefault(require("../../model/schemas/otpSchema"));
 const userSchema_1 = require("../../model/schemas/userSchema");
 const client = (0, twilio_1.default)(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
-const sentOtp = (userId, phNumber) => __awaiter(void 0, void 0, void 0, function* () {
+const sentOtp = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const user = yield userSchema_1.userSignupModel.findById(userId);
+        const phNumber = user.phone.slice(3, 13);
         if (!(0, phoneValidation_1.default)(phNumber)) {
             return false;
         }
@@ -30,6 +32,8 @@ const sentOtp = (userId, phNumber) => __awaiter(void 0, void 0, void 0, function
             if (numberFinding) {
                 const updatingOtp = yield otpSchema_1.default.findOneAndUpdate({ phoneNumber: `+91${phNumber}` }, { $set: { otp: Otp } });
                 updatingOtp.save();
+                const userVerified = yield userSchema_1.userSignupModel.findOneAndUpdate({ phone: `+91${phNumber}` }, { $set: { isVerified: false } });
+                userVerified.save();
                 // return updatingOtp
             }
             else {
@@ -39,14 +43,14 @@ const sentOtp = (userId, phNumber) => __awaiter(void 0, void 0, void 0, function
             // otp send to twilio
             yield client.messages.create({
                 body: `${Otp} this is your otp, it will expires in 4 minutes`,
-                from: '+17163033405',
+                from: '+19136018157',
                 to: `+91${phNumber}`
             });
             return true;
         }
     }
     catch (error) {
-        console.log(error);
+        console.log(error.message);
         return false;
     }
     // try {
@@ -76,8 +80,8 @@ const sentOtp = (userId, phNumber) => __awaiter(void 0, void 0, void 0, function
     // }
 });
 exports.sentOtp = sentOtp;
-const otpVerfying = (phNUmber) => __awaiter(void 0, void 0, void 0, function* () {
-    const userVerifying = yield userSchema_1.userSignupModel.findOneAndUpdate({ phone: `+91${phNUmber}` }, { $set: { isVerified: true } });
+const otpVerfying = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const userVerifying = yield userSchema_1.userSignupModel.findByIdAndUpdate(userId, { $set: { isVerified: true } });
     userVerifying.save();
     if (!userVerifying) {
         return false;
@@ -88,6 +92,6 @@ const otpVerfying = (phNUmber) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.otpVerfying = otpVerfying;
 exports.otpService = {
-    sentEmail: exports.sentOtp,
+    sentOtp: exports.sentOtp,
     otpVerfying: exports.otpVerfying
 };

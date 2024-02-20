@@ -32,9 +32,10 @@ const userSighnupSrvc = (userDetails) => __awaiter(void 0, void 0, void 0, funct
         console.log(err);
     }
 });
-const userOtpValidationSrvc = (phNUmber, otp) => __awaiter(void 0, void 0, void 0, function* () {
+const userOtpValidationSrvc = (userId, otp) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const phNum = `+91${phNUmber}`;
+        const user = userSchema_1.userSignupModel.findById(userId);
+        const phNum = (yield user).phone;
         const validation = yield otpSchema_1.default.findOne({ phoneNumber: phNum });
         const validated = validation.otp === otp;
         if (!phNum) {
@@ -52,10 +53,10 @@ const userOtpValidationSrvc = (phNUmber, otp) => __awaiter(void 0, void 0, void 
     }
 });
 const userDobSrvc = (dob, userId, phone) => __awaiter(void 0, void 0, void 0, function* () {
-    const dbDob = `${dob.month}-${dob.day + 1}-${dob.year}`;
+    const dbDob = `${dob.month}-${dob.day}-${dob.year}`;
     const mainDob = new Date(dbDob);
     try {
-        if (yield userSchema_1.userSignupModel.findOne({ _id: userId, phone: `+91${phone}` })) {
+        if (yield userSchema_1.userSignupModel.findById(userId)) {
             const dobUpdate = yield userSchema_1.userSignupModel.findByIdAndUpdate(userId, { $set: { dateOfBirth: mainDob } });
             dobUpdate.save();
             return dobUpdate;
@@ -68,17 +69,61 @@ const userDobSrvc = (dob, userId, phone) => __awaiter(void 0, void 0, void 0, fu
         console.log(error.message);
     }
 });
+const phoneNumberCahngeSrvc = (userId, phone) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield userSchema_1.userSignupModel.findById(userId);
+        if (user) {
+            yield userSchema_1.userSignupModel.findByIdAndUpdate(userId, { $set: { phone: `+91${phone}` } });
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch (error) {
+    }
+});
+const userOtpSendingSrvc = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    // try {
+    //     const otp = await otpService.sentEmail(userId);
+    //     console.log(otp);
+    // } catch (error) {
+    //     console.log(error.message);
+    // }
+});
 const userLoginSrvc = (res, userValues) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield userSchema_1.userSignupModel.findOne({ username: userValues.username, phone: `+91${userValues.phone}` });
-    if (user) {
+    const userByUsername = yield userSchema_1.userSignupModel.findOne({ username: userValues.phoneorusername });
+    const userByUserPhone = yield userSchema_1.userSignupModel.findOne({ phone: `+91${userValues.phoneorusername}` });
+    if (userByUserPhone || !userByUsername) {
         try {
-            if (!(yield user.comparePassword(userValues.password, user.password)) || !user) {
+            if (!(yield userByUserPhone.comparePassword(userValues.password, userByUserPhone.password)) || !userByUserPhone) {
                 return false;
             }
-            else if (user.isVerified === true) {
-                const isLogged = yield userSchema_1.userSignupModel.findOneAndUpdate({ username: userValues.username }, { $set: { isLogged: true } });
+            else if (userByUserPhone.isVerified === true) {
+                const isLogged = yield userSchema_1.userSignupModel.findOneAndUpdate({ phone: `+91${userValues.phoneorusername}` }, { $set: { isLogged: true } });
+                // console.log(isLogged);
                 isLogged.save();
-                const token = (0, token_1.userToken)(user.id);
+                const token = (0, token_1.userToken)(userByUserPhone.id);
+                return token;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    }
+    else if (!userByUserPhone || userByUsername) {
+        try {
+            if (!(yield userByUsername.comparePassword(userValues.password, userByUsername.password)) || !userByUsername) {
+                return false;
+            }
+            else if (userByUsername.isVerified === true) {
+                const isLogged = yield userSchema_1.userSignupModel.findOneAndUpdate({ username: userValues.phoneorusername }, { $set: { isLogged: true } });
+                // console.log(isLogged);
+                isLogged.save();
+                const token = (0, token_1.userToken)(userByUsername.id);
                 return token;
             }
             else {
@@ -111,6 +156,8 @@ exports.userAuthService = {
     userSighnupSrvc,
     userOtpValidationSrvc,
     userDobSrvc,
+    phoneNumberCahngeSrvc,
+    userOtpSendingSrvc,
     userLoginSrvc,
     userDeletingSrvc,
 };

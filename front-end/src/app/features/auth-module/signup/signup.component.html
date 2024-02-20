@@ -1,0 +1,186 @@
+<main style="padding: 90px; display: flex; align-items: center; justify-content: center;">
+    <section *ngIf="signupPage" class="d-flex flex-column align-items-center justify-content-center">
+        <div class="main">
+            <div class="main-heading mt-4">
+                <img style="width: 100%;" src="../../../../assets/auth/8n91YnfPq0s (1).png" alt="">
+            </div>
+            <div class="main-content mx-1" style="text-align: center; width: 240px; font-size: 15px; font-weight: 500;">
+                <p>
+                    Sign up to see photos and videos from your friends.
+                </p>
+            </div>
+            <div class="fb-btn">
+                <button style="width: 260px;" class="btn btn-primary p-1">Log in with Facebook</button>
+            </div>
+            <div class="or d-flex my-4 align-items-center">
+                <div class="left"></div>
+                <small>&nbsp;&nbsp;OR&nbsp;&nbsp;</small>
+                <div class="left"></div>
+            </div>
+            <div class="form" style="height: 200px; text-align: center;">
+                <form class="d-flex flex-column justify-content-between" #signupForm="ngForm" style="height: 170px;">
+                    <input type="text" placeholder="Mobile Number or Email" required name="phone" ngModel>
+                    <input type="text" placeholder="Full Name" required name="fullname" ngModel>
+                    <input type="text" placeholder="Username" required name="username" ngModel>
+                    <input type="password" placeholder="Password" required name="password" ngModel>
+                </form>
+            </div>
+            <div class="license" style="text-align: center; width: 251px; margin-top: -15px;">
+                <div class="learn-more">
+                    <p style="font-size: 12px; line-height: 19px; font-weight: 400;">People who use our service may have
+                        uploaded your
+                        contact information to Instagram. <a href="">Learn <br> More</a></p>
+                </div>
+            </div>
+            <div class="license " style="text-align: center;">
+                <div class="learn-more">
+                    <p style="font-size: 12px; line-height: 19px; font-weight: 400;">By signing up, you agree to our
+                        Terms , <a href="">Privacy Policy</a> and <a href="">Cookies Policy</a></p>
+                </div>
+            </div>
+            <div class="fb-btn mt-1 mb-3">
+                <button style="width: 260px;" (click)="signup()" class="btn btn-primary p-1">Sign Up</button>
+            </div>
+        </div>
+        <div class="signup">
+            <!-- <a (click)="signup()" href=""><span style="color: black;">Don't have an account?</span> Sign up</a> -->
+            <button (click)="login()" style="border: none; background-color: white;"><span style="color: black;">Already
+                    have an account?</span><span style="color: blue;">Log in</span></button>
+        </div>
+        <div style="margin-left: 170px; ">
+            <app-get-app></app-get-app>
+        </div>
+    </section>
+
+    <!-- DOB -->
+    <section *ngIf="dobPage">
+        <div class="main">
+            <div class="main-heading mt-4">
+                <img style="width: 100%;" src="../../../../assets/auth/8n91YnfPq0s (1).png" alt="">
+            </div>
+            <div class="main-content mx-1" style="text-align: center; width: 240px; font-size: 15px; font-weight: 500;">
+                <h6>Add Your Birthday
+                </h6>
+            </div>
+            <p style="font-size: 15px;">This won't be a part of your public profile.</p>
+            <a href="" style="margin-top: -19px; font-size: 15px;">Why do i need to provide my birthday</a>
+            <div class="form my-3" style="text-align: center;">
+                <!-- <form class="d-flex flex-column justify-content-between" #dobForm="ngForm">
+                    <input type="date" id="birthdate" name="birthdate" required ngModel>
+                </form> -->
+                <form #dobForm="ngForm">
+                    <label for="day">Day:</label>
+                    <select (ngModel)="selectedDate.day" name="day" required ngModel style="width: 40px;">
+                        <option *ngFor="let day of days; let i = index" [value]="i + 1">{{ day }}</option>
+                    </select>
+
+                    <label for="month">Month:</label>
+                    <select (ngModel)="selectedDate.month" name="month" required ngModel>
+                        <option *ngFor="let month of months; let i = index" [value]="i + 1">{{ month }}</option>
+                    </select>
+
+                    <label for="year">Year:</label>
+                    <select (ngModel)="selectedDate.year" name="year" required ngModel>
+                        <option *ngFor="let year of years; let i = index" [value]="year">{{ year }}</option>
+                    </select>
+                </form>
+            </div>
+            <div>
+                <p style="font-size: 14px;">You need to enter the date you were born</p>
+            </div>
+            <div class="license " style="text-align: center;">
+                <div class="learn-more">
+                    <p style="font-size: 13px; line-height: 19px; font-weight: 400;">
+                        Use your own birthday, even if this account is for a business, a pet, or something else</p>
+                </div>
+            </div>
+            <div class="fb-btn mt-1 mb-3 d-flex flex-column align-items-center">
+                <button style="width: 260px;" (click)="dob()"
+                    class="btn btn-primary p-1 my-2 d-flex align-items-center justify-content-center">
+                    <mat-spinner *ngIf="loader" color="light" diameter="20" mode="indeterminate"
+                        strokeWidth="3"></mat-spinner>
+                    <span *ngIf="next">Next</span>
+                </button>
+                <button class="go-back" (click)="goBack(signupPage, dobPage)">Go back</button>
+            </div>
+        </div>
+        <div class="signup">
+            <button (click)="login()" style="border: none; background-color: white;"><span style="color: black;">Already
+                    have an account?</span><span style="color: blue;">Log in</span></button>
+        </div>
+        <div style="margin-left: 170px; ">
+            <app-get-app></app-get-app>
+        </div>
+    </section>
+
+    <!-- OTP-Validation -->
+    <section *ngIf="OtpValidationPage">
+        <div class="main">
+            <div class="main-heading mt-4">
+                <img style="width: 100%;" src="../../../../assets/auth/8n91YnfPq0s (1).png" alt="">
+            </div>
+            <div class="main-content mx-1" style="text-align: center; width: 240px; font-size: 15px; font-weight: 500;">
+                <h6>Just one more step
+                </h6>
+            </div>
+            <p style="font-size: 17px;">Enter the 6-digit code we sent to: {{phone}} </p>
+            <div class="form" style="text-align: center;">
+                <form #dobForm="ngForm" #otpForm="ngForm">
+                    <input maxlength="6" class="otp-Inp" type="otp" placeholder="######" name="otp" required ngModel>
+                </form>
+            </div>
+            <div class="fb-btn my-3 mb-3 d-flex flex-column align-items-center">
+                <button style="width: 290px;" (click)="otpValidation()"
+                    class="btn btn-primary p-1 my-2 d-flex align-items-center justify-content-center">
+                    <!-- <mat-spinner *ngIf="loader" color="light" diameter="20" mode="indeterminate"
+                            strokeWidth="3"></mat-spinner> -->
+                    Confirm
+                </button>
+            </div>
+            <div class="my-2">
+                <button class="number-btn" (click)="changeNumber()">Change Number</button>
+                <span>&nbsp;|&nbsp;</span>
+                <button class="number-btn">Request New Code</button>
+            </div>
+        </div>
+        <div class="signup">
+            <button (click)="login()" style="border: none; background-color: white;"><span style="color: black;">
+                    Have an account?</span><span style="color: blue;">Log in</span></button>
+        </div>
+    </section>
+
+    <!-- Change-Phone-number -->
+    <section *ngIf="changeNumberPage">
+        <div class="main">
+            <div class="main-heading mt-4">
+                <img style="width: 100%;" src="../../../../assets/auth/8n91YnfPq0s (1).png" alt="">
+            </div>
+            <div class="main-content mx-1" style="text-align: center; width: 240px; font-size: 15px; font-weight: 500;">
+                <h6>Change phone number
+                </h6>
+            </div>
+            <p style="font-size: 17px;">Current phone number: {{phone}}</p>
+            <div class="form" style="text-align: center;">
+                <form #dobForm="ngForm" #changeNumberFrom="ngForm">
+                    <input class="otp-Inp" type="otp" placeholder="New phone number" name="phone" required ngModel>
+                </form>
+            </div>
+            <div class="fb-btn my-3 mb-3 d-flex flex-column align-items-center">
+                <button style="width: 290px;" (click)="numberChanging()"
+                    class="btn btn-primary p-1 my-2 d-flex align-items-center justify-content-center">
+                    <!-- <mat-spinner *ngIf="loader" color="light" diameter="20" mode="indeterminate"
+                            strokeWidth="3"></mat-spinner> -->
+                    Change
+                </button>
+            </div>
+            <div class="my-2 d-flex">
+                <button class="go-back" (click)="goBack(OtpValidationPage, changeNumberPage)">Go back</button>
+            </div>
+        </div>
+        <div class="signup">
+            <button (click)="login()" style="border: none; background-color: white;"><span style="color: black;">
+                    Have an account?</span><span style="color: blue;">Log in</span></button>
+        </div>
+    </section>
+
+</main>

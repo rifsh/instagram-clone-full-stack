@@ -6,8 +6,10 @@ export const userAuthRouter = exp.Router();
 
 //auth
 userAuthRouter.post('/user-signup', UserAuthController.userOtpSend)
-.post('/userdob/:id/:phone',UserAuthController.userDob)
+.post('/userdob/:id',UserAuthController.userDob)
 .post('/otpvalidation/:id',otpValidation)
+.post('/change-phone-number/:id',UserAuthController.userPhoneNumberChange)
+.post('/otp-send/:id',UserAuthController.otpSending)
 .post('/login',UserAuthController.userLogin)
 .delete('/userDeleting/:id',UserAuthController.userDelting)
 // .post

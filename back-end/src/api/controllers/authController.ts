@@ -4,9 +4,8 @@ import { UserDobInterface, UserSighnupInterface } from "../model/interfaces/user
 import { otpService } from "../services/authService/otpService";
 import { userAuthService } from "../services/authService/authService.ts";
 import { CustomeError } from "../utils/customeErrorHandler";
-import { userToken } from "../utils/token";
 
-export const userOtpSend = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const userOtpSend = catchAsync(async (req: Request, res: Response) => {
     const userDetails: UserSighnupInterface = req.body;
     const datas = await userAuthService.userSighnupSrvc(userDetails);
     if (!datas) {
@@ -26,30 +25,56 @@ const userDob = catchAsync(async (req: Request, res: Response, next: NextFunctio
     const userDob: UserDobInterface = req.body;
     const datas: boolean | UserSighnupInterface = await userAuthService.userDobSrvc(userDob, req.params.id, req.params.phone);
     if (datas) {
-        const sentOtp = await otpService.sentEmail(req.params.id, req.params.phone);
+        const sentOtp = await otpService.sentOtp(req.params.id);
         res.status(200).json({
-            status: "Success",
+            status: "OK",
+            message: "OTP send successfully",
             datas
         })
     } else {
         next(new CustomeError('User is not found', 404));
     }
 })
-const userLogin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const datas= await userAuthService.userLoginSrvc(res, req.body);
-    console.log(datas);
-    
-    if (datas) {
+const userPhoneNumberChange = catchAsync(async (req: Request, res: Response) => {
+    const changedValue = await userAuthService.phoneNumberCahngeSrvc(req.params.id, req.body.phone);
+    if (changedValue) {
         res.status(200).json({
-            message:"Success",
-            token: datas
+            status: "OK",
+            message: "Number changed successfully"
         })
-    }else {
+    } else {
         res.status(404).json({
-            message:'Username or password is incorrect'
+            status: "Invalid",
+            message: "Something went wrong"
         })
     }
-    
+})
+const otpSending = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const otp = await userAuthService.userOtpSendingSrvc(req.params.id);
+    // if (otp) {
+    //     res.status(200).json({
+    //         status: "OK",
+    //         message: "OTP send successfully",
+    //     })
+    // } else {
+    //     next(new CustomeError('User is not found', 404));
+    // }
+
+})
+const userLogin = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const datas = await userAuthService.userLoginSrvc(res, req.body);
+
+    if (datas) {
+        res.status(200).json({
+            message: "Success",
+            token: datas
+        })
+    } else {
+        res.status(404).json({
+            message: 'Username or password is incorrect'
+        })
+    }
+
 })
 const userDelting = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const userId: string = req.params.id
@@ -68,6 +93,8 @@ const userDelting = catchAsync(async (req: Request, res: Response, next: NextFun
 export const UserAuthController = {
     userOtpSend,
     userDob,
+    userPhoneNumberChange,
+    otpSending,
     userLogin,
     userDelting
 }

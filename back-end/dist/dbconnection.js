@@ -35,7 +35,7 @@ function connection() {
     mongoose_1.default.connect(process.env.DATABASE_URL, {
         dbName: 'instagram'
     }).then((res) => {
-        // console.log("Connected");
+        console.log("Connected");
     }, (err) => {
         console.log(err.message);
     });

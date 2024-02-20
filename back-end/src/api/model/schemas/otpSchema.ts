@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import { NextFunction } from "express";
 import { userSignupModel } from "./userSchema";
 import { OtpInterface } from "../interfaces/otpInteface";
 

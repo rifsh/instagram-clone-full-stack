@@ -10,8 +10,10 @@ const otpController_1 = __importDefault(require("../controllers/otpController"))
 exports.userAuthRouter = express_1.default.Router();
 //auth
 exports.userAuthRouter.post('/user-signup', authController_1.UserAuthController.userOtpSend)
-    .post('/userdob/:id/:phone', authController_1.UserAuthController.userDob)
+    .post('/userdob/:id', authController_1.UserAuthController.userDob)
     .post('/otpvalidation/:id', otpController_1.default)
+    .post('/change-phone-number/:id', authController_1.UserAuthController.userPhoneNumberChange)
+    .post('/otp-send/:id', authController_1.UserAuthController.otpSending)
     .post('/login', authController_1.UserAuthController.userLogin)
     .delete('/userDeleting/:id', authController_1.UserAuthController.userDelting);
 // .post

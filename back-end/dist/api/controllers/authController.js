@@ -17,7 +17,7 @@ const asyncHandler_1 = __importDefault(require("../middlewares/asyncHandler"));
 const otpService_1 = require("../services/authService/otpService");
 const authService_ts_1 = require("../services/authService/authService.ts");
 const customeErrorHandler_1 = require("../utils/customeErrorHandler");
-exports.userOtpSend = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.userOtpSend = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userDetails = req.body;
     const datas = yield authService_ts_1.userAuthService.userSighnupSrvc(userDetails);
     if (!datas) {
@@ -38,9 +38,10 @@ const userDob = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0
     const userDob = req.body;
     const datas = yield authService_ts_1.userAuthService.userDobSrvc(userDob, req.params.id, req.params.phone);
     if (datas) {
-        const sentOtp = yield otpService_1.otpService.sentEmail(req.params.id, req.params.phone);
+        const sentOtp = yield otpService_1.otpService.sentOtp(req.params.id);
         res.status(200).json({
-            status: "Success",
+            status: "OK",
+            message: "OTP send successfully",
             datas
         });
     }
@@ -48,9 +49,34 @@ const userDob = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0
         next(new customeErrorHandler_1.CustomeError('User is not found', 404));
     }
 }));
+const userPhoneNumberChange = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const changedValue = yield authService_ts_1.userAuthService.phoneNumberCahngeSrvc(req.params.id, req.body.phone);
+    if (changedValue) {
+        res.status(200).json({
+            status: "OK",
+            message: "Number changed successfully"
+        });
+    }
+    else {
+        res.status(404).json({
+            status: "Invalid",
+            message: "Something went wrong"
+        });
+    }
+}));
+const otpSending = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const otp = yield authService_ts_1.userAuthService.userOtpSendingSrvc(req.params.id);
+    // if (otp) {
+    //     res.status(200).json({
+    //         status: "OK",
+    //         message: "OTP send successfully",
+    //     })
+    // } else {
+    //     next(new CustomeError('User is not found', 404));
+    // }
+}));
 const userLogin = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const datas = yield authService_ts_1.userAuthService.userLoginSrvc(res, req.body);
-    console.log(datas);
     if (datas) {
         res.status(200).json({
             message: "Success",
@@ -78,6 +104,8 @@ const userDelting = (0, asyncHandler_1.default)((req, res, next) => __awaiter(vo
 exports.UserAuthController = {
     userOtpSend: exports.userOtpSend,
     userDob,
+    userPhoneNumberChange,
+    otpSending,
     userLogin,
     userDelting
 };

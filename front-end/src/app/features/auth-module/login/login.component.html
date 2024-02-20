@@ -1,0 +1,51 @@
+<main style="padding: 120px;" class=" container d-flex flex-row justify-content-between">
+    <section class="container" style="margin-left: 140px;">
+        <div>
+            <h1>picture</h1>
+        </div>
+    </section>
+    <section class="container d-flex flex-column align-items-center">
+        <div class="main">
+            <div class="main-heading my-4">
+                <img style="width: 100%;" src="../../../../assets/auth/8n91YnfPq0s (1).png" alt="">
+            </div>
+
+            <div class="form" style="text-align: center; height: 100px;">
+                <form class="d-flex flex-column justify-content-between" style="height: 80px;" #loginForm="ngForm">
+                    <input type="text" placeholder="Phone Number or Username" required name="phoneorusername" ngModel>
+                    <input type="password" placeholder="Password" required name="password" ngModel>
+                </form>
+            </div>
+            <div class="fb-btn">
+                <button style="width: 260px;" (click)="login()"
+                    class="btn btn-primary p-1 my-2 d-flex align-items-center justify-content-center">
+                    <mat-spinner *ngIf="loader" color="light" diameter="20" mode="indeterminate"
+                        strokeWidth="3"></mat-spinner>
+                    <span *ngIf="loginbtn">Log in</span>
+                </button>
+                <!-- <button (click)="login()" style="width: 260px;" class="btn btn-primary p-1">Log in</button> -->
+            </div>
+            <div class="or d-flex my-2 align-items-center">
+                <div class="left"></div>
+                <small style="font-size: 14px;">&nbsp;&nbsp;OR&nbsp;&nbsp;</small>
+                <div class="left"></div>
+            </div>
+            <div class="fb-link mt-4 mb-4">
+                <a href="" class="d-flex align-items-center justify-content-center"
+                    style="font-size: 14px; font-weight: bold; color: rgb(112, 112, 255);"><img style="width: 7%;"
+                        src="../../../../assets/auth/124010.webp" alt="">&nbsp;&nbsp;Log in with Facebook</a>
+            </div>
+            <!-- <div class="forgot-password">
+                <a href="" style="color: grey; font-size: 13px;">Forgot Password?</a>
+            </div> -->
+        </div>
+        <div class="signup">
+            <!-- <a (click)="signup()" href=""><span style="color: black;">Don't have an account?</span> Sign up</a> -->
+            <button (click)="signup()" style="border: none; background-color: white;"><span style="color: black;">Don't
+                    have an account?</span><span style="color: blue;">Sign up</span></button>
+        </div>
+        <div>
+            <app-get-app></app-get-app>
+        </div>
+    </section>
+</main>

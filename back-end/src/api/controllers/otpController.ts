@@ -4,7 +4,7 @@ import { otpService } from "../services/authService/otpService.js";
 
 const otpValidation = async (req: Request, res: Response) => {
 
-    const validating:boolean = await userAuthService.userOtpValidationSrvc(req.params.id,req.body.otp);
+    const validating = await userAuthService.userOtpValidationSrvc(req.params.id,req.body.otp);
     
     if (validating) {
         otpService.otpVerfying(req.params.id)

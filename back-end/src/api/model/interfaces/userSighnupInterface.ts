@@ -22,7 +22,6 @@ export interface UserDobInterface {
     year: string;
 }
 export interface UserLoginInterface {
-    phone: string;
-    username: string;
+    phoneorusername:string;
     password: string
 }

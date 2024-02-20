@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.otpGenerate = void 0;
 const otp_generator_1 = __importDefault(require("otp-generator"));
 const otpGenerate = () => __awaiter(void 0, void 0, void 0, function* () {
-    const otp = yield otp_generator_1.default.generate(4, {
+    const otp = yield otp_generator_1.default.generate(6, {
         lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false
     });
     return otp;

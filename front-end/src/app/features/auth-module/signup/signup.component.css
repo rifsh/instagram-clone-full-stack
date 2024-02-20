@@ -1,0 +1,76 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.main {
+    padding: 10px;
+    margin-top: -70px;
+    /* margin-right: 160px; */
+    border: 1px solid rgb(212, 212, 212);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+
+}
+
+.left {
+    background-color: rgb(212, 212, 212);
+    height: 2px;
+    width: 110px;
+}
+
+.form select {
+    width: 70px;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 5px;
+    padding: 7px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.form label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.signup {
+    /* background-color: lightblue; */
+    padding: 20px;
+    margin-top: 10px;
+    border: 1px solid rgb(212, 212, 212);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.go-back {
+    border: none;
+    background-color: white;
+    color: rgb(87, 87, 255);
+}
+
+.go-back {
+    font-weight: 600;
+}
+
+.go-back:hover {
+    color: rgb(0, 0, 82);
+}
+
+.number-btn {
+    background-color: white;
+    border: none;
+    color: rgb(0, 0, 255);
+}
+
+.otp-Inp {
+    width: 290px;
+    padding: 9px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 4px;
+}

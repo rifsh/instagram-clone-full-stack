@@ -1,7 +1,7 @@
 import otpGenerator from 'otp-generator';
 
 export const otpGenerate = async () => {
-    const otp = await otpGenerator.generate(4,
+    const otp = await otpGenerator.generate(6,
         {
             lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false
         });
