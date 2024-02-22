@@ -11,4 +11,5 @@ const imageUploading_1 = require("../middlewares/imageUploading");
 exports.userRouter = express_1.default.Router();
 exports.userRouter
     .use(routeProtectorMiddleware_1.userRouteProtector)
+    .get('/user-by-id/:id', userController_1.userController.userById)
     .put('/user-profile/:id', imageUploading_1.userProfileimgUpload, userController_1.userController.userProfile);

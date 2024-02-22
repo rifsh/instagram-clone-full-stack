@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userService = exports.userProfileSrvc = void 0;
+exports.userService = exports.userByIdSrvc = exports.userProfileSrvc = void 0;
 const userSchema_1 = require("../../model/schemas/userSchema");
 const customeErrorHandler_1 = require("../../utils/customeErrorHandler");
 const userProfileSrvc = (profileDetails, userId, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,6 +41,17 @@ const userProfileSrvc = (profileDetails, userId, next) => __awaiter(void 0, void
     }
 });
 exports.userProfileSrvc = userProfileSrvc;
+const userByIdSrvc = (usrId, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const users = yield userSchema_1.userSignupModel.findById(usrId);
+    if (!users) {
+        next(new customeErrorHandler_1.CustomeError(`User is not present in the database with id '${usrId}' `, 404));
+    }
+    else {
+        return users;
+    }
+});
+exports.userByIdSrvc = userByIdSrvc;
 exports.userService = {
-    userProfileSrvc: exports.userProfileSrvc
+    userProfileSrvc: exports.userProfileSrvc,
+    userByIdSrvc: exports.userByIdSrvc
 };

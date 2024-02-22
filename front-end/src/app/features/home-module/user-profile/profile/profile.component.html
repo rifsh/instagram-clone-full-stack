@@ -1,0 +1,23 @@
+<main class="mt-5">
+    <div class="profile d-flex align-items-center justify-content-between">
+        <div class="profileImg">
+            <img  src="../../../../assets//side-nav/user.png" alt="">
+        </div>
+        <div class="userDetails">
+            <div class="user-values d-flex align-items-start justify-content-between">
+                <p>{{fullName}}</p>
+                <button (click)="editProfile()">Edit Profile</button>
+                <button>View Archive</button>
+            </div>
+            <div class="user-status d-flex align-items-start justify-content-between">
+                <p>post</p>
+                <p>798followers</p>
+                <p>345following</p>
+            </div>
+            <div style="line-height: 3px;" class="user-bio d-flex flex-column align-items-start justify-content-center">
+                <p>{{userName}}</p>
+                <p>BIo</p>
+            </div>
+        </div>
+    </div>
+</main>

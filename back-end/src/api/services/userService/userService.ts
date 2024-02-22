@@ -30,9 +30,18 @@ export const userProfileSrvc = async (profileDetails: UserProfileInterface, user
         console.log(error.message);
     }
 }
+export const userByIdSrvc = async (usrId: string, next: NextFunction) => {
+    const users = await userSignupModel.findById(usrId);
+    if (!users) {
+        next(new CustomeError(`User is not present in the database with id '${usrId}' `, 404));
+    } else {
+        return users;
+    }
+}
 
 
 
 export const userService = {
-    userProfileSrvc
+    userProfileSrvc,
+    userByIdSrvc
 }

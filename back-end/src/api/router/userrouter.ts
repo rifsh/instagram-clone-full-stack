@@ -8,4 +8,5 @@ export const userRouter = exp.Router();
 
 userRouter
 .use(userRouteProtector)
+.get('/user-by-id/:id',userController.userById)
 .put('/user-profile/:id',userProfileimgUpload,userController.userProfile)

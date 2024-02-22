@@ -26,7 +26,7 @@ const schema = new mongoose.Schema<UserSighnupInterface>({
     },
     profilePic:{
         type:String,
-        default:""
+        default:"../../../imgs/user.png"
     },
     followers:[{
         userId:mongoose.Types.ObjectId,

@@ -1,13 +1,4 @@
-body {
-    background-color: #fbfbfb;
-    }
-    @media (min-width: 991.98px) {
-    main {
-    padding-left: 240px;
-    }
-    }
-    
-    /* Sidebar */
+   /* Sidebar */
     .sidebar {
     position: fixed;
     top: 0;
@@ -37,3 +28,11 @@ body {
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     }
+    /* .nav-options {
+
+    }
+    .nav-options:hover {
+        background-color: blue;
+    } */
+
+    

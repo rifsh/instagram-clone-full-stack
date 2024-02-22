@@ -1,0 +1,37 @@
+main {
+    /* background-color: lightblue; */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.profileImg {
+    width: 800px;
+    padding: 20px;
+    background-color: rgb(232, 232, 232);
+    display: flex;;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.img {
+    overflow: hidden;
+    /* background-color: lightcoral; */
+    width: 70px;
+    /* border-radius: 50%; */
+}
+
+.img img {
+    width: 100%;
+}
+
+.website input{
+    width: 800px;
+    padding: 10px;
+    border: none;
+    background-color: rgb(232, 232, 232);
+    border-radius: 10px;
+}

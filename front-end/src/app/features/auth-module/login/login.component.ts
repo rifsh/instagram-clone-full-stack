@@ -29,7 +29,7 @@ export class LoginComponent {
         localStorage.setItem('token',res.token);
         this.loader = false;
         this.loginbtn = true;
-        this.router.navigate(['/feature']);
+        this.router.navigate(['feature']);
         alert('Logged successfully')
       }
     }, (err) => {
@@ -41,6 +41,6 @@ export class LoginComponent {
   }
 
   signup() {
-    this.router.navigate(['/sign-up'])
+    this.router.navigate(['/sign-up']);
   }
 }
