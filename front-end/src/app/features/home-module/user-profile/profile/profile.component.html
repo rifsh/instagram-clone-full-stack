@@ -1,7 +1,7 @@
 <main class="mt-5">
     <div class="profile d-flex align-items-center justify-content-between">
         <div class="profileImg">
-            <img  src="../../../../assets//side-nav/user.png" alt="">
+            <img class="rounded-circle" (click)="viewingProfile()" src="{{profileImg}}" alt="">
         </div>
         <div class="userDetails">
             <div class="user-values d-flex align-items-start justify-content-between">
@@ -16,7 +16,7 @@
             </div>
             <div style="line-height: 3px;" class="user-bio d-flex flex-column align-items-start justify-content-center">
                 <p>{{userName}}</p>
-                <p>BIo</p>
+                <p>{{userBio}}</p>
             </div>
         </div>
     </div>

@@ -26,9 +26,31 @@ export const userById = catchAsync(async (req: Request, res: Response, next: Nex
         datas: user
     })
 })
+export const profileImgChange = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const datas = await userService.userProfileImgChangeSrvc(req.params.id, req.body.image);
+    if (datas) {
+        res.status(200).json({
+            Message:"Successfully updated"
+        })
+    }else {
+        next(new CustomeError('Something went wrong', 404));
+    }
+})
+export const profileImgRemove = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const result = await userService.userProfileImgRemovesrvc(req.params.id);
+    if (result) {
+        res.status(200).json({
+            Message:"Successfully Removed"
+        })
+    }else {
+        next(new CustomeError('Something went wrong', 404));
+    }
+})
 
 
 export const userController = {
     userProfile,
+    profileImgChange,
+    profileImgRemove,
     userById
 }   

@@ -9,6 +9,7 @@ import { FeaturesModule } from './features/features.module';
 import { CoreModule } from './core/core.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [

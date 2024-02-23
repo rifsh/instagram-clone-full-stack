@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthModuleModule } from './auth-module/auth-module.module';
 import { HomeModuleModule } from './home-module/home-module.module';
-import { SharedModule } from '../shared/shared.module';
+  import { FormsModule } from '@angular/forms';
 
 
 
@@ -13,6 +13,7 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     AuthModuleModule,
+    FormsModule,
     HomeModuleModule,
   ]
 })

@@ -1,0 +1,19 @@
+* {
+    padding: 250px;
+}
+
+
+/* Style the button to look like a button */
+.file-upload-button {
+    background-color: #007bff;
+    /* color: #fff; */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Hide the default file input */
+#file-input {
+    display: none;
+}

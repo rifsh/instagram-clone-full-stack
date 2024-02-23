@@ -1,0 +1,22 @@
+* {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+input::file-selector-button {
+    font-weight: bold;
+    color: dodgerblue;
+    padding: 0.5em;
+    border: none;
+    border-radius: 3px;
+}
+button {
+    align-items: center;
+    /* padding: -10px; */
+    border: none;
+    background-color: white;
+    border-top: thin solid grey;
+    /* border-bottom: thin solid grey; */
+}
+

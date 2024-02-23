@@ -36,7 +36,7 @@ const schema = new mongoose_1.default.Schema({
     },
     profilePic: {
         type: String,
-        default: "../../../imgs/user.png"
+        default: "https://imgs.search.brave.com/NLpgWA-anJ89n8ggNMg1F78gPFBzCLCKFaGd-SBIVHE/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1LzA5LzU5Lzc1/LzM2MF9GXzUwOTU5/NzUzMl9SS1V1WXNF/UmhPRG1reGtaZDgy/cFNIbkZ0REF0Z2J6/Si5qcGc"
     },
     followers: [{
             userId: mongoose_1.default.Types.ObjectId,

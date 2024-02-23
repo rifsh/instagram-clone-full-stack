@@ -1,0 +1,13 @@
+<div class="main">
+    <h4 style="align-items: center; font-weight: 400;">Change Profile Photo</h4>
+    <form action="" #image="ngForm">
+        <input type="file" name="profilePic" ngModel (change)="selectImage($event)">
+    </form>
+    <button class="d-flex align-items-center justify-content-center" style="color: blue;" (click)="imageUpadting()">
+        <!-- <mat-spinner *ngIf="loader" color="light" diameter="20" mode="indeterminate" strokeWidth="3"></mat-spinner> -->
+        <span style="margin: -10px;" *ngIf="submitBtn">Submit</span>
+        <span style="margin: -10px;" *ngIf="loader">Loading...</span>
+    </button>
+    <button style="color: red;" (click)="imageRemoving()">Remove Current Photo</button>
+    <button (click)="closeDialog()">Cancel</button>
+</div>

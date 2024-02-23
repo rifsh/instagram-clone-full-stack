@@ -12,4 +12,6 @@ exports.userRouter = express_1.default.Router();
 exports.userRouter
     .use(routeProtectorMiddleware_1.userRouteProtector)
     .get('/user-by-id/:id', userController_1.userController.userById)
-    .put('/user-profile/:id', imageUploading_1.userProfileimgUpload, userController_1.userController.userProfile);
+    .put('/user-profile/:id', userController_1.userController.userProfile)
+    .put('/user-profile-img/:id', imageUploading_1.userProfileimgUpload, userController_1.userController.profileImgChange)
+    .delete('/user-profile-remove/:id', userController_1.userController.profileImgRemove);

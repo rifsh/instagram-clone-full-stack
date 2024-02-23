@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/core/Services/home.service';
 import { UserDetailInterface, UserSignupInterface } from 'src/app/model/userInterface';
+import { ProfilImgeViewComponent } from '../profil-imge-view/profil-imge-view.component';
 
 @Component({
   selector: 'app-profile',
@@ -10,23 +12,31 @@ import { UserDetailInterface, UserSignupInterface } from 'src/app/model/userInte
 })
 export class ProfileComponent {
   userDetails: UserDetailInterface;
-  userName:string = '';
-  fullName:string = '';
-  profileImg:string = '';
+  userName: string = '';
+  userBio: string = '';
+  fullName: string = '';
+  profileImg: string = '';
+  // profileImg: string = '';
 
 
-  constructor(private homeSrvc: HomeService, private router:Router) { }
+
+  constructor(private homeSrvc: HomeService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    
+
     this.homeSrvc.getUser().subscribe((res: UserSignupInterface) => {
       this.userDetails = res.datas;
       this.userName = res.datas.username;
       this.fullName = res.datas.fullname;
+      this.userBio = res.datas.bio
       this.profileImg = res.datas.profilePic;
     }, (err) => {
       console.log(err);
     })
+  }
+
+  viewingProfile() {
+    this.dialog.open(ProfilImgeViewComponent)
   }
 
   editProfile() {
