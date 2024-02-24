@@ -6,7 +6,6 @@ import { CustomeError } from "../../utils/customeErrorHandler";
 
 export const userProfileSrvc = async (profileDetails: UserProfileInterface, userId: string, next: NextFunction) => {
     const userFinding = await userSignupModel.findById(userId);
-    console.log(userFinding);
 
     if (userFinding.username === profileDetails.username) {
         return next(new CustomeError('Username is already present', 404));

@@ -25,7 +25,7 @@ mongoose.connection.on('connected', async () => {
     setInterval(async () => {
         try {
             const otpDeletion = await otpModel.deleteMany({ expiresAt: { $lt: new Date() } });
-            console.log('Expired otp deleted successfully');
+            // console.log('Expired otp deleted successfully');
         } catch (error) {
             console.log('Error deleting expired otp', error);
         }

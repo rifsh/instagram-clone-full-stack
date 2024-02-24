@@ -66,7 +66,7 @@ exports.deletePost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(v
     }
     else {
         res.status(404).json({
-            message: "Error to deleting post"
+            message: "Error deleting a post"
         });
     }
 }));

@@ -63,7 +63,7 @@ const userAddPostimgUpload = (req, res, next) => __awaiter(void 0, void 0, void 
         // const file = req.file;
         // console.log(req.file);
         if (err) {
-            next(new customeErrorHandler_1.CustomeError(err.message, 401));
+            next(new customeErrorHandler_1.CustomeError(err.message, 400));
         }
         try {
             const result = yield cloudin.uploader.upload(req.file.path, {

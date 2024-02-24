@@ -1,6 +1,5 @@
 import exp from 'express';
 import { userAddPostimgUpload } from '../middlewares/imageUploading';
-import { userRouteProtector } from '../middlewares/routeProtectorMiddleware';
 import { userPostController } from '../controllers/userPostController';
 
 export const postRouter = exp.Router();

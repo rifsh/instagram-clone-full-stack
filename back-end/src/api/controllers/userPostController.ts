@@ -50,7 +50,7 @@ export const deletePost = catchAsync(async (req: Request, res: Response, next: N
         })
     } else {
         res.status(404).json({
-            message: "Error to deleting post"
+            message: "Error deleting a post"
         })
     }
 })

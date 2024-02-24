@@ -14,7 +14,6 @@ const userSchema_1 = require("../../model/schemas/userSchema");
 const customeErrorHandler_1 = require("../../utils/customeErrorHandler");
 const userProfileSrvc = (profileDetails, userId, next) => __awaiter(void 0, void 0, void 0, function* () {
     const userFinding = yield userSchema_1.userSignupModel.findById(userId);
-    console.log(userFinding);
     if (userFinding.username === profileDetails.username) {
         return next(new customeErrorHandler_1.CustomeError('Username is already present', 404));
     }

@@ -84,7 +84,7 @@ export class SignupComponent implements OnInit {
     this.authSrvc.otpValidationSrvc(this.otpForm).subscribe((res: ResponseInterface) => {
       if (res.message === 'Otp verified') {
         alert('OTP verified');
-        this.route.navigate(['home']);
+        this.route.navigate(['feature']);
       } else {
         alert('Something went wrong');
       }

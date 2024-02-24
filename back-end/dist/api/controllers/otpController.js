@@ -21,7 +21,7 @@ const otpValidation = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     else {
-        res.status(402).json({
+        res.status(404).json({
             status: "OK",
             message: "Invalid OTP"
         });

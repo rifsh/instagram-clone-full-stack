@@ -13,7 +13,7 @@ const otpValidation = async (req: Request, res: Response) => {
             message:"Otp verified"
         })
     }else {
-        res.status(402).json({
+        res.status(404).json({
             status:"OK",
             message:"Invalid OTP"
         })

@@ -33,7 +33,7 @@ mongoose_1.default.connection.on('connected', () => __awaiter(void 0, void 0, vo
     setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const otpDeletion = yield otpModel.deleteMany({ expiresAt: { $lt: new Date() } });
-            console.log('Expired otp deleted successfully');
+            // console.log('Expired otp deleted successfully');
         }
         catch (error) {
             console.log('Error deleting expired otp', error);

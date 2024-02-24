@@ -52,7 +52,7 @@ export const  userAddPostimgUpload = async(req: Request, res: Response, next: Ne
         // const file = req.file;
         // console.log(req.file);
         if (err) {
-            next(new CustomeError(err.message, 401));
+            next(new CustomeError(err.message, 400));
         }
         try {
             const result = await cloudin.uploader.upload(req.file.path, {
