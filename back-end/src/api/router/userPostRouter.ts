@@ -8,5 +8,6 @@ postRouter
 // .use(userRouteProtector)
 .post('/add-post/:id', userAddPostimgUpload, userPostController.userAddPost)
 .get('/get-post', userPostController.getPost)
-.get('/get-post-byId/:id', userPostController.getPostById) 
+.get('/get-post-byId/:id', userPostController.getPostById)
+.post('/like-post/:id', userPostController.likePost)
 .delete('/delete-post/:id', userPostController.deletePost)

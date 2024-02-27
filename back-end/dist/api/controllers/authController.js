@@ -17,6 +17,7 @@ const asyncHandler_1 = __importDefault(require("../middlewares/asyncHandler"));
 const otpService_1 = require("../services/authService/otpService");
 const authService_ts_1 = require("../services/authService/authService.ts");
 const customeErrorHandler_1 = require("../utils/customeErrorHandler");
+const token_1 = require("../utils/token");
 exports.userOtpSend = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userDetails = req.body;
     const datas = yield authService_ts_1.userAuthService.userSighnupSrvc(userDetails);
@@ -78,9 +79,11 @@ const otpSending = (0, asyncHandler_1.default)((req, res, next) => __awaiter(voi
 const userLogin = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const datas = yield authService_ts_1.userAuthService.userLoginSrvc(res, req.body);
     if (datas) {
+        const token = (0, token_1.userToken)(datas);
         res.status(200).json({
             message: "Success",
-            token: datas
+            datas,
+            token
         });
     }
     else {

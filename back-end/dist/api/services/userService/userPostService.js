@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userPostService = exports.deletePostSSrvc = exports.getPostByidSrvc = exports.getPostSrvc = exports.userAddPostSrvc = void 0;
+exports.userPostService = exports.deletePostSSrvc = exports.postLikeSrvc = exports.getPostByidSrvc = exports.getPostSrvc = exports.userAddPostSrvc = void 0;
 const postSchema_1 = require("../../model/schemas/postSchema");
 const userSchema_1 = require("../../model/schemas/userSchema");
 const userAddPostSrvc = (userId, postDetails) => __awaiter(void 0, void 0, void 0, function* () {
@@ -68,6 +68,28 @@ const getPostByidSrvc = (postId) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.getPostByidSrvc = getPostByidSrvc;
+const postLikeSrvc = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = userId;
+    const post = yield postSchema_1.postModel.findById(postId);
+    try {
+        if (post.likes.includes(user)) {
+            const index = post.likes.indexOf(user);
+            post.likes.splice(index, 1);
+            post.save();
+            return false;
+        }
+        else {
+            const like = post.likes.push(user);
+            post.save();
+            return true;
+        }
+        // console.log(post.likes.includes(user));
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.postLikeSrvc = postLikeSrvc;
 const deletePostSSrvc = (postId) => __awaiter(void 0, void 0, void 0, function* () {
     const postFinding = yield postSchema_1.postModel.findById(postId);
     try {
@@ -88,5 +110,6 @@ exports.userPostService = {
     userAddPostSrvc: exports.userAddPostSrvc,
     getPostSrvc: exports.getPostSrvc,
     getPostByidSrvc: exports.getPostByidSrvc,
+    postLikeSrvc: exports.postLikeSrvc,
     deletePostSSrvc: exports.deletePostSSrvc
 };

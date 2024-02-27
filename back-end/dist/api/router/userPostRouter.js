@@ -13,4 +13,5 @@ exports.postRouter
     .post('/add-post/:id', imageUploading_1.userAddPostimgUpload, userPostController_1.userPostController.userAddPost)
     .get('/get-post', userPostController_1.userPostController.getPost)
     .get('/get-post-byId/:id', userPostController_1.userPostController.getPostById)
+    .post('/like-post/:id', userPostController_1.userPostController.likePost)
     .delete('/delete-post/:id', userPostController_1.userPostController.deletePost);

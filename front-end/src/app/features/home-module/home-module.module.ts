@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { homeAppRoutingModule } from './homePage-routing.module';
 import { FormsModule } from '@angular/forms';
 import { UserProfileModule } from './user-profile/user-profile.module';
+import { PostModule } from './post/post.module';
 
 
 
@@ -16,6 +17,7 @@ import { UserProfileModule } from './user-profile/user-profile.module';
     CommonModule,
     SharedModule,
     UserProfileModule,
+    PostModule,
     FormsModule,
     homeAppRoutingModule
   ]

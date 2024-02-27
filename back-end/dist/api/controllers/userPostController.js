@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userPostController = exports.deletePost = exports.getPostById = exports.getPost = exports.userAddPost = void 0;
+exports.userPostController = exports.deletePost = exports.postComment = exports.likePost = exports.getPostById = exports.getPost = exports.userAddPost = void 0;
 const asyncHandler_1 = __importDefault(require("../middlewares/asyncHandler"));
 const userPostService_1 = require("../services/userService/userPostService");
-exports.userAddPost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.userAddPost = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const datas = yield userPostService_1.userPostService.userAddPostSrvc(req.params.id, req.body);
     if (datas) {
         res.status(200).json({
@@ -29,7 +29,7 @@ exports.userAddPost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(
         });
     }
 }));
-exports.getPost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getPost = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const datas = yield userPostService_1.userPostService.getPostSrvc();
     if (datas) {
         res.status(200).json({
@@ -43,7 +43,7 @@ exports.getPost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void
         });
     }
 }));
-exports.getPostById = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getPostById = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const datas = yield userPostService_1.userPostService.getPostByidSrvc(req.params.id);
     if (datas) {
         res.status(200).json({
@@ -57,7 +57,23 @@ exports.getPostById = (0, asyncHandler_1.default)((req, res, next) => __awaiter(
         });
     }
 }));
-exports.deletePost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.likePost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const postId = req.params.id;
+    const like = yield userPostService_1.userPostService.postLikeSrvc(postId, req.body.userId);
+    if (like) {
+        res.status(200).json({
+            message: "Liked"
+        });
+    }
+    else {
+        res.status(402).json({
+            message: "Like removed"
+        });
+    }
+}));
+exports.postComment = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+exports.deletePost = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const postDeleting = yield userPostService_1.userPostService.deletePostSSrvc(req.params.id);
     if (postDeleting) {
         res.status(200).json({
@@ -74,5 +90,7 @@ exports.userPostController = {
     userAddPost: exports.userAddPost,
     getPost: exports.getPost,
     getPostById: exports.getPostById,
+    likePost: exports.likePost,
+    postComment: exports.postComment,
     deletePost: exports.deletePost
 };

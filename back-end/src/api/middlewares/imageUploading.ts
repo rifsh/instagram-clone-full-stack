@@ -32,8 +32,11 @@ export const userProfileimgUpload = async(req: Request, res: Response, next: Nex
         }
         try {
             const result = await cloudin.uploader.upload(req.file.path, {
-                folder: "userpofile"
-            })
+                folder: "userpofile",
+                transformation:[
+                    {width:500,height:500,crop:'fill'}
+                ]   
+            });
             req.body.image = result.secure_url;
             fs.unlink(req.file.path, (unlinker) => {
                 if (unlinker) {

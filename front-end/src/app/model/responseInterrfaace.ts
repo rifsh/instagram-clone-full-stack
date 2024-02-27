@@ -6,4 +6,5 @@ export interface ResponseInterface {
 export interface LoginResponseInterface {
     message:string;
     token:string;
+    datas:string
 }

@@ -41,7 +41,9 @@ export class ProfilImgeUpdationComponent implements OnChanges {
       if (res) {
         this.loader = false;
         this.submitBtn = true;
-        alert('Success')
+        alert('Success');
+        this.dialogRef.close();
+
       }
     }, (err) => {
       this.loader = false;

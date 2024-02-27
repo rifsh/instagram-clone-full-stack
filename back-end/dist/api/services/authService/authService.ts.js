@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userAuthService = void 0;
 const userSchema_1 = require("../../model/schemas/userSchema");
 const otpSchema_1 = __importDefault(require("../../model/schemas/otpSchema"));
-const token_1 = require("../../utils/token");
 const userSighnupSrvc = (userDetails) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (userDetails) {
@@ -101,10 +100,8 @@ const userLoginSrvc = (res, userValues) => __awaiter(void 0, void 0, void 0, fun
             }
             else if (userByUserPhone.isVerified === true) {
                 const isLogged = yield userSchema_1.userSignupModel.findOneAndUpdate({ phone: `+91${userValues.phoneorusername}` }, { $set: { isLogged: true } });
-                // console.log(isLogged);
                 isLogged.save();
-                const token = (0, token_1.userToken)(userByUserPhone.id);
-                return token;
+                return isLogged.id;
             }
             else {
                 return false;
@@ -121,10 +118,8 @@ const userLoginSrvc = (res, userValues) => __awaiter(void 0, void 0, void 0, fun
             }
             else if (userByUsername.isVerified === true) {
                 const isLogged = yield userSchema_1.userSignupModel.findOneAndUpdate({ username: userValues.phoneorusername }, { $set: { isLogged: true } });
-                // console.log(isLogged);
                 isLogged.save();
-                const token = (0, token_1.userToken)(userByUsername.id);
-                return token;
+                return isLogged.id;
             }
             else {
                 return false;

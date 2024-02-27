@@ -95,10 +95,9 @@ const userLoginSrvc = async (res: Response, userValues: UserLoginInterface): Pro
             }
             else if (userByUserPhone.isVerified === true) {
                 const isLogged = await userSignupModel.findOneAndUpdate({ phone: `+91${userValues.phoneorusername}` }, { $set: { isLogged: true } });
-                // console.log(isLogged);
                 isLogged.save();
-                const token = userToken(userByUserPhone.id);
-                return token
+                return isLogged.id
+
             } else {
                 return false
             }
@@ -112,10 +111,8 @@ const userLoginSrvc = async (res: Response, userValues: UserLoginInterface): Pro
             }
             else if (userByUsername.isVerified === true) {
                 const isLogged = await userSignupModel.findOneAndUpdate({ username: userValues.phoneorusername }, { $set: { isLogged: true } });
-                // console.log(isLogged);
                 isLogged.save();
-                const token = userToken(userByUsername.id);
-                return token
+                return isLogged.id
             } else {
                 return false
             }

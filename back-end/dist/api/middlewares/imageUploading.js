@@ -42,7 +42,10 @@ const userProfileimgUpload = (req, res, next) => __awaiter(void 0, void 0, void 
         }
         try {
             const result = yield cloudin.uploader.upload(req.file.path, {
-                folder: "userpofile"
+                folder: "userpofile",
+                transformation: [
+                    { width: 500, height: 500, crop: 'fill' }
+                ]
             });
             req.body.image = result.secure_url;
             fs_1.default.unlink(req.file.path, (unlinker) => {

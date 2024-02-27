@@ -1,9 +1,19 @@
-<div class="main">
+<div class="main d-flex flex-column align-items-center justify-content-center">
     <!-- Hidden file input element -->
-    <input type="file" id="file-input" accept=".jpg, .jpeg, .png">
 
-    <!-- Button that triggers file upload -->
-    <button class="file-upload-button" onclick="document.getElementById('file-input').click()">
-        Select File
-    </button>
+    <!-- <div class="gallery">
+        <img src="../../../../../assets/post/gallery.png" alt="">
+    </div> -->
+    <form action="" #addPostImg="ngForm">
+        <input type="file" id="file-input" accept=".jpg, .jpeg, .png" name="img" ngModel (change)="selectFile($event)">
+
+        <!-- Button that triggers file upload -->
+        <button class="file-upload-button" (click)="addPost()" onclick="document.getElementById('file-input').click()">
+            Select File
+        </button>
+    </form>
+</div>
+
+<div class="postImg" *ngIf="postImg">
+    <img src="" alt="">
 </div>

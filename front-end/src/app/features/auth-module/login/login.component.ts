@@ -27,6 +27,7 @@ export class LoginComponent {
     this.authSrvc.loginSrvc(this.loginForm.value).subscribe((res:LoginResponseInterface) => {
       if (res) {
         localStorage.setItem('token',res.token);
+        localStorage.setItem('userId',res.datas);
         this.loader = false;
         this.loginbtn = true;
         this.router.navigate(['feature']);

@@ -22,8 +22,7 @@ import { ProfilImgeViewComponent } from './profil-imge-view/profil-imge-view.com
     CommonModule,
     FormsModule,
     MatDialogModule,
-    MatProgressSpinnerModule,
-
+    MatProgressSpinnerModule, 
   ]
 })
 export class UserProfileModule { }

@@ -1,3 +1,4 @@
+import mongoose, { ObjectId } from "mongoose";
 import { UserPostInterface } from "../../model/interfaces/userInterfaces";
 import { postModel } from "../../model/schemas/postSchema";
 import { userSignupModel } from "../../model/schemas/userSchema";
@@ -41,7 +42,7 @@ export const getPostSrvc = async (): Promise<object> => {
 
     }
 }
-export const getPostByidSrvc = async (postId: string):Promise<UserPostInterface> => {
+export const getPostByidSrvc = async (postId: string): Promise<UserPostInterface> => {
     try {
         const postFinding = await postModel.findById(postId);
         if (postFinding) {
@@ -54,13 +55,34 @@ export const getPostByidSrvc = async (postId: string):Promise<UserPostInterface>
 
     }
 }
-export const deletePostSSrvc = async (postId: string):Promise<boolean> => {
+export const postLikeSrvc = async (postId: string, userId: string):Promise<boolean> => {
+    const user: any = userId
+    const post = await postModel.findById(postId);
+    try {
+        if (post.likes.includes(user)) {
+            const index: any = post.likes.indexOf(user);
+            post.likes.splice(index,1);
+            post.save();
+            return false;
+        } else {
+            const like = post.likes.push(user);
+            post.save();
+            return true;
+        }
+        // console.log(post.likes.includes(user));
+
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+export const deletePostSSrvc = async (postId: string): Promise<boolean> => {
     const postFinding = await postModel.findById(postId);
     try {
         if (postFinding) {
             const postDeleting = await postModel.findByIdAndDelete(postId);
             return true
-        }else {
+        } else {
             return false
         }
     } catch (error) {
@@ -73,5 +95,6 @@ export const userPostService = {
     userAddPostSrvc,
     getPostSrvc,
     getPostByidSrvc,
+    postLikeSrvc,
     deletePostSSrvc
 }

@@ -4,6 +4,7 @@ import { UserDobInterface, UserSighnupInterface } from "../model/interfaces/user
 import { otpService } from "../services/authService/otpService";
 import { userAuthService } from "../services/authService/authService.ts";
 import { CustomeError } from "../utils/customeErrorHandler";
+import { userToken } from "../utils/token";
 
 export const userOtpSend = catchAsync(async (req: Request, res: Response) => {
     const userDetails: UserSighnupInterface = req.body;
@@ -65,9 +66,11 @@ const userLogin = catchAsync(async (req: Request, res: Response, next: NextFunct
     const datas = await userAuthService.userLoginSrvc(res, req.body);
 
     if (datas) {
+        const token = userToken(datas);
         res.status(200).json({
             message: "Success",
-            token: datas
+            datas,
+            token
         })
     } else {
         res.status(404).json({
