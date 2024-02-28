@@ -6,12 +6,16 @@ import { homeAppRoutingModule } from './homePage-routing.module';
 import { FormsModule } from '@angular/forms';
 import { UserProfileModule } from './user-profile/user-profile.module';
 import { PostModule } from './post/post.module';
+import { ViewpostComponent } from './viewpost/viewpost.component';
+import { StoryComponent } from './story/story.component';
 
 
 
 @NgModule({
   declarations: [
     HomePageComponent,
+    ViewpostComponent,
+    StoryComponent,
   ],
   imports: [
     CommonModule,

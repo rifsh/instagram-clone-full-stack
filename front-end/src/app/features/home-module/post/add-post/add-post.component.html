@@ -1,19 +1,26 @@
-<div class="main d-flex flex-column align-items-center justify-content-center">
-    <!-- Hidden file input element -->
-
-    <!-- <div class="gallery">
-        <img src="../../../../../assets/post/gallery.png" alt="">
-    </div> -->
+<div class="main d-flex flex-column align-items-center justify-content-center" *ngIf="uploadBtn">
     <form action="" #addPostImg="ngForm">
         <input type="file" id="file-input" accept=".jpg, .jpeg, .png" name="img" ngModel (change)="selectFile($event)">
 
-        <!-- Button that triggers file upload -->
-        <button class="file-upload-button" (click)="addPost()" onclick="document.getElementById('file-input').click()">
+        <button class="file-upload-button" onclick="document.getElementById('file-input').click()">
             Select File
         </button>
     </form>
 </div>
 
 <div class="postImg" *ngIf="postImg">
-    <img src="" alt="">
+    <div class="nextBtn">
+        <button (click)="next()">Next</button>
+    </div>
+    <div class="postingImg">
+        <img [src]="selectedImage" width="80%" alt="">
+    </div>
+</div>
+
+<div class="postCaption" *ngIf="postCaption" style="text-align: center;">
+    <form action="" #addPostImg="ngForm">
+        <input type="text" name="caption" ngModel placeholder="Enter Caption">
+    </form>
+    <button class="mt-4 btn btn-primary" (click)="addPost()"><span *ngIf="postBtn">Add Post</span><span
+            *ngIf="loading">Posting...</span></button>
 </div>

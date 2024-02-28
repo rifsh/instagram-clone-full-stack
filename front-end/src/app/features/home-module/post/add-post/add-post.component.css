@@ -1,10 +1,14 @@
-* {
-    padding: 10px 20px;
+.main {
+    padding: 180px 180px;
+}
+
+a {
+    text-decoration: none;
 }
 
 /* Style the button to look like a button */
 .file-upload-button {
-    background-color: #007bff;
+    background-color: #E1306C;
     /* color: #fff; */
     border: none;
     padding: 10px 20px;
@@ -15,4 +19,38 @@
 /* Hide the default file input */
 #file-input {
     display: none;
+}
+
+.postImg {
+    position: relative;
+    padding: 1px;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.postImg button {
+    background-color: white;
+    border: none;
+    color: blue;
+}
+
+.nextBtn {
+    position: absolute;
+    top: 1px;
+    right: 10px;
+}
+
+.postCaption {
+    padding: 50px;
+}
+
+.postCaption input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
 }
