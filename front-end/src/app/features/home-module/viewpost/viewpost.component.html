@@ -1,3 +1,48 @@
-<div class="main">
+<div class="top mt-5">
     <app-story></app-story>
+    <div class="main mt-5">
+        <div class="main my-2" *ngFor="let item of allPosts">
+            <div class="userDetails mb-3 d-flex justify-content-between align-items-center">
+                <div class="profileImg me-3">
+                    <img [src]="item.postedBy.profilePic" alt="profileImg">
+                </div>
+                <div class="userName mt-2">
+                    <p> {{item.postedBy.username}} </p>
+                </div>
+            </div>
+
+            <div class="post">
+                <img [src]="item.image" alt="Post">
+            </div>
+            <div class="postlike d-flex align-items-center justify-content-between mt-2" style="width: 110px;">
+                <div class="like">
+                    <button (click)="likeBtn(item._id)">
+                        <span [ngClass]="{'liked': liked}" class="like-icon"></span>
+                    </button>
+                </div>
+                <div class="comments">
+                    <div class="like">
+                        <button>
+                            <span class="comment-icon"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="share">
+                    <div class="like">
+                        <button>
+                            <span class="share-icon"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="postCaption"> {{item.likes.length}} likes </div>
+            <div class="postCaption">{{item.caption}}</div>
+            <div class="viewComment">view commment</div>
+            <div class="addComment">
+                <form action="">
+                    <input type="text" placeholder="Add comment">
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

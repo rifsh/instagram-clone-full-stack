@@ -66,7 +66,7 @@ exports.likePost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(voi
         });
     }
     else {
-        res.status(402).json({
+        res.status(200).json({
             message: "Like removed"
         });
     }

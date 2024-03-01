@@ -43,14 +43,14 @@ export const getPostById = catchAsync(async (req: Request, res: Response,) => {
     }
 })
 export const likePost = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const postId: string = req.params.id
+    const postId: string = req.params.id;    
     const like: boolean = await userPostService.postLikeSrvc(postId, req.body.userId);
     if (like) {
         res.status(200).json({
             message: "Liked"
         })
     } else {
-        res.status(402).json({
+        res.status(200).json({
             message: "Like removed"
         })
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavOptionsInterface } from './nav-interface';
+// import { NavOptionsInterface } from './nav-interface';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/core/Services/home.service';
 import { UserSignupInterface } from 'src/app/model/userInterface';

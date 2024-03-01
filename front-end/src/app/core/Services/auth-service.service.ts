@@ -13,8 +13,6 @@ export class AuthServiceService {
   constructor() { }
 
   signUpSrvc(signupValues: NgForm) {
-    console.log(signupValues);
-
     return this.http.post('http://localhost:3000/clone/user-signup', signupValues.value)
   }
 

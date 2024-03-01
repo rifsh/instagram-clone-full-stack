@@ -2,6 +2,11 @@ main {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     font-style: normal;
+    width: 500px;
+}
+
+.profile {
+    margin-bottom: 220px;
 }
 
 .profileImg {
@@ -32,6 +37,7 @@ main {
     border-radius: 5px;
     padding: 2px 10px;
 }
+
 .userDetails button:hover {
     background-color: rgb(200, 200, 200);
 }
@@ -41,4 +47,41 @@ main {
 .user-bio {
     /* background-color: lightblue; */
     width: 280px;
+}
+
+.userThings {
+    font-size: 15px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    border-top: thin solid grey;
+}
+
+.userThings button {
+    text-align: center;
+    border: none;
+    background-color: white;
+    color: rgb(201, 201, 201);
+}
+
+.posts,
+.saved,
+.tagged {
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+    background-size: cover;
+
+}
+
+.posts {
+    background-image: url('../../../../../assets/profile/all-posts.png');
+}
+
+.saved {
+    background-image: url('../../../../../assets/profile/saved.png');
+}
+
+.tagged {
+    background-image: url('../../../../../assets/profile/tagged.png');
 }

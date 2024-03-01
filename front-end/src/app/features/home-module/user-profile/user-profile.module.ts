@@ -7,6 +7,8 @@ import { ProfilImgeUpdationComponent } from './profil-imge-updation/profil-imge-
 import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProfilImgeViewComponent } from './profil-imge-view/profil-imge-view.component';
+import { UserPostComponent } from './user-post/user-post.component';
+import { UserProfileRoutingModule } from './profile-routing.module';
 
 
 
@@ -16,6 +18,7 @@ import { ProfilImgeViewComponent } from './profil-imge-view/profil-imge-view.com
     ProfileComponent,
     ProfilImgeUpdationComponent,
     ProfilImgeViewComponent,
+    UserPostComponent,
 
   ],
   imports: [
@@ -23,6 +26,7 @@ import { ProfilImgeViewComponent } from './profil-imge-view/profil-imge-view.com
     FormsModule,
     MatDialogModule,
     MatProgressSpinnerModule, 
+    // UserProfileRoutingModule
   ]
 })
 export class UserProfileModule { }

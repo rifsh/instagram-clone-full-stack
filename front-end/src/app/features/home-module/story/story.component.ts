@@ -17,6 +17,17 @@ export class StoryComponent {
     { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
     { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
     { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
+    { profilePictureUrl: '../../../../assets/photo-1633886897663-44c707d71904.jpg', userName: 'user1', hasStory: true },
     // ... add more stories
   ];
 

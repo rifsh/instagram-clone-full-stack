@@ -11,4 +11,4 @@ const router:Routes = [
     exports:[RouterModule]
 })
 
-export class homeAppRoutingModule{}
+export class UserProfileRoutingModule{}
