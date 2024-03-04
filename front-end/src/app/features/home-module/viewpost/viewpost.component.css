@@ -68,6 +68,11 @@
     background-size: cover;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 .liked {
     background-image: url('../../../../assets/post/liked.png');
 }

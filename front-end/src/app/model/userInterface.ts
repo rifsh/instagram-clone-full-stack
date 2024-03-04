@@ -22,7 +22,9 @@ export interface UserSignupInterface {
 }
 
 export interface UserDetailInterface {
+    _id:string;
     username: string;
+    fullname: string;
     profilePic: string;
     followers: [string];
     following: [string];
@@ -34,4 +36,9 @@ export interface UserDetailInterface {
     isVerified: boolean;
     isDeleted: boolean;
     isLogged: boolean;
+}
+
+export interface UserByIdInterface {
+    message:string;
+    datas:UserDetailInterface
 }

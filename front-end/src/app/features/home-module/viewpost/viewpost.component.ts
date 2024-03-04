@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PostService } from 'src/app/core/Services/post.service';
 import { GetPostInterface, PostInterface, ViewpostInterface } from 'src/app/model/postResponseInterface';
 
@@ -13,7 +14,7 @@ export class ViewpostComponent implements OnInit {
   liked: boolean = false;
 
 
-  constructor(private postSrvc: PostService) { }
+  constructor(private postSrvc: PostService,private route:Router) { }
 
   ngOnInit(): void {
     this.postSrvc.getPost().subscribe((res: GetPostInterface) => {
@@ -31,6 +32,10 @@ export class ViewpostComponent implements OnInit {
       console.log(err);
 
     })
+  }
+
+  otherProfile() {
+    this.route.navigate(['other-user-profile'])
   }
 
 }

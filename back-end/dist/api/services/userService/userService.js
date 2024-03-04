@@ -9,9 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userService = exports.userByIdSrvc = exports.userProfileImgRemovesrvc = exports.userProfileImgChangeSrvc = exports.userProfileSrvc = void 0;
+exports.userService = exports.userByIdSrvc = exports.userFollowingSrvc = exports.userProfileImgRemovesrvc = exports.userProfileImgChangeSrvc = exports.userProfileSrvc = exports.allUsers = void 0;
 const userSchema_1 = require("../../model/schemas/userSchema");
 const customeErrorHandler_1 = require("../../utils/customeErrorHandler");
+const allUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    const users = userSchema_1.userSignupModel.find({});
+    return users;
+});
+exports.allUsers = allUsers;
 const userProfileSrvc = (profileDetails, userId, next) => __awaiter(void 0, void 0, void 0, function* () {
     const userFinding = yield userSchema_1.userSignupModel.findById(userId);
     if (userFinding.username === profileDetails.username) {
@@ -76,6 +81,30 @@ const userProfileImgRemovesrvc = (userId) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.userProfileImgRemovesrvc = userProfileImgRemovesrvc;
+const userFollowingSrvc = (followingId, followerId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const followingUser = yield userSchema_1.userSignupModel.findById(followingId);
+        const followerUser = yield userSchema_1.userSignupModel.findById(followerId);
+        if (followingUser.following.includes(followerId)) {
+            const index = followingUser.following.indexOf(followerId);
+            followingUser.following.splice(index, 1);
+            followingUser.save();
+            const indexFollowers = followerUser.followers.indexOf(followerId);
+            followerUser.followers.splice(indexFollowers, 1);
+            followerUser.save();
+        }
+        else {
+            followingUser.following.push(followerId);
+            followingUser.save();
+            followerUser.followers.push(followingId);
+            followerUser.save();
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.userFollowingSrvc = userFollowingSrvc;
 const userByIdSrvc = (usrId, next) => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield userSchema_1.userSignupModel.findById(usrId);
     if (!users) {
@@ -87,8 +116,10 @@ const userByIdSrvc = (usrId, next) => __awaiter(void 0, void 0, void 0, function
 });
 exports.userByIdSrvc = userByIdSrvc;
 exports.userService = {
+    allUsers: exports.allUsers,
     userProfileSrvc: exports.userProfileSrvc,
     userProfileImgChangeSrvc: exports.userProfileImgChangeSrvc,
     userProfileImgRemovesrvc: exports.userProfileImgRemovesrvc,
+    userFollowingSrvc: exports.userFollowingSrvc,
     userByIdSrvc: exports.userByIdSrvc
 };

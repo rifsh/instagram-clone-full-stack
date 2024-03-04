@@ -8,6 +8,7 @@ import { UserProfileModule } from './user-profile/user-profile.module';
 import { PostModule } from './post/post.module';
 import { ViewpostComponent } from './viewpost/viewpost.component';
 import { StoryComponent } from './story/story.component';
+import { OtherUserModule } from './other-user/other-user.module';
 
 
 
@@ -23,7 +24,8 @@ import { StoryComponent } from './story/story.component';
     UserProfileModule,
     PostModule,
     FormsModule,
-    homeAppRoutingModule
+    homeAppRoutingModule,
+    OtherUserModule,
   ]
 })
 export class HomeModuleModule { }

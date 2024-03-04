@@ -7,7 +7,7 @@
                     <img [src]="item.postedBy.profilePic" alt="profileImg">
                 </div>
                 <div class="userName mt-2">
-                    <p> {{item.postedBy.username}} </p>
+                    <a [routerLink]="'/other-user-profile/'+item.postedBy._id"> {{item.postedBy.username}} </a>
                 </div>
             </div>
 

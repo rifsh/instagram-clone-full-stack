@@ -26,7 +26,7 @@ import { UserProfileRoutingModule } from './profile-routing.module';
     FormsModule,
     MatDialogModule,
     MatProgressSpinnerModule, 
-    // UserProfileRoutingModule
+    UserProfileRoutingModule
   ]
 })
 export class UserProfileModule { }

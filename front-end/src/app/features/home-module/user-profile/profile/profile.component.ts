@@ -20,7 +20,7 @@ export class ProfileComponent {
 
 
 
-  constructor(private homeSrvc: HomeService, private router: Router, private dialog: MatDialog) { }
+  constructor(private homeSrvc: HomeService, private router: Router, private dialog: MatDialog, private route:Router) { }
 
   ngOnInit(): void {
 
@@ -41,6 +41,10 @@ export class ProfileComponent {
 
   editProfile() {
     this.router.navigate(['edit-profile'])
+  }
+
+  posts() {
+    // this.route.navigate(['user-post'])
   }
 
 }

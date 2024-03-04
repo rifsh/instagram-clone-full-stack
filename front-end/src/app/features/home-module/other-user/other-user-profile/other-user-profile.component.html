@@ -1,28 +1,29 @@
 <main class="mt-5">
     <div class="profile d-flex align-items-center justify-content-between">
         <div class="profileImg">
-            <img class="rounded-circle" (click)="viewingProfile()" src="{{profileImg}}" alt="">
+            <img class="rounded-circle" [src]="profileImg" alt="">
         </div>
         <div class="userDetails">
-            <div class="user-values d-flex align-items-start justify-content-between">
-                <p>{{fullName}}</p>
-                <button (click)="editProfile()">Edit Profile</button>
-                <button>View Archive</button>
+            <div class="user-values d-flex align-items-start justify-content-between mb-2">
+                <p class="me-5" style="font-weight: 500;"> {{fullName}} </p>
+                <button class="me-4"  *ngIf="followBtn" (click)="followAndUnFollow()">{{ buttonType === 'follow' ? 'Follow' : 'Following' }} </button>
+                <!-- <button class="me-4" *ngIf="followBtn">Following</button> -->
+                <button>Message</button>
             </div>
             <div class="user-status d-flex align-items-start justify-content-between">
                 <p>post</p>
-                <p>798followers</p>
-                <p>345following</p>
+                <p><span style="font-weight: bold;">{{followers}}</span> followers</p>
+                <p><span style="font-weight: bold;"> {{following}} </span> following</p>
             </div>
             <div style="line-height: 3px;" class="user-bio d-flex flex-column align-items-start justify-content-center">
                 <p>{{userName}}</p>
-                <p>{{userBio}}</p>
+                <p> {{userBio}} </p>
             </div>
         </div>
     </div>
     <!-- <app-user-post></app-user-post> -->
     <div class="userThings">
-        <a [routerLink]="'user-post'" outlet="userPosts">
+        <a>
             <span class="posts"></span>
             POST
         </a>
@@ -35,5 +36,5 @@
             TAGGED
         </button>
     </div>
-    <router-outlet name="userPosts"></router-outlet>
+    <!-- <router-outlet name="userPosts"></router-outlet> -->
 </main>

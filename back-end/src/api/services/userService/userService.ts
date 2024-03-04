@@ -4,6 +4,11 @@ import { userSignupModel } from "../../model/schemas/userSchema"
 import { CustomeError } from "../../utils/customeErrorHandler";
 
 
+
+export const allUsers = async () => {
+    const users = userSignupModel.find({});
+    return users
+}
 export const userProfileSrvc = async (profileDetails: UserProfileInterface, userId: string, next: NextFunction) => {
     const userFinding = await userSignupModel.findById(userId);
 
@@ -60,6 +65,27 @@ export const userProfileImgRemovesrvc = async (userId: string) => {
         return false;
     }
 }
+export const userFollowingSrvc = async (followingId: string, followerId: string) => {
+    try {
+        const followingUser = await userSignupModel.findById(followingId);
+        const followerUser = await userSignupModel.findById(followerId);
+        if (followingUser.following.includes(followerId)) {
+            const index: number = followingUser.following.indexOf(followerId);
+            followingUser.following.splice(index, 1);
+            followingUser.save();
+            const indexFollowers = followerUser.followers.indexOf(followerId);
+            followerUser.followers.splice(indexFollowers, 1);
+            followerUser.save();
+        } else {
+            followingUser.following.push(followerId);
+            followingUser.save();
+            followerUser.followers.push(followingId);
+            followerUser.save();
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 export const userByIdSrvc = async (usrId: string, next: NextFunction) => {
     const users = await userSignupModel.findById(usrId);
     if (!users) {
@@ -72,8 +98,10 @@ export const userByIdSrvc = async (usrId: string, next: NextFunction) => {
 
 
 export const userService = {
+    allUsers,
     userProfileSrvc,
     userProfileImgChangeSrvc,
     userProfileImgRemovesrvc,
+    userFollowingSrvc,
     userByIdSrvc
 }
