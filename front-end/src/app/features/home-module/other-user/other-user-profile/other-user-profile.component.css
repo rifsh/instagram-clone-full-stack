@@ -29,7 +29,6 @@ main {
     align-items: center;
     justify-content: center;
     width: 300px;
-    /* background-color: lightcoral; */
 }
 
 .userDetails button {
@@ -46,7 +45,6 @@ main {
 .user-values,
 .user-status,
 .user-bio {
-    /* background-color: lightblue; */
     width: 280px;
 }
 

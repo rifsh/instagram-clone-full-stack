@@ -14,6 +14,7 @@ export class OtherUserProfileComponent implements OnInit {
   followBtn: string[] = [];
   // followingBtn: boolean = false;
 
+  followBtnClass:boolean;
   userIds: string = '';
   userName: string = '';
   userBio: string = '';
@@ -33,6 +34,7 @@ export class OtherUserProfileComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userId = params['id'];
     });
+
     const mainUserId: string = localStorage.getItem('userId');
 
     this.profileSrvc.allUsers().subscribe((res: UserByIdInterface) => {
@@ -64,8 +66,13 @@ export class OtherUserProfileComponent implements OnInit {
   }
 
   followAndUnFollow() {
-    this.profileSrvc.following(this.userIds).subscribe((res) => {
-      console.log(res);
+    this.profileSrvc.following(this.userIds).subscribe((res: { message: string }) => {
+      if (res.message === "Following") {
+        this.buttonType = "following";
+      } else if (res.message === "unFollowed") {
+        this.buttonType = "follow";
+        this.followBtnClass = true;
+      }
     }, (err) => {
       console.log(err);
     })

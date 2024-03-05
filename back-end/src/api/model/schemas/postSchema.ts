@@ -36,7 +36,7 @@ const postSchema = new mongoose.Schema<UserPostInterface>({
     // Likes received by the post
     likes: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref: 'User',
+        ref: 'userSignup',
         default: []
     },
     // Comments on the post (optional)

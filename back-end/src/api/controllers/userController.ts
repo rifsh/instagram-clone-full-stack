@@ -9,8 +9,8 @@ export const allUser = catchAsync(async (req: Request, res: Response, next: Next
     const users = await userService.allUsers();
     if (users) {
         res.status(200).json({
-            status:"OK",
-            datas:users
+            status: "OK",
+            datas: users
         })
     }
 })
@@ -38,24 +38,33 @@ export const profileImgChange = catchAsync(async (req: Request, res: Response, n
     const datas = await userService.userProfileImgChangeSrvc(req.params.id, req.body.image);
     if (datas) {
         res.status(200).json({
-            Message:"Successfully updated"
+            Message: "Successfully updated"
         })
-    }else {
+    } else {
         next(new CustomeError('Something went wrong', 404));
     }
 })
 export const userFollowing = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const followingUserId:string = req.params.id;
-    const followerUserId:string = req.body.followerId;
-    userService.userFollowingSrvc(followingUserId,followerUserId);
+    const followingUserId: string = req.params.id;
+    const followerUserId: string = req.body.followerId;
+    const userFollow = await userService.userFollowingSrvc(followingUserId, followerUserId);
+    if (userFollow) {
+        res.status(200).json({
+            message: "Following"
+        })
+    } else {
+        res.status(200).json({
+            message: "unFollowed"
+        })
+    }
 })
 export const profileImgRemove = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const result = await userService.userProfileImgRemovesrvc(req.params.id);
     if (result) {
         res.status(200).json({
-            Message:"Successfully Removed"
+            Message: "Successfully Removed"
         })
-    }else {
+    } else {
         next(new CustomeError('Something went wrong', 404));
     }
 })

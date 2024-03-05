@@ -26,6 +26,7 @@ import { OtherUserModule } from './other-user/other-user.module';
     FormsModule,
     homeAppRoutingModule,
     OtherUserModule,
+    
   ]
 })
 export class HomeModuleModule { }

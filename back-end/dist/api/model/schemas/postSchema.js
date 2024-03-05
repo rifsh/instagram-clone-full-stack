@@ -40,7 +40,7 @@ const postSchema = new mongoose_1.default.Schema({
     // Likes received by the post
     likes: {
         type: [mongoose_1.default.Schema.Types.ObjectId],
-        ref: 'User',
+        ref: 'userSignup',
         default: []
     },
     // Comments on the post (optional)

@@ -40,6 +40,9 @@ const getPostSrvc = () => __awaiter(void 0, void 0, void 0, function* () {
         const posts = yield postSchema_1.postModel.find().populate({
             path: "postedBy",
             select: ["username", "profilePic"],
+        }).populate({
+            path: "likes",
+            select: ["username", "profilePic"],
         });
         if (posts) {
             return posts;

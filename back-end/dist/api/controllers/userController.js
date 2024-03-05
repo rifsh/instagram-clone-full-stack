@@ -59,7 +59,17 @@ exports.profileImgChange = (0, asyncHandler_1.default)((req, res, next) => __awa
 exports.userFollowing = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const followingUserId = req.params.id;
     const followerUserId = req.body.followerId;
-    userService_1.userService.userFollowingSrvc(followingUserId, followerUserId);
+    const userFollow = yield userService_1.userService.userFollowingSrvc(followingUserId, followerUserId);
+    if (userFollow) {
+        res.status(200).json({
+            message: "Following"
+        });
+    }
+    else {
+        res.status(200).json({
+            message: "unFollowed"
+        });
+    }
 }));
 exports.profileImgRemove = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield userService_1.userService.userProfileImgRemovesrvc(req.params.id);

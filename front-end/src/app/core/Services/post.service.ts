@@ -24,6 +24,10 @@ export class PostService {
     return this.http.get(`http://localhost:3000/post/get-post`)
   }
 
+  getPostById(postId:string): Observable<object> {
+    return this.http.get(`http://localhost:3000/post/get-post-byId/${postId}`)
+  }
+
   postLiking(PostId: string): Observable<object> {
     const userid: string = localStorage.getItem('userId');
     const userId = { userId: userid };

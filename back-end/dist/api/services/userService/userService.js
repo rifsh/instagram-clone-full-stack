@@ -92,12 +92,14 @@ const userFollowingSrvc = (followingId, followerId) => __awaiter(void 0, void 0,
             const indexFollowers = followerUser.followers.indexOf(followerId);
             followerUser.followers.splice(indexFollowers, 1);
             followerUser.save();
+            return false;
         }
         else {
             followingUser.following.push(followerId);
             followingUser.save();
             followerUser.followers.push(followingId);
             followerUser.save();
+            return true;
         }
     }
     catch (error) {

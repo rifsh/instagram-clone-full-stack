@@ -20,7 +20,7 @@ export interface PostResponseInterface {
 }
 export interface ViewpostInterface {
     message: string,
-    _id:string;
+    _id: string;
     postedBy:
     {
         _id: string,
@@ -32,7 +32,11 @@ export interface ViewpostInterface {
     mediaType: string;
     image: string;
     hashtags: [string];
-    likes: [string];
+    likes: [{
+        _id: string,
+        username: string,
+        profilePic: string
+    }];
     comments: [string];
     createdAt: Date;
     updatedAt: Date;

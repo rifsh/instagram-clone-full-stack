@@ -31,6 +31,9 @@ export const getPostSrvc = async (): Promise<object> => {
         const posts = await postModel.find().populate({
             path: "postedBy",
             select: ["username", "profilePic"],
+        }).populate({
+            path: "likes",
+            select: ["username", "profilePic"],
         })
         if (posts) {
             return posts

@@ -16,6 +16,8 @@ export class ProfileComponent {
   userBio: string = '';
   fullName: string = '';
   profileImg: string = '';
+  followers:number = 0;
+  following:number = 0;
   // profileImg: string = '';
 
 
@@ -30,6 +32,8 @@ export class ProfileComponent {
       this.fullName = res.datas.fullname;
       this.userBio = res.datas.bio
       this.profileImg = res.datas.profilePic;
+      this.followers = res.datas.followers.length;
+      this.following = res.datas.following.length;
     }, (err) => {
       console.log(err);
     })

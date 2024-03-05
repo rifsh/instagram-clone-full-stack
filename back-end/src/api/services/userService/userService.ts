@@ -65,7 +65,7 @@ export const userProfileImgRemovesrvc = async (userId: string) => {
         return false;
     }
 }
-export const userFollowingSrvc = async (followingId: string, followerId: string) => {
+export const userFollowingSrvc = async (followingId: string, followerId: string):Promise<boolean> => {
     try {
         const followingUser = await userSignupModel.findById(followingId);
         const followerUser = await userSignupModel.findById(followerId);
@@ -76,11 +76,13 @@ export const userFollowingSrvc = async (followingId: string, followerId: string)
             const indexFollowers = followerUser.followers.indexOf(followerId);
             followerUser.followers.splice(indexFollowers, 1);
             followerUser.save();
+            return false;
         } else {
             followingUser.following.push(followerId);
             followingUser.save();
             followerUser.followers.push(followingId);
             followerUser.save();
+            return true;
         }
     } catch (error) {
         console.log(error);

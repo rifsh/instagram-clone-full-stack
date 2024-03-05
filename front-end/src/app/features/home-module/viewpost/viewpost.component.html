@@ -7,7 +7,7 @@
                     <img [src]="item.postedBy.profilePic" alt="profileImg">
                 </div>
                 <div class="userName mt-2">
-                    <a [routerLink]="'/other-user-profile/'+item.postedBy._id"> {{item.postedBy.username}} </a>
+                    <a (click)="otherProfile(item.postedBy._id)"> {{item.postedBy.username}} </a>
                 </div>
             </div>
 
@@ -16,7 +16,7 @@
             </div>
             <div class="postlike d-flex align-items-center justify-content-between mt-2" style="width: 110px;">
                 <div class="like">
-                    <button (click)="likeBtn(item._id)">
+                    <button (click)="likeBtn(item._id,item.postedBy._id)">
                         <span [ngClass]="{'liked': liked}" class="like-icon"></span>
                     </button>
                 </div>

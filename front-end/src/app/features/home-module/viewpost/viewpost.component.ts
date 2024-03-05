@@ -14,28 +14,43 @@ export class ViewpostComponent implements OnInit {
   liked: boolean = false;
 
 
-  constructor(private postSrvc: PostService,private route:Router) { }
+  constructor(private postSrvc: PostService, private route: Router) { }
 
   ngOnInit(): void {
+    const userId: string = localStorage.getItem('userId');
     this.postSrvc.getPost().subscribe((res: GetPostInterface) => {
-      res.datas.map((x) => { return this.allPosts.push(x) })
-      // this.allPosts.push(res)
+      res.datas.map((x) => { return this.allPosts.push(x) });
     }, (err) => {
       console.log(err);
     })
+
   }
 
-  likeBtn(id: string): void {
-    this.postSrvc.postLiking(id).subscribe((res:PostInterface) => {
-      this.liked = !this.liked;
+  likeBtn(id: string, userId: string) {
+    this.postSrvc.postLiking(id).subscribe((res: PostInterface) => {
+      // console.log(res);
+
     }, (err) => {
       console.log(err);
-
     })
+    this.postSrvc.getPostById(id).subscribe((res: GetPostInterface) => {
+      console.log(res.datas);
+    }, (err) => {
+      console.log(err);
+    })
+
   }
 
-  otherProfile() {
-    this.route.navigate(['other-user-profile'])
+  // eachUser() {
+  //   this.route.navigate()
+  // }
+
+  otherProfile(id: string) {
+    if (localStorage.getItem('userId') === id) {
+      this.route.navigate(['profile'])
+    } else {
+      this.route.navigate([`other-user-profile/${id}`]);
+    }
   }
 
 }
