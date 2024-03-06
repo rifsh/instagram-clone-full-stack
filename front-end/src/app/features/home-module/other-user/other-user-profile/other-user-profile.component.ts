@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from 'src/app/core/Services/profile.service';
 import { UserByIdInterface, UserDetailInterface } from 'src/app/model/userInterface';
+import { ProfilImgeViewComponent } from '../../user-profile/profil-imge-view/profil-imge-view.component';
 
 @Component({
   selector: 'app-other-user-profile',
@@ -14,7 +16,7 @@ export class OtherUserProfileComponent implements OnInit {
   followBtn: string[] = [];
   // followingBtn: boolean = false;
 
-  followBtnClass:boolean;
+  followBtnClass: boolean;
   userIds: string = '';
   userName: string = '';
   userBio: string = '';
@@ -26,7 +28,7 @@ export class OtherUserProfileComponent implements OnInit {
   userId: string;
   user: UserDetailInterface[] = [];
 
-  constructor(private route: ActivatedRoute, private profileSrvc: ProfileService) {
+  constructor(private route: ActivatedRoute, private profileSrvc: ProfileService, private dialog: MatDialog) {
 
   }
 
@@ -78,5 +80,11 @@ export class OtherUserProfileComponent implements OnInit {
     })
   }
 
+  viewingProfile() {
+    this.dialog.open(ProfilImgeViewComponent, {
+      data: { id: this.userId },
+    });
+    
+  }
 
 }

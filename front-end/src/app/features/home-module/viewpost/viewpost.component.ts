@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/core/Services/post.service';
-import { GetPostInterface, PostInterface, ViewpostInterface } from 'src/app/model/postResponseInterface';
+import { GetPostInterface, LikesInterface, PostInterface, ViewpostInterface } from 'src/app/model/postResponseInterface';
 
 @Component({
   selector: 'app-viewpost',
@@ -10,40 +10,35 @@ import { GetPostInterface, PostInterface, ViewpostInterface } from 'src/app/mode
 })
 export class ViewpostComponent implements OnInit {
   allPosts: ViewpostInterface[] = [];
+  Likes: LikesInterface[] = [];
 
   liked: boolean = false;
+  userId: string = localStorage.getItem('userId');
 
 
   constructor(private postSrvc: PostService, private route: Router) { }
 
   ngOnInit(): void {
-    const userId: string = localStorage.getItem('userId');
     this.postSrvc.getPost().subscribe((res: GetPostInterface) => {
       res.datas.map((x) => { return this.allPosts.push(x) });
+      console.log(this.allPosts.map((x) => { return x.likes.filter((x) => { return x._id === this.userId }) }));
     }, (err) => {
       console.log(err);
-    })
-
+    });
   }
 
   likeBtn(id: string, userId: string) {
     this.postSrvc.postLiking(id).subscribe((res: PostInterface) => {
-      // console.log(res);
-
     }, (err) => {
       console.log(err);
     })
     this.postSrvc.getPostById(id).subscribe((res: GetPostInterface) => {
-      console.log(res.datas);
+      // console.log(res.datas);
     }, (err) => {
       console.log(err);
     })
 
   }
-
-  // eachUser() {
-  //   this.route.navigate()
-  // }
 
   otherProfile(id: string) {
     if (localStorage.getItem('userId') === id) {

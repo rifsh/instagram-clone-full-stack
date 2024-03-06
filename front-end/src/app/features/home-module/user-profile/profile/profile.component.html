@@ -1,39 +1,41 @@
 <main class="mt-5">
-    <div class="profile d-flex align-items-center justify-content-between">
+    <div class="profile" *ngFor="let item of userDetails">
         <div class="profileImg">
-            <img class="rounded-circle" (click)="viewingProfile()" src="{{profileImg}}" alt="">
+            <img class="rounded-circle" (click)="viewingProfile()" src="{{item.profilePic}}" alt="">
         </div>
         <div class="userDetails">
             <div class="user-values d-flex align-items-start justify-content-between">
-                <p>{{fullName}}</p>
+                <p><span style="font-weight: bold;">{{item.fullname}}</span></p>
                 <button (click)="editProfile()">Edit Profile</button>
                 <button>View Archive</button>
             </div>
             <div class="user-status d-flex align-items-start justify-content-between">
-                <p>post</p>
-                <p><span style="font-weight: bold;">{{followers}}</span> followers</p>
-                <p><span style="font-weight: bold;"> {{following}} </span> following</p>
+                <p><span style="font-weight: bold;">{{userPosts.length}}</span> post</p>
+                <p><span style="font-weight: bold;">{{item.followers.length}}</span> followers</p>
+                <p><span style="font-weight: bold;"> {{item.following.length}} </span> following</p>
             </div>
             <div style="line-height: 3px;" class="user-bio d-flex flex-column align-items-start justify-content-center">
-                <p>{{userName}}</p>
-                <p>{{userBio}}</p>
+                <p>{{item.username}}</p>
+                <p>{{item.bio}}</p>
             </div>
         </div>
     </div>
     <!-- <app-user-post></app-user-post> -->
     <div class="userThings">
-        <a [routerLink]="'user-post'" outlet="userPosts">
+        <button outlet="userPosts" (click)="posts()">
             <span class="posts"></span>
             POST
-        </a>
-        <button class="mx-5">
+        </button>
+        <button class="mx-4" (click)="saved()">
             <span class="saved"></span>
             SAVED
         </button>
-        <button>
+        <!-- <button>
             <span class="tagged"></span>
             TAGGED
-        </button>
+        </button> -->
     </div>
-    <router-outlet name="userPosts"></router-outlet>
+    <app-all-posts *ngIf="postTemplate" [userIds]="userId"></app-all-posts>
+    <app-all-saved *ngIf="savedTemplate"></app-all-saved>
 </main>
+<app-footer></app-footer>

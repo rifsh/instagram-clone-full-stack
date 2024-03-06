@@ -22,7 +22,7 @@ export interface UserSignupInterface {
 }
 
 export interface UserDetailInterface {
-    _id:string;
+    _id: string;
     username: string;
     fullname: string;
     profilePic: string;
@@ -39,6 +39,15 @@ export interface UserDetailInterface {
 }
 
 export interface UserByIdInterface {
-    message:string;
-    datas:UserDetailInterface
+    message: string;
+    datas: UserDetailInterface
+}
+
+export interface UserProfileDetailsInterace {
+    userName: string;
+    userBio: string;
+    fullName: string;
+    profileImg: string;
+    followers: number;
+    following: number;
 }

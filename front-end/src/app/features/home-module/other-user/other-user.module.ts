@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OtherUserProfileComponent } from './other-user-profile/other-user-profile.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
 @NgModule({
   declarations: [
-    OtherUserProfileComponent
+    OtherUserProfileComponent,
+    
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ]
 })
 export class OtherUserModule { }

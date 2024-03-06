@@ -2,19 +2,25 @@ main {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     font-style: normal;
-    width: 500px;
+    /* width: 700px; */
+    max-width: 700px;
 }
 
 .profile {
     margin-bottom: 220px;
+    /* background-color: lightblue; */
+    height: 200px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
 }
 
 .profileImg {
     /* overflow: hidden; */
-    margin-right: 60px;
+    margin-right: 100px;
     text-align: center;
-    width: 100px;
-    height: 100px;
+    width: 180px;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -28,7 +34,6 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 300px;
     /* background-color: lightcoral; */
 }
 
@@ -53,7 +58,7 @@ main {
 .userThings {
     font-size: 15px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: center;
     border-top: thin solid grey;
 }
@@ -66,17 +71,15 @@ main {
 }
 
 .posts,
-.saved,
-.tagged {
+.saved {
     width: 13px;
     height: 13px;
     display: inline-block;
     background-size: cover;
-
 }
 
 .posts {
-    background-image: url('../../../../../assets/profile/all-posts.png');
+    background-image: url('../../../../../assets/profile/posts.png');
 }
 
 .saved {

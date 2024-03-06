@@ -9,6 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProfilImgeViewComponent } from './profil-imge-view/profil-imge-view.component';
 import { UserPostComponent } from './user-post/user-post.component';
 import { UserProfileRoutingModule } from './profile-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -25,6 +26,7 @@ import { UserProfileRoutingModule } from './profile-routing.module';
     CommonModule,
     FormsModule,
     MatDialogModule,
+    SharedModule,
     MatProgressSpinnerModule, 
     UserProfileRoutingModule
   ]

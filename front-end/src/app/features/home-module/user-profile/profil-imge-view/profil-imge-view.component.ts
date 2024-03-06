@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { HomeService } from 'src/app/core/Services/home.service';
+import { ProfileService } from 'src/app/core/Services/profile.service';
 import { UserSignupInterface } from 'src/app/model/userInterface';
 
 @Component({
@@ -9,18 +10,16 @@ import { UserSignupInterface } from 'src/app/model/userInterface';
   styleUrls: ['./profil-imge-view.component.css']
 })
 export class ProfilImgeViewComponent implements OnInit {
-
+  @Input() id:string;
   navProfilePic: string = ''
 
-  constructor(private dialog: MatDialog, private homeSrvc: HomeService) { }
+  constructor(private profileSrvc: ProfileService,@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.homeSrvc.getUser().subscribe((res: UserSignupInterface) => {
+    this.profileSrvc.userById(this.data.id).subscribe((res: UserSignupInterface) => {
       this.navProfilePic = res.datas.profilePic;
-      console.log(res.datas.profilePic);
     }, (err) => {
       console.log(err);
-
     })
   }
 

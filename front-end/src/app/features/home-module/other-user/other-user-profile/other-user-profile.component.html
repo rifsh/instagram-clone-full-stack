@@ -1,7 +1,7 @@
 <main class="mt-5">
     <div class="profile d-flex align-items-center justify-content-between">
         <div class="profileImg">
-            <img class="rounded-circle" [src]="profileImg" alt="">
+            <img class="rounded-circle" (click)="viewingProfile()" [src]="profileImg" alt="">
         </div>
         <div class="userDetails">
             <div class="user-values d-flex align-items-start justify-content-between mb-2">
@@ -36,5 +36,6 @@
             TAGGED
         </button>
     </div>
+    <app-all-posts [userIds]="userId"></app-all-posts>
     <!-- <router-outlet name="userPosts"></router-outlet> -->
 </main>

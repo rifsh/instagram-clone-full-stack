@@ -48,5 +48,15 @@ export interface ViewpostInterface {
 export interface GetPostInterface {
     message: string,
     datas: [ViewpostInterface];
+}
 
+export interface LikesInterface {
+    _id: string,
+    username: string,
+    profilePic: string
+}
+
+export interface userPostsInterface {
+    image:string;
+    caption:string;
 }

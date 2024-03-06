@@ -1,0 +1,30 @@
+/* .main {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    grid-template-rows: 3;
+}
+
+.postImg {
+    background-color: lightblue;
+} */
+
+.main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Three equal columns */
+    grid-gap: 5px;
+    /* Gap between grid items */
+}
+
+.item {
+    background-color: #ddd;
+    text-align: center;
+    height: 200px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.item img {
+    width: 100%;
+}
