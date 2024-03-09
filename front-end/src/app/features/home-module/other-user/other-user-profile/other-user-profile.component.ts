@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from 'src/app/core/Services/profile.service';
 import { UserByIdInterface, UserDetailInterface } from 'src/app/model/userInterface';
 import { ProfilImgeViewComponent } from '../../user-profile/profil-imge-view/profil-imge-view.component';
+import { FollowUnfollowListComponent } from 'src/app/shared/follow-unfollow-list/follow-unfollow-list.component';
 
 @Component({
   selector: 'app-other-user-profile',
@@ -53,7 +54,7 @@ export class OtherUserProfileComponent implements OnInit {
       this.followers = res.datas.followers.length;
       this.following = res.datas.following.length;
       this.followBtn = res.datas.followers.filter((X) => { return X === mainUserId });
-      // console.log(res.datas.followers.filter((X) => { return X === mainUserId }));
+      this.user.push(res.datas);
 
       if (this.followBtn.length === 0) {
         this.buttonType = "follow";
@@ -74,7 +75,7 @@ export class OtherUserProfileComponent implements OnInit {
       } else if (res.message === "unFollowed") {
         this.buttonType = "follow";
         this.followBtnClass = true;
-      }
+      }      
     }, (err) => {
       console.log(err);
     })
@@ -84,7 +85,18 @@ export class OtherUserProfileComponent implements OnInit {
     this.dialog.open(ProfilImgeViewComponent, {
       data: { id: this.userId },
     });
-    
+
+  }
+
+  follow(value: string) {
+    this.dialog.open(FollowUnfollowListComponent, {
+      exitAnimationDuration: '1s',
+      data: {
+        followValue: value,
+        id: this.userId,
+        componentValue:'otheruser'
+      }
+    });
   }
 
 }

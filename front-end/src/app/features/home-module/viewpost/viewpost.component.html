@@ -17,8 +17,8 @@
             <div class="postlike d-flex align-items-center justify-content-between mt-2" style="width: 110px;">
                 <div class="like">
                     <button (click)="likeBtn(item._id,item.postedBy._id)">
-                        <!-- <span [ngClass]="{'liked': likeIconChanging()}" class="like-icon"></span> -->
-                        <span class="like-icon"></span>
+                        <span [ngClass]="{'liked': item.postedBy._id === 'userId' }" class="like-icon"></span>
+                        <!-- <span class="like-icon"></span> -->
                     </button>
                 </div>
                 <div class="comments">
@@ -39,6 +39,7 @@
             <div class="postCaption"> {{item.likes.length}} likes </div>
             <div class="postCaption">{{item.caption}}</div>
             <div class="viewComment">view commment</div>
+            <p>{{item.postedBy._id}}</p>
             <div class="addComment">
                 <form action="">
                     <input type="text" placeholder="Add comment">

@@ -1,5 +1,5 @@
 <main class="mt-5">
-    <div class="profile d-flex align-items-center justify-content-between">
+    <div class="profile">
         <div class="profileImg">
             <img class="rounded-circle" (click)="viewingProfile()" [src]="profileImg" alt="">
         </div>
@@ -12,8 +12,8 @@
             </div>
             <div class="user-status d-flex align-items-start justify-content-between">
                 <p>post</p>
-                <p><span style="font-weight: bold;">{{followers}}</span> followers</p>
-                <p><span style="font-weight: bold;"> {{following}} </span> following</p>
+                <a (click)="follow('followers')"><span style="font-weight: bold;">{{followers}}</span> followers</a>
+                <a (click)="follow('following')"><span style="font-weight: bold;"> {{following}} </span> following</a>
             </div>
             <div style="line-height: 3px;" class="user-bio d-flex flex-column align-items-start justify-content-center">
                 <p>{{userName}}</p>
@@ -31,11 +31,8 @@
             <span class="saved"></span>
             SAVED
         </button>
-        <button>
-            <span class="tagged"></span>
-            TAGGED
-        </button>
     </div>
     <app-all-posts [userIds]="userId"></app-all-posts>
     <!-- <router-outlet name="userPosts"></router-outlet> -->
 </main>
+<app-footer class="container"></app-footer>

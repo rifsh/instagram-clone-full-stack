@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userService = exports.userByIdSrvc = exports.userFollowingSrvc = exports.userProfileImgRemovesrvc = exports.userProfileImgChangeSrvc = exports.userProfileSrvc = exports.allUsers = void 0;
+exports.userService = exports.userByIdSrvc = exports.userFollowingRemoveSrvc = exports.userFollowerRemoveSrvc = exports.userFollowingList = exports.userFollowersList = exports.userUnfollow = exports.userFollowingSrvc = exports.userProfileImgRemovesrvc = exports.userProfileImgChangeSrvc = exports.userProfileSrvc = exports.allUsers = void 0;
 const userSchema_1 = require("../../model/schemas/userSchema");
 const customeErrorHandler_1 = require("../../utils/customeErrorHandler");
 const allUsers = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -105,8 +105,129 @@ const userFollowingSrvc = (followingId, followerId) => __awaiter(void 0, void 0,
     catch (error) {
         console.log(error);
     }
+    // try {
+    //     const followingUser = await userSignupModel.findById(followingId);
+    //     const followerUser = await userSignupModel.findById(followerId);
+    //     const followerFinding = await followingUser.following.includes(followerId);
+    //     if (followerFinding) {
+    //         return false;
+    //     } else {
+    //         if (followerUser && followerUser && !followerUser.followers.includes(followerId)) {
+    //             followingUser.following.push(followerId);
+    //             followingUser.save();
+    //             followerUser.followers.push(followingId);
+    //             followerUser.save();
+    //             return true
+    //         }
+    //     }
+    // } catch (error) {
+    //     console.log(error);
+    // }
 });
 exports.userFollowingSrvc = userFollowingSrvc;
+const userUnfollow = (followingId, followerId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const followingUser = yield userSchema_1.userSignupModel.findById(followingId);
+        const followerUser = yield userSchema_1.userSignupModel.findById(followerId);
+        if (followerUser && followerUser) {
+            const index = followingUser.following.indexOf(followerId);
+            followingUser.following.splice(index, 1);
+            followingUser.save();
+            const indexFollowers = followerUser.followers.indexOf(followerId);
+            followerUser.followers.splice(indexFollowers, 1);
+            followerUser.save();
+            return true;
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.userUnfollow = userUnfollow;
+const userFollowersList = (userId, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield userSchema_1.userSignupModel.findById(userId);
+    try {
+        if (!user) {
+            next(new customeErrorHandler_1.CustomeError('Something went wrong', 404));
+        }
+        else {
+            const followrsList = yield userSchema_1.userSignupModel.findById(userId).populate({
+                path: "followers",
+                select: ["username", "profilePic", "fullname"],
+            });
+            return followrsList;
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.userFollowersList = userFollowersList;
+const userFollowingList = (userId, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield userSchema_1.userSignupModel.findById(userId);
+    try {
+        if (!user) {
+            next(new customeErrorHandler_1.CustomeError('Something went wrong', 404));
+        }
+        else {
+            const followrsList = yield userSchema_1.userSignupModel.findById(userId).populate({
+                path: "following",
+                select: ["username", "profilePic", "fullname"],
+            });
+            return followrsList;
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.userFollowingList = userFollowingList;
+const userFollowerRemoveSrvc = (userId, removingId) => __awaiter(void 0, void 0, void 0, function* () {
+    const follower = yield userSchema_1.userSignupModel.findById(userId);
+    const following = yield userSchema_1.userSignupModel.findById(removingId);
+    try {
+        if (follower && following) {
+            const followerIndex = follower.followers.indexOf(removingId);
+            const followingIndex = following.following.indexOf(userId);
+            follower.followers.splice(followerIndex, 1);
+            follower.save();
+            following.following.splice(followingIndex, 1);
+            following.save();
+            return true;
+        }
+        else {
+            console.log('no user');
+            return false;
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.userFollowerRemoveSrvc = userFollowerRemoveSrvc;
+const userFollowingRemoveSrvc = (userId, removingId) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield userSchema_1.userSignupModel.findById(userId);
+    const followingUser = yield userSchema_1.userSignupModel.findById(removingId);
+    try {
+        if (user && followingUser) {
+            const userFollowingIndex = user.following.indexOf(removingId);
+            const followerIndex = followingUser.followers.indexOf(userId);
+            user.following.splice(userFollowingIndex, 1);
+            user.save();
+            followingUser.followers.splice(followerIndex, 1);
+            followingUser.save();
+            return true;
+        }
+        else {
+            console.log('no user');
+            return false;
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.userFollowingRemoveSrvc = userFollowingRemoveSrvc;
 const userByIdSrvc = (usrId, next) => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield userSchema_1.userSignupModel.findById(usrId);
     if (!users) {
@@ -123,5 +244,10 @@ exports.userService = {
     userProfileImgChangeSrvc: exports.userProfileImgChangeSrvc,
     userProfileImgRemovesrvc: exports.userProfileImgRemovesrvc,
     userFollowingSrvc: exports.userFollowingSrvc,
+    userUnfollow: exports.userUnfollow,
+    userFollowersList: exports.userFollowersList,
+    userFollowingList: exports.userFollowingList,
+    userFollowerRemoveSrvc: exports.userFollowerRemoveSrvc,
+    userFollowingRemoveSrvc: exports.userFollowingRemoveSrvc,
     userByIdSrvc: exports.userByIdSrvc
 };

@@ -13,7 +13,10 @@ export class ViewpostComponent implements OnInit {
   Likes: LikesInterface[] = [];
 
   liked: boolean = false;
-  userId: string = localStorage.getItem('userId');
+  // userId: string = localStorage.getItem('userId');
+  userId: {_id: string,
+    username: string,
+    profilePic: string}
 
 
   constructor(private postSrvc: PostService, private route: Router) { }
@@ -21,10 +24,11 @@ export class ViewpostComponent implements OnInit {
   ngOnInit(): void {
     this.postSrvc.getPost().subscribe((res: GetPostInterface) => {
       res.datas.map((x) => { return this.allPosts.push(x) });
-      console.log(this.allPosts.map((x) => { return x.likes.filter((x) => { return x._id === this.userId }) }));
+      console.log(this.allPosts.map((x)=>{ x.likes.includes(this.userId)}));
     }, (err) => {
       console.log(err);
     });
+    
   }
 
   likeBtn(id: string, userId: string) {

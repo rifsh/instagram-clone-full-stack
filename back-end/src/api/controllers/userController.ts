@@ -3,6 +3,7 @@ import catchAsync from "../middlewares/asyncHandler";
 import { userService } from "../services/userService/userService";
 import { UserProfileInterface } from "../model/interfaces/userInterfaces";
 import { CustomeError } from "../utils/customeErrorHandler";
+import { ObjectId } from "mongoose";
 
 
 export const allUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -45,8 +46,8 @@ export const profileImgChange = catchAsync(async (req: Request, res: Response, n
     }
 })
 export const userFollowing = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const followingUserId: string = req.params.id;
-    const followerUserId: string = req.body.followerId;
+    const followingUserId: any = req.params.id;
+    const followerUserId: any = req.body.followerId;
     const userFollow = await userService.userFollowingSrvc(followingUserId, followerUserId);
     if (userFollow) {
         res.status(200).json({
@@ -55,6 +56,70 @@ export const userFollowing = catchAsync(async (req: Request, res: Response, next
     } else {
         res.status(200).json({
             message: "unFollowed"
+        })
+    }
+    // const followingUserId: any = req.params.id;
+    // const followerUserId: any = req.body.followerId;
+    // const userFollow = await userService.userFollowingSrvc(followingUserId, followerUserId);
+    // if (userFollow) {
+    //     res.status(200).json({
+    //         message: "Following"
+    //     })
+    // } else {
+    //     next(new CustomeError('Something sent wrong', 404));    
+    // }
+})
+export const userUnfollow = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    // const followingUserId: any = req.params.id;
+    // const followerUserId: any = req.body.followerId;
+    // const userUnfollowing = await userService.userUnfollow(followingUserId, followerUserId);
+    // if (userUnfollowing) {
+    //     res.status(200).json({
+    //         message: "Unfollowed"
+    //     })
+    // }
+})
+export const userFollowersList = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId: string = req.params.id;
+    const datas = await userService.userFollowersList(userId, next);
+    res.status(200).json({
+        message: "OK",
+        datas
+    })
+})
+export const userFollowingList = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId: string = req.params.id;
+    const datas = await userService.userFollowingList(userId, next);
+    res.status(200).json({
+        message: "OK",
+        datas
+    })
+})
+export const userFollowerRemove = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId: any = req.params.id;
+    const removingId: ObjectId = req.body.followerId;
+    const values = await userService.userFollowerRemoveSrvc(userId, removingId);
+    if (values) {
+        res.status(200).json({
+            message: "Removed"
+        })
+    } else {
+        res.status(404).json({
+            message: "Something went wrong"
+        })
+    }
+})
+export const userFollowingRemove = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId: any = req.params.id;
+    const removingId: ObjectId = req.body.followingUser;
+    const values = await userService.userFollowingRemoveSrvc(userId, removingId);
+    if (values) {
+        res.status(200).json({
+            message: "Removed"
+        })
+    } else {
+        res.status(404).json({
+            message: "Something went wrong"
         })
     }
 })
@@ -76,5 +141,10 @@ export const userController = {
     profileImgChange,
     profileImgRemove,
     userFollowing,
+    userUnfollow,
+    userFollowersList,
+    userFollowingList,
+    userFollowerRemove,
+    userFollowingRemove,
     userById
 }   

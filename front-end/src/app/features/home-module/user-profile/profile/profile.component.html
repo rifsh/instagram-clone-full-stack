@@ -11,8 +11,8 @@
             </div>
             <div class="user-status d-flex align-items-start justify-content-between">
                 <p><span style="font-weight: bold;">{{userPosts.length}}</span> post</p>
-                <p><span style="font-weight: bold;">{{item.followers.length}}</span> followers</p>
-                <p><span style="font-weight: bold;"> {{item.following.length}} </span> following</p>
+                <a (click)="follow('followers')"><span style="font-weight: bold;">{{item.followers.length}}</span> followers</a>
+                <a (click)="follow('following')"><span style="font-weight: bold;"> {{item.following.length}} </span> following</a>
             </div>
             <div style="line-height: 3px;" class="user-bio d-flex flex-column align-items-start justify-content-center">
                 <p>{{item.username}}</p>
@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <!-- <app-user-post></app-user-post> -->
+    
     <div class="userThings">
         <button outlet="userPosts" (click)="posts()">
             <span class="posts"></span>
@@ -38,4 +38,4 @@
     <app-all-posts *ngIf="postTemplate" [userIds]="userId"></app-all-posts>
     <app-all-saved *ngIf="savedTemplate"></app-all-saved>
 </main>
-<app-footer></app-footer>
+<app-footer class="container"></app-footer>

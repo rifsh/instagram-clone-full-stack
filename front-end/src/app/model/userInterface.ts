@@ -51,3 +51,42 @@ export interface UserProfileDetailsInterace {
     followers: number;
     following: number;
 }
+
+export interface UserFollowersInterface {
+    message: String;
+    datas: {
+        _id: string;
+        phone: '+91';
+        password: string;
+        fullname: string;
+        username: string;
+        profilePic: string;
+        followers: [{
+            _id: string,
+            username: string,
+            fullname:string,
+            profilePic: string
+        }];
+        following: [{
+            _id: string,
+            username: string,
+            fullname:string,
+            profilePic: string
+        }];
+        dateOfBirth: Date;
+        gender: string;
+        links: string
+        bio: string;
+        createdOn: Date;
+        isVerified: boolean;
+        isDeleted: boolean;
+        isLogged: boolean;
+    }
+} 
+
+export interface FollowersLiset {
+    _id:string;
+    profilePic: string;
+    fullname:string;
+    username: string;
+}

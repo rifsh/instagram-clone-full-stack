@@ -30,7 +30,7 @@ export class LoginComponent {
         localStorage.setItem('userId',res.datas);
         this.loader = false;
         this.loginbtn = true;
-        this.router.navigate(['feature']);
+        this.router.navigate(['feature/home']);
         alert('Logged successfully')
       }
     }, (err) => {

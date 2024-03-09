@@ -1,11 +1,13 @@
+import { ObjectId } from "mongoose";
+
 export interface UserSighnupInterface {
     phone: '+91';
     password: string;
     fullname:string;
     username:string;
     profilePic:string;
-    followers:[string];
-    following:[string];
+    followers:[ObjectId];
+    following:[ObjectId];
     dateOfBirth: Date;
     gender:string;
     links:string

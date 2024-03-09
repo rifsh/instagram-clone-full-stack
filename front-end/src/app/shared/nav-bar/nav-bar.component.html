@@ -28,6 +28,14 @@
                 </a>
             </div>
         </div>
+        <div class="nav-options list-group list-group-flush mx-2 mt-5">
+            <a (click)="logOut()" outlet="primary"
+                class="list-group-item list-group-item-action py-2 ripple d-flex align-items-center"
+                aria-current="true">
+                <img class="rounded-circle" style="width: 26px;" src="../../../assets/side-nav/logout.png" alt="">
+                <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>LogOut</span>
+            </a>
+        </div>
     </nav>
     <!-- Sidebar -->
 

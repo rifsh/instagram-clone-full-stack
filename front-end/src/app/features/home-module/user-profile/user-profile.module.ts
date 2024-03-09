@@ -10,6 +10,7 @@ import { ProfilImgeViewComponent } from './profil-imge-view/profil-imge-view.com
 import { UserPostComponent } from './user-post/user-post.component';
 import { UserProfileRoutingModule } from './profile-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SearchUsersComponent } from './search-users/search-users.component';
 
 
 
@@ -20,6 +21,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ProfilImgeUpdationComponent,
     ProfilImgeViewComponent,
     UserPostComponent,
+    SearchUsersComponent,
 
   ],
   imports: [

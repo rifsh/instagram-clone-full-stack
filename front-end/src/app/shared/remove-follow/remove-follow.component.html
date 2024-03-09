@@ -1,0 +1,16 @@
+<main>
+    <div class="profilePic mt-3 mb-3">
+        <img class="rounded-circle" [src]="data.profile" alt="profile">
+    </div>
+    <div class="details d-flex flex-column align-items-center mt-2">
+        <h4>Remove follower?</h4>
+        <p>You are removing {{data.name}}</p>
+    </div>
+    <div class="buttons d-flex flex-column">
+        <button class="text-danger py-2 border-top" *ngIf="this.data.componentValue === 'removefollower' "
+            (click)="remove()">Remove</button>
+        <button class="text-danger py-2 border-top" *ngIf="this.data.componentValue === 'removefollowing'"
+            (click)="remove()" >Unfollow</button>
+        <button class="py-2 border-top" (click)="cancel()">Cancel</button>
+    </div>
+</main>

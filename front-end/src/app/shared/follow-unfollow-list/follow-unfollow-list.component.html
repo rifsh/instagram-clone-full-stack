@@ -1,0 +1,28 @@
+<main>
+    <div class="head mt-1">
+        <h6 *ngIf="followerHeading">Followers</h6>
+        <h6 *ngIf="followingHeading">Following</h6>
+    </div>
+    <!-- [(ngModel)]="searchValue" -->
+    <input class="mt-2" type="text" placeholder="Search"  (input)="searchOperation()">
+    <div class="top pe-2">
+        <h1 *ngIf="followerList.length === 0">No followers</h1>
+        <div class="list mt-2" *ngFor="let item of followerList">
+            <div class="first">
+                <div class="profilePic me-2"><img [src]="item.profilePic" alt="profile">
+                </div>
+                <div class="userDetials d-flex flex-column">
+                    <p>{{item.fullname}}</p>
+                    <p style="color: grey; font-size: 13px;">{{item.username}}</p>
+                </div>
+            </div>
+            <div class="second" *ngIf="userButtons">
+                <button *ngIf="followerHeading" (click)="removeFollower('removefollower',item._id)">Remove</button>
+                <button *ngIf="followingHeading" (click)="removeFollower('removefollowing',item._id)">Following</button>
+            </div>
+            <div class="second" *ngIf="otherUserButtons  && item._id !== '65dd630ca00a9b25af97873b'">
+                <button>Following</button>
+            </div>
+        </div>
+    </div>
+</main>

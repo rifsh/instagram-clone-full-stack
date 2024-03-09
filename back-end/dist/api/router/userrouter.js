@@ -16,4 +16,9 @@ exports.userRouter
     .put('/user-profile/:id', userController_1.userController.userProfile)
     .put('/user-profile-img/:id', imageUploading_1.userProfileimgUpload, userController_1.userController.profileImgChange)
     .post('/user-following/:id', userController_1.userController.userFollowing)
+    .post('/user-unfollow/:id', userController_1.userController.userUnfollow)
+    .get('/user-followers-list/:id', userController_1.userController.userFollowersList)
+    .get('/user-following-list/:id', userController_1.userController.userFollowingList)
+    .post('/user-follower-remove/:id', userController_1.userController.userFollowerRemove)
+    .post('/user-following-remove/:id', userController_1.userController.userFollowingRemove)
     .delete('/user-profile-remove/:id', userController_1.userController.profileImgRemove);

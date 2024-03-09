@@ -21,7 +21,6 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
     this.homeSrvc.getUser().subscribe((res: UserSignupInterface) => {
       this.navProfilePic = res.datas.profilePic;
-      console.log(res.datas.profilePic);
     }, (err) => {
       console.log(err);
 
@@ -31,7 +30,7 @@ export class NavBarComponent implements OnInit {
   navOptions: string[] = ['Home', 'Search', 'Explore', 'Reels', 'Message', 'Notifications', 'Create', 'Profile'];
   navigationItems = [
     { title: 'Home', icon: '../../../assets/side-nav/home.png', route: '/home' },
-    { title: 'Search', icon: '../../../assets/side-nav/search.png', route: '/feature' },
+    { title: 'Search', icon: '../../../assets/side-nav/search.png', route: '/user-search' },
     { title: 'Explore', icon: '../../../assets/side-nav/explore.png', route: '/feature' },
     { title: 'Reels', icon: '../../../assets/side-nav/reel.png', route: '/feature' },
     { title: 'Messages', icon: '../../../assets/side-nav/messages.png', route: '/feature' },
@@ -41,6 +40,11 @@ export class NavBarComponent implements OnInit {
 
   addPost() {
     this.dialog.open(AddPostComponent)
+  }
+
+  logOut() {
+    localStorage.clear();
+    this.router.navigate([''])
   }
 
 }

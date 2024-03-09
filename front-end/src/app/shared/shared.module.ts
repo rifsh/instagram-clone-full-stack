@@ -6,6 +6,9 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AllPostComponent } from './all-post/all-post.component';
 import { AllSavedComponent } from './all-saved/all-saved.component';
 import { FooterComponent } from './footer/footer.component';
+import { FollowUnfollowListComponent } from './follow-unfollow-list/follow-unfollow-list.component';
+import { RemoveFollowComponent } from './remove-follow/remove-follow.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -15,18 +18,23 @@ import { FooterComponent } from './footer/footer.component';
     NavBarComponent,
     AllPostComponent,
     AllSavedComponent,
-    FooterComponent
+    FooterComponent,
+    FollowUnfollowListComponent,
+    RemoveFollowComponent
   ],
   imports: [
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   exports:[
     GetAppComponent,
     NavBarComponent,
     AllPostComponent,
     AllSavedComponent,
-    FooterComponent
+    FooterComponent,
+    FollowUnfollowListComponent,
+    RemoveFollowComponent
   ]
 })
 export class SharedModule { }

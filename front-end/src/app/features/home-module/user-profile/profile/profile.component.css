@@ -2,13 +2,15 @@ main {
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     font-style: normal;
-    /* width: 700px; */
-    max-width: 700px;
+    width: 700px;
+}
+
+a {
+    cursor: pointer;
 }
 
 .profile {
     margin-bottom: 220px;
-    /* background-color: lightblue; */
     height: 200px;
     display: flex;
     align-items: center;

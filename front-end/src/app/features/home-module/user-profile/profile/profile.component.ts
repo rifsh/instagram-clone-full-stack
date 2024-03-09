@@ -6,6 +6,7 @@ import { UserDetailInterface, UserProfileDetailsInterace, UserSignupInterface } 
 import { ProfilImgeViewComponent } from '../profil-imge-view/profil-imge-view.component';
 import { PostService } from 'src/app/core/Services/post.service';
 import { GetPostInterface, userPostsInterface } from 'src/app/model/postResponseInterface';
+import { FollowUnfollowListComponent } from 'src/app/shared/follow-unfollow-list/follow-unfollow-list.component';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,7 @@ export class ProfileComponent {
   userDetails: UserDetailInterface[] = [];
   userId: string = localStorage.getItem('userId');
 
-  userPosts: userPostsInterface[] = []
+  userPosts: userPostsInterface[] = [];
 
   constructor(private homeSrvc: HomeService, private postSrvc: PostService, private router: Router, private dialog: MatDialog, private route: Router) { }
 
@@ -31,7 +32,7 @@ export class ProfileComponent {
       console.log(err);
     })
     this.postSrvc.getPost().subscribe((res: GetPostInterface) => {
-      this.userPosts = res.datas.filter((x) => { return x.postedBy._id === this.userId });  
+      this.userPosts = res.datas.filter((x) => { return x.postedBy._id === this.userId });
     }, (err) => {
       console.log(err);
     })
@@ -45,6 +46,17 @@ export class ProfileComponent {
 
   editProfile() {
     this.router.navigate(['edit-profile'])
+  }
+
+  follow(value: string) {
+    this.dialog.open(FollowUnfollowListComponent, {
+      exitAnimationDuration: '1s',
+      data: {
+        followValue: value,
+        id: this.userId,
+        componentValue:'user'
+      }
+    });
   }
 
   posts() {

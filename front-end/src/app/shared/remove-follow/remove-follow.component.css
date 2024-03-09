@@ -1,0 +1,41 @@
+main {
+    padding: 10px;
+    width: 400px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: start;
+    background-color: white;
+    border-radius: 20px;
+}
+
+p {
+    text-align: center;
+    font-size: 14px;
+    color: rgb(184, 184, 184);
+    max-width: 340px;
+}
+
+.profilePic {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    overflow: hidden;
+    /* border-radius: 50%; */
+}
+
+.profilePic img {
+    width: 100%;
+}
+
+.buttons {
+    width: 100%;
+}
+
+.buttons button{
+    text-align: center;
+    width: 100%;
+    background-color: white;
+    border: none;
+}

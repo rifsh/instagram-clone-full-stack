@@ -7,6 +7,7 @@ import { UserEditProfileComponent } from "./user-profile/user-edit-profile/user-
 import { ViewpostComponent } from "./viewpost/viewpost.component";
 import { OtherUserProfileComponent } from "./other-user/other-user-profile/other-user-profile.component";
 import { UserPostComponent } from "./user-profile/user-post/user-post.component";
+import { SearchUsersComponent } from "./user-profile/search-users/search-users.component";
 
 
 const router: Routes = [
@@ -16,7 +17,9 @@ const router: Routes = [
             { path: 'edit-profile', component: UserEditProfileComponent, outlet: 'primary' },
             { path: 'home', component: ViewpostComponent, outlet: 'primary' },
             { path: 'other-user-profile/:id', component: OtherUserProfileComponent, outlet: 'primary' },
-            { path: 'profile/user-post', component: UserPostComponent },
+            { path: 'user-search', component: SearchUsersComponent, outlet: 'primary' },
+            // { path: 'profile/user-post', component: UserPostComponent },
+
 
         ]
     }

@@ -20,6 +20,7 @@ export class UserEditProfileComponent implements OnInit {
   profileImg: string = '';
   userBio: string = '';
   gender: string = '';
+  
 
   constructor(private homeSrvc: HomeService, private dialog: MatDialog, private profileSrvc:ProfileService) { }
 

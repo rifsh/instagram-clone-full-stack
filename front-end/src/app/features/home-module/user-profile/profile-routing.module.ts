@@ -6,7 +6,7 @@ import { ProfileComponent } from "./profile/profile.component";
 
 
 const router: Routes = [
-    { path: 'userPosts', component: UserPostComponent, outlet: 'userPosts' },
+    // { path: 'userPosts', component: UserPostComponent, outlet: 'userPosts' },
 
 ]
 

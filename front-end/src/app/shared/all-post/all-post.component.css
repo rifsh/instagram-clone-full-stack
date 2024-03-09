@@ -1,26 +1,19 @@
-/* .main {
-    display: grid;
-    align-content: center;
-    justify-items: center;
-    grid-template-rows: 3;
-}
-
-.postImg {
-    background-color: lightblue;
-} */
-
 .main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* Three equal columns */
     grid-gap: 5px;
-    /* Gap between grid items */
+    /* min-height: 200px; */
+}
+
+h1 {
+    color: lightgray;
 }
 
 .item {
-    background-color: #ddd;
+    /* background-color: #ddd; */
     text-align: center;
-    height: 200px;
+    width: 230px;
+    height: 230px;
     object-fit: cover;
     overflow: hidden;
 }
