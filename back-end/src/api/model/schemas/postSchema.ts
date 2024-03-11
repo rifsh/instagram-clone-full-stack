@@ -42,7 +42,7 @@ const postSchema = new mongoose.Schema<UserPostInterface>({
     // Comments on the post (optional)
     comments: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Comment',
+        ref: 'comment',
         default: []
     },
     // Location associated with the post (optional)

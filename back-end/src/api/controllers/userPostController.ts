@@ -43,7 +43,7 @@ export const getPostById = catchAsync(async (req: Request, res: Response,) => {
     }
 })
 export const likePost = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const postId: string = req.params.id;    
+    const postId: string = req.params.id;
     const like: boolean = await userPostService.postLikeSrvc(postId, req.body.userId);
     if (like) {
         res.status(200).json({
@@ -55,9 +55,26 @@ export const likePost = catchAsync(async (req: Request, res: Response, next: Nex
         })
     }
 })
-export const postComment = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    
+export const addComment = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId: string = req.params.id;
+    const postId: string = req.body.postId;
+    const text: string = req.body.text;
+    const comment = await userPostService.addCommentSrvc(userId, postId, text);
+    if (comment) {
+        res.status(200).json({
+            message: "Commented"
+        })
+    } else {
+        res.status(404).json({
+            message: "Something went wrong"
+        })
+    }
 })
+export const postComments = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const postId:string = req.params.id;
+    userPostService.viewPostComments(postId)
+})
+
 export const deletePost = catchAsync(async (req: Request, res: Response,) => {
     const postDeleting = await userPostService.deletePostSSrvc(req.params.id);
     if (postDeleting) {
@@ -76,6 +93,6 @@ export const userPostController = {
     getPost,
     getPostById,
     likePost,
-    postComment,
+    addComment,
     deletePost
 }

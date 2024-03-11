@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { FollowUnfollowListComponent } from './follow-unfollow-list/follow-unfollow-list.component';
 import { RemoveFollowComponent } from './remove-follow/remove-follow.component';
 import { FormsModule } from '@angular/forms';
+import { PostViewingComponent } from './post-viewing/post-viewing.component';
 
 
 
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     AllSavedComponent,
     FooterComponent,
     FollowUnfollowListComponent,
-    RemoveFollowComponent
+    RemoveFollowComponent,
+    PostViewingComponent
   ],
   imports: [
     CommonModule,

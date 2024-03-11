@@ -23,7 +23,7 @@
                 </div>
                 <div class="comments">
                     <div class="like">
-                        <button>
+                        <button (click)="commentAndPostViewing(item._id)">
                             <span class="comment-icon"></span>
                         </button>
                     </div>
@@ -36,10 +36,10 @@
                     </div>
                 </div>
             </div>
-            <div class="postCaption"> {{item.likes.length}} likes </div>
+            <div class="postLikes"> {{item.likes.length}} likes </div>
             <div class="postCaption">{{item.caption}}</div>
             <div class="viewComment">view commment</div>
-            <p>{{item.postedBy._id}}</p>
+            <!-- <p>{{item.postedBy._id}}</p> -->
             <div class="addComment">
                 <form action="">
                     <input type="text" placeholder="Add comment">

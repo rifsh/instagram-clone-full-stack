@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userPostController = exports.deletePost = exports.postComment = exports.likePost = exports.getPostById = exports.getPost = exports.userAddPost = void 0;
+exports.userPostController = exports.deletePost = exports.postComments = exports.addComment = exports.likePost = exports.getPostById = exports.getPost = exports.userAddPost = void 0;
 const asyncHandler_1 = __importDefault(require("../middlewares/asyncHandler"));
 const userPostService_1 = require("../services/userService/userPostService");
 exports.userAddPost = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -71,7 +71,25 @@ exports.likePost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(voi
         });
     }
 }));
-exports.postComment = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.addComment = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.params.id;
+    const postId = req.body.postId;
+    const text = req.body.text;
+    const comment = yield userPostService_1.userPostService.addCommentSrvc(userId, postId, text);
+    if (comment) {
+        res.status(200).json({
+            message: "Commented"
+        });
+    }
+    else {
+        res.status(404).json({
+            message: "Something went wrong"
+        });
+    }
+}));
+exports.postComments = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const postId = req.params.id;
+    userPostService_1.userPostService.viewPostComments(postId);
 }));
 exports.deletePost = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const postDeleting = yield userPostService_1.userPostService.deletePostSSrvc(req.params.id);
@@ -91,6 +109,6 @@ exports.userPostController = {
     getPost: exports.getPost,
     getPostById: exports.getPostById,
     likePost: exports.likePost,
-    postComment: exports.postComment,
+    addComment: exports.addComment,
     deletePost: exports.deletePost
 };
