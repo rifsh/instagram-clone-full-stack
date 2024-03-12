@@ -7,24 +7,31 @@
 
 .main {
     width: 600px;
-    padding: 10px;
     display: flex;
-    /* background-color: lightblue; */
     flex-direction: column;
     align-items: flex-start;
-    /* box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2); */
+}
+
+.postLikes {
+    font-weight: 500;
+}
+
+.viewComment{
+    color: grey;
+    font-weight: 400;
+    font-size: 14px;
 }
 
 .postCaption {
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .userDetails {
-    width: 100px;
+    width: 94px;
 }
 
 .profileImg {
-    border-radius: 50%;
+    border-radius: 100%;
     overflow: hidden;
 }
 
@@ -46,17 +53,27 @@
 
 .addComment input {
     border: none;
-    width: 600px;
+    flex: 1;
+    /* width: 600px; */
     padding: 5px 0px;
+    font-weight: 300;
 }
 
 .addComment input:focus {
     outline: none;
+    /* background-color: white; */
 }
 
 .addComment {
-    box-shadow: 0px 8px 8px -5px rgba(80, 80, 80, 0.75);
+    box-shadow: 0px 8px 8px -5px rgba(196, 196, 196, 0.75);
     /* Box shadow properties */
+    display: flex;
+}
+
+
+.addComment button {
+    color: #007bff;
+    font-weight: 500;
 }
 
 .like-icon {

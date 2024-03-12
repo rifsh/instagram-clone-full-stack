@@ -2,5 +2,7 @@
     <div class="postImg">
         <img [src]="profilePic" alt="post-img">
     </div>
-    <div class="comment">comment</div>
+    <div class="comment">
+        <app-comments [id]="data.id" [comments]="allComments"></app-comments>
+    </div>
 </main>

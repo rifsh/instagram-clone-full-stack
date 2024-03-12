@@ -7,10 +7,10 @@ import { ProfilImgeUpdationComponent } from './profil-imge-updation/profil-imge-
 import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProfilImgeViewComponent } from './profil-imge-view/profil-imge-view.component';
-import { UserPostComponent } from './user-post/user-post.component';
 import { UserProfileRoutingModule } from './profile-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SearchUsersComponent } from './search-users/search-users.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 
@@ -20,7 +20,6 @@ import { SearchUsersComponent } from './search-users/search-users.component';
     ProfileComponent,
     ProfilImgeUpdationComponent,
     ProfilImgeViewComponent,
-    UserPostComponent,
     SearchUsersComponent,
 
   ],
@@ -30,6 +29,7 @@ import { SearchUsersComponent } from './search-users/search-users.component';
     MatDialogModule,
     SharedModule,
     MatProgressSpinnerModule, 
+    MatSidenavModule,
     UserProfileRoutingModule
   ]
 })

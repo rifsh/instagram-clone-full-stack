@@ -30,8 +30,9 @@ export class UserEditProfileComponent implements OnInit {
       this.userName = res.datas.username;
       this.fullName = res.datas.fullname;
       this.profileImg = res.datas.profilePic;
-      this.userBio = res.datas.bio;
-      this.gender = res.datas.gender;
+      // this.userBio = res.datas.bio;
+      // this.gender = res.datas.gender;
+      
     }, (err) => {
       console.log(err);
     })

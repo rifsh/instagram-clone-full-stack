@@ -71,8 +71,18 @@ export const addComment = catchAsync(async (req: Request, res: Response, next: N
     }
 })
 export const postComments = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const postId:string = req.params.id;
-    userPostService.viewPostComments(postId)
+    const postId: string = req.params.id;
+    const datas = await userPostService.viewPostComments(postId);
+    if (datas) {
+        res.status(200).json({
+            message: "OK",
+            datas
+        })
+    } else {
+        res.status(404).json({
+            message: "Something went wrong"
+        })
+    }
 })
 
 export const deletePost = catchAsync(async (req: Request, res: Response,) => {
@@ -94,5 +104,6 @@ export const userPostController = {
     getPostById,
     likePost,
     addComment,
+    postComments,
     deletePost
 }

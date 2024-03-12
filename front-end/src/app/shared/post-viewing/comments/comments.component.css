@@ -1,0 +1,18 @@
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+.author {
+    border-bottom: thin solid rgb(225, 225, 225);
+}
+
+.commentText {
+    color: rgb(100, 100, 100);
+    font-size: 15px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+img {
+    width: 45px;
+}

@@ -10,6 +10,7 @@ import { GetPostInterface, userPostsInterface } from 'src/app/model/postResponse
 export class PostService {
 
   http: HttpClient = inject(HttpClient);
+  userId: string = localStorage.getItem('userId');
 
   constructor() { }
 
@@ -42,6 +43,16 @@ export class PostService {
     }, (err) => {
       console.log(err);
     })
+  }
+
+  addComment(comment: string, postId: string): Observable<object> {
+    const text = { text: comment, postId: postId };
+
+    return this.http.post(`http://localhost:3000/post/add-comment/${this.userId}`, text)
+  }
+
+  viewComments(postId:string):Observable<object> {
+    return this.http.get(`http://localhost:3000/post/post-comment/${postId}`)
   }
 
 }

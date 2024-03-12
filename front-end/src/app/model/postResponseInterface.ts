@@ -13,7 +13,6 @@ export interface PostInterface {
         coordinates: [string]
     }
 }
-
 export interface PostResponseInterface {
     message: string,
     datas: PostInterface
@@ -49,14 +48,28 @@ export interface GetPostInterface {
     message: string,
     datas: [ViewpostInterface];
 }
-
 export interface LikesInterface {
     _id: string,
     username: string,
     profilePic: string
 }
-
 export interface userPostsInterface {
-    image:string;
-    caption:string;
+    image: string;
+    caption: string;
+}
+export interface PostCommentInterface {
+    _id: string;
+    text: string;
+    author: {
+        _id: string;
+        username: string;
+        profilePic: string;
+    }
+    post: string;
+    liek: [string];
+    date: Date
+}
+export interface ViewCommentsInterface {
+    messages: string;
+    datas: [PostCommentInterface]
 }

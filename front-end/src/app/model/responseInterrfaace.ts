@@ -8,3 +8,8 @@ export interface LoginResponseInterface {
     token:string;
     datas:string
 }
+
+export interface StandardResponseInterface {
+    message:string;
+    datas
+}

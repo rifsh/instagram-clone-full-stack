@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserPostComponent } from './user-post.component';
+import { CommentsComponent } from './comments.component';
 
-describe('UserPostComponent', () => {
-  let component: UserPostComponent;
-  let fixture: ComponentFixture<UserPostComponent>;
+describe('CommentsComponent', () => {
+  let component: CommentsComponent;
+  let fixture: ComponentFixture<CommentsComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UserPostComponent]
+      declarations: [CommentsComponent]
     });
-    fixture = TestBed.createComponent(UserPostComponent);
+    fixture = TestBed.createComponent(CommentsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

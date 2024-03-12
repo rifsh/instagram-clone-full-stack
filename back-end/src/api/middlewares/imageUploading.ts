@@ -23,7 +23,7 @@ cloudin.config({
     api_secret: process.env.API_SECRET
 });
 
-export const userProfileimgUpload = async(req: Request, res: Response, next: NextFunction) => {
+export const userProfileimgUpload = async (req: Request, res: Response, next: NextFunction) => {
     upload.single("profilePic")(req, res, async (err) => {
         // const file = req.file;
         // console.log(req.file);
@@ -33,9 +33,9 @@ export const userProfileimgUpload = async(req: Request, res: Response, next: Nex
         try {
             const result = await cloudin.uploader.upload(req.file.path, {
                 folder: "userpofile",
-                transformation:[
-                    {width:500,height:500,crop:'fill'}
-                ]   
+                transformation: [
+                    { width: 500, height: 500, crop: 'fill' }
+                ]
             });
             req.body.image = result.secure_url;
             fs.unlink(req.file.path, (unlinker) => {
@@ -48,9 +48,9 @@ export const userProfileimgUpload = async(req: Request, res: Response, next: Nex
             next(new CustomeError('Error uploading image file to Cloudinary', 404));
         }
     })
-} 
+}
 
-export const  userAddPostimgUpload = async(req: Request, res: Response, next: NextFunction) => {
+export const userAddPostimgUpload = async (req: Request, res: Response, next: NextFunction) => {
     upload.single("img")(req, res, async (err) => {
         // const file = req.file;
         // console.log(req.file);
@@ -59,7 +59,8 @@ export const  userAddPostimgUpload = async(req: Request, res: Response, next: Ne
         }
         try {
             const result = await cloudin.uploader.upload(req.file.path, {
-                folder: "Posts"
+                folder: "Posts",
+                
             })
             req.body.image = result.secure_url;
             fs.unlink(req.file.path, (unlinker) => {

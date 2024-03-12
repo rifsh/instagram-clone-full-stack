@@ -10,6 +10,9 @@ import { FollowUnfollowListComponent } from './follow-unfollow-list/follow-unfol
 import { RemoveFollowComponent } from './remove-follow/remove-follow.component';
 import { FormsModule } from '@angular/forms';
 import { PostViewingComponent } from './post-viewing/post-viewing.component';
+import { CommentsComponent } from './post-viewing/comments/comments.component';
+import { SideSearchComponent } from './side-search/side-search.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 
@@ -22,12 +25,15 @@ import { PostViewingComponent } from './post-viewing/post-viewing.component';
     FooterComponent,
     FollowUnfollowListComponent,
     RemoveFollowComponent,
-    PostViewingComponent
+    PostViewingComponent,
+    CommentsComponent,
+    SideSearchComponent
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatSidenavModule
   ],
   exports:[
     GetAppComponent,
@@ -36,7 +42,8 @@ import { PostViewingComponent } from './post-viewing/post-viewing.component';
     AllSavedComponent,
     FooterComponent,
     FollowUnfollowListComponent,
-    RemoveFollowComponent
+    RemoveFollowComponent,
+    SideSearchComponent
   ]
 })
 export class SharedModule { }

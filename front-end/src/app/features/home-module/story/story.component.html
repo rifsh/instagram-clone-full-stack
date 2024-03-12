@@ -1,3 +1,17 @@
-<div class="main">
-    <!-- <h1>Story</h1> -->
+<div class="stories">
+    <div *ngIf="!fetched" class="story-loader">
+        <img alt="Loading..." src="/assets/img/loader.gif" height="32" width="32" />
+    </div>
+    <div *ngIf="fetched" class="story-inner">
+        <div class="story-inner-inner">
+            <app-story-icon *ngFor="let story of storiess; let i = index" [ngStyle]="styleTransform[i]"
+                [index]="i" [story]="story"></app-story-icon>
+        </div>
+    </div>
+    <div *ngIf="storyIndex > 3" class="slide-arrow slide-arrow-left" (click)="clickPrevStory()">
+        <div class="slide-arrow-icon slide-arrow-icon-left"></div>
+    </div>
+    <div *ngIf="stories.length > storyIndex + 7" class="slide-arrow slide-arrow-right" (click)="clickNextStory()">
+        <div class="slide-arrow-icon slide-arrow-icon-right"></div>
+    </div>
 </div>

@@ -89,7 +89,18 @@ exports.addComment = (0, asyncHandler_1.default)((req, res, next) => __awaiter(v
 }));
 exports.postComments = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const postId = req.params.id;
-    userPostService_1.userPostService.viewPostComments(postId);
+    const datas = yield userPostService_1.userPostService.viewPostComments(postId);
+    if (datas) {
+        res.status(200).json({
+            message: "OK",
+            datas
+        });
+    }
+    else {
+        res.status(404).json({
+            message: "Something went wrong"
+        });
+    }
 }));
 exports.deletePost = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const postDeleting = yield userPostService_1.userPostService.deletePostSSrvc(req.params.id);
@@ -110,5 +121,6 @@ exports.userPostController = {
     getPostById: exports.getPostById,
     likePost: exports.likePost,
     addComment: exports.addComment,
+    postComments: exports.postComments,
     deletePost: exports.deletePost
 };

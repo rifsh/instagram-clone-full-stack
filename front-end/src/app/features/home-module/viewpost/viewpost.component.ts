@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/core/Services/post.service';
-import { GetPostInterface, LikesInterface, PostInterface, ViewpostInterface } from 'src/app/model/postResponseInterface';
+import { GetPostInterface, LikesInterface, PostInterface, ViewCommentsInterface, ViewpostInterface } from 'src/app/model/postResponseInterface';
 import { PostViewingComponent } from 'src/app/shared/post-viewing/post-viewing.component';
 
 @Component({
@@ -15,13 +16,8 @@ export class ViewpostComponent implements OnInit {
   Likes: LikesInterface[] = [];
 
   liked: boolean = false;
-  // userId: string = localStorage.getItem('userId');
-  userId: {
-    _id: string,
-    username: string,
-    profilePic: string
-  }
 
+  @ViewChild('addCommentForm') commentForm: NgForm
 
   constructor(private postSrvc: PostService, private route: Router, private dialog: MatDialog) { }
 
@@ -32,7 +28,6 @@ export class ViewpostComponent implements OnInit {
     }, (err) => {
       console.log(err);
     });
-
   }
 
   likeBtn(id: string, userId: string) {
@@ -56,10 +51,25 @@ export class ViewpostComponent implements OnInit {
     }
   }
 
-  commentAndPostViewing(id:string) {
-    this.dialog.open(PostViewingComponent,{
-      data: {id: id}
+  commentAdding(postId:string) {
+    this.postSrvc.addComment(this.commentForm.value.text,postId).subscribe((res:{message:string})=>{
+      console.log(res);
+      if (res.message === 'Commented') {
+        this.commentForm.setValue({
+          text: ''
+        })
+      }
+
+    },(err)=>{
+      console.log(err);
     })
   }
+
+  commentAndPostViewing(id: string) {
+    this.dialog.open(PostViewingComponent, {
+      data: { id: id }
+    })
+  }
+
 
 }

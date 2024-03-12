@@ -36,8 +36,8 @@ export const getPostSrvc = async (): Promise<object> => {
             path: "likes",
             select: ["username", "profilePic"],
         }).populate({
-            path:'comments',
-            select:['text','author']
+            path: 'comments',
+            select: ['text', 'author']
         })
         if (posts) {
             return posts
@@ -49,13 +49,13 @@ export const getPostSrvc = async (): Promise<object> => {
 
     }
 }
-export const getPostByidSrvc = async (postId: string): Promise<UserPostInterface> => {
+export const getPostByidSrvc = async (postId: string): Promise<UserPostInterface | boolean> => {
     try {
         const postFinding = await postModel.findById(postId);
         if (postFinding) {
             return postFinding
         } else {
-            return
+            return false
         }
     } catch (error) {
         console.log(error.message);
@@ -104,10 +104,17 @@ export const addCommentSrvc = async (userId: string, postId: string, text: strin
 export const viewPostComments = async (postId: string) => {
     try {
         const postFinding = await postModel.findById(postId);
-        if (postFinding) {
+        if (!postFinding) {
             return false
         }
-        const posts = (await postModel.findById(postId)).populated
+        if (postFinding) {
+            const comments = await postCommentModel.find({ post: postId }).populate({
+                path: 'author',
+                select: ['username', 'profilePic']
+            })
+            return comments
+        }
+
     } catch (error) {
         console.log(error);
     }

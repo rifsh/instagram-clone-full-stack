@@ -9,6 +9,7 @@ import { PostModule } from './post/post.module';
 import { ViewpostComponent } from './viewpost/viewpost.component';
 import { StoryComponent } from './story/story.component';
 import { OtherUserModule } from './other-user/other-user.module';
+import { StoryIconComponent } from './story/story-icon/story-icon.component';
 
 
 
@@ -17,6 +18,7 @@ import { OtherUserModule } from './other-user/other-user.module';
     HomePageComponent,
     ViewpostComponent,
     StoryComponent,
+    StoryIconComponent,
   ],
   imports: [
     CommonModule,

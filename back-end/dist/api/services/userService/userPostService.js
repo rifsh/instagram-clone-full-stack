@@ -70,7 +70,7 @@ const getPostByidSrvc = (postId) => __awaiter(void 0, void 0, void 0, function* 
             return postFinding;
         }
         else {
-            return;
+            return false;
         }
     }
     catch (error) {
@@ -121,10 +121,16 @@ exports.addCommentSrvc = addCommentSrvc;
 const viewPostComments = (postId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const postFinding = yield postSchema_1.postModel.findById(postId);
-        if (postFinding) {
+        if (!postFinding) {
             return false;
         }
-        const posts = (yield postSchema_1.postModel.findById(postId)).populated;
+        if (postFinding) {
+            const comments = yield commentSchema_1.default.find({ post: postId }).populate({
+                path: 'author',
+                select: ['username', 'profilePic']
+            });
+            return comments;
+        }
     }
     catch (error) {
         console.log(error);

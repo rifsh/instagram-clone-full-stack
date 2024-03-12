@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./search-users.component.css']
 })
 export class SearchUsersComponent {
+  isVisible = false;
 
+  toggleVisibility() {
+    this.isVisible = !this.isVisible;
+  }
 }

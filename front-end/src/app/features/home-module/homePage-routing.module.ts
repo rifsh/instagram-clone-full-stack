@@ -6,7 +6,6 @@ import { ProfileComponent } from "./user-profile/profile/profile.component";
 import { UserEditProfileComponent } from "./user-profile/user-edit-profile/user-edit-profile.component";
 import { ViewpostComponent } from "./viewpost/viewpost.component";
 import { OtherUserProfileComponent } from "./other-user/other-user-profile/other-user-profile.component";
-import { UserPostComponent } from "./user-profile/user-post/user-post.component";
 import { SearchUsersComponent } from "./user-profile/search-users/search-users.component";
 
 
