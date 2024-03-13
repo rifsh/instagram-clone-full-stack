@@ -66,7 +66,7 @@ export const userProfileImgRemovesrvc = async (userId: string) => {
         return false;
     }
 }
-export const userFollowingSrvc = async (followingId: ObjectId, followerId: ObjectId): Promise<boolean> => { 
+export const userFollowingSrvc = async (followingId: ObjectId, followerId: ObjectId): Promise<boolean> => {
     try {
         const followingUser = await userSignupModel.findById(followingId);
         const followerUser = await userSignupModel.findById(followerId);
@@ -133,7 +133,7 @@ export const userFollowersList = async (userId: string, next: NextFunction) => {
         } else {
             const followrsList = await userSignupModel.findById(userId).populate({
                 path: "followers",
-                select: ["username", "profilePic", "fullname"],
+                select: ["username", "profilePic", "fullname", "followers", "following"],
             })
             return followrsList
         }

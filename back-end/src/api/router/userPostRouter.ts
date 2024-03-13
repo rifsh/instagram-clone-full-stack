@@ -12,4 +12,4 @@ postRouter
 .post('/like-post/:id', userPostController.likePost)
 .post('/add-comment/:id', userPostController.addComment)
 .get('/post-comment/:id', userPostController.postComments)
-.delete('/delete-post/:id', userPostController.deletePost)
+.post('/delete-post/:id', userPostController.deletePost)

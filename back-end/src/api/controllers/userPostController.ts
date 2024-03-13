@@ -86,7 +86,8 @@ export const postComments = catchAsync(async (req: Request, res: Response, next:
 })
 
 export const deletePost = catchAsync(async (req: Request, res: Response,) => {
-    const postDeleting = await userPostService.deletePostSSrvc(req.params.id);
+    const postId: string = req.body.postId;
+    const postDeleting = await userPostService.deletePostSSrvc(req.params.id, postId);
     if (postDeleting) {
         res.status(200).json({
             message: "Successfully removed",

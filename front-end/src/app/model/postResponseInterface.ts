@@ -54,6 +54,7 @@ export interface LikesInterface {
     profilePic: string
 }
 export interface userPostsInterface {
+    _id:string;
     image: string;
     caption: string;
 }

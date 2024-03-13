@@ -103,7 +103,8 @@ exports.postComments = (0, asyncHandler_1.default)((req, res, next) => __awaiter
     }
 }));
 exports.deletePost = (0, asyncHandler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const postDeleting = yield userPostService_1.userPostService.deletePostSSrvc(req.params.id);
+    const postId = req.body.postId;
+    const postDeleting = yield userPostService_1.userPostService.deletePostSSrvc(req.params.id, postId);
     if (postDeleting) {
         res.status(200).json({
             message: "Successfully removed",

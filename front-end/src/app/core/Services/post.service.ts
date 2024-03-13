@@ -51,8 +51,15 @@ export class PostService {
     return this.http.post(`http://localhost:3000/post/add-comment/${this.userId}`, text)
   }
 
-  viewComments(postId:string):Observable<object> {
+  viewComments(postId: string): Observable<object> {
     return this.http.get(`http://localhost:3000/post/post-comment/${postId}`)
+  }
+
+  postDelete(postid:string): Observable<object> {
+    console.log(this.userId);
+    
+    const postId = { postId: postid };
+    return this.http.post(`http://localhost:3000/post/delete-post/${this.userId}`,postId)
   }
 
 }

@@ -16,4 +16,4 @@ exports.postRouter
     .post('/like-post/:id', userPostController_1.userPostController.likePost)
     .post('/add-comment/:id', userPostController_1.userPostController.addComment)
     .get('/post-comment/:id', userPostController_1.userPostController.postComments)
-    .delete('/delete-post/:id', userPostController_1.userPostController.deletePost);
+    .post('/delete-post/:id', userPostController_1.userPostController.deletePost);

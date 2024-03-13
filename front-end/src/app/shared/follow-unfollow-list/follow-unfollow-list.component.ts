@@ -17,7 +17,7 @@ export class FollowUnfollowListComponent implements OnInit {
 
 
   followerList: FollowersLiset[] = [];
-  searchValue:string;
+  searchValue: string;
   followerHeading: boolean = false;
   followingHeading: boolean = false;
   userButtons: boolean;
@@ -43,15 +43,27 @@ export class FollowUnfollowListComponent implements OnInit {
       this.followingHeading = false;
       this.profileSrvc.getFollowers(this.data.id).subscribe((res: UserFollowersInterface) => {
         res.datas.followers.map((x) => { return this.followerList.push(x) });
+        // console.log(res.datas.followers.map((x)=>{return x.following.filter((x)=>{return x._id === this.userId})}));
+        // console.log(this.followerList.map((x)=>{return x.following}).filter((x)=>{return x}))
+
+        // console.log(res.datas.followers.filter((x)=>{return x._id === this.userId}));
 
       }, (err) => {
         console.log(err);
       })
+      // this.profileSrvc.getFollowing(this.userId).subscribe((res: UserFollowersInterface) => {
+      //   res.datas.followers.map((x) => { return this.followerList.push(x) });
+
+      // }, (err) => {
+      //   console.log(err);
+      // })
+
     } else if (this.data.followValue === "following") {
       this.followingHeading = true;
       this.followerHeading = false;
-      this.profileSrvc.getFolling(this.data.id).subscribe((res: UserFollowersInterface) => {
-        res.datas.following.map((x) => { return this.followerList.push(x) });
+      this.profileSrvc.getFollowing(this.data.id).subscribe((res: UserFollowersInterface) => {
+        // res.datas.following.map((x) => { return this.followerList.push(x) });
+
       }, (err) => {
         console.log(err);
       })
@@ -60,9 +72,9 @@ export class FollowUnfollowListComponent implements OnInit {
 
   searchOperation() {
     this.searchText.emit(this.searchValue);
-    console.log(this.followerList.filter((x)=>{return x.fullname.toLowerCase().includes(this.searchValue) || x.username.toLowerCase().includes(this.searchValue) }));
+    // console.log(this.followerList.filter((x)=>{return x.fullname.toLowerCase().includes(this.searchValue) || x.username.toLowerCase().includes(this.searchValue) }));
     // console.log(this.followerList);
-    
+
   }
 
   removeFollower(componentName: string, userId: string) {

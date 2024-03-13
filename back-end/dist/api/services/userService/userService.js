@@ -153,7 +153,7 @@ const userFollowersList = (userId, next) => __awaiter(void 0, void 0, void 0, fu
         else {
             const followrsList = yield userSchema_1.userSignupModel.findById(userId).populate({
                 path: "followers",
-                select: ["username", "profilePic", "fullname"],
+                select: ["username", "profilePic", "fullname", "followers", "following"],
             });
             return followrsList;
         }

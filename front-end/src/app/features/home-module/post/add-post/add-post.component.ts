@@ -11,6 +11,7 @@ import { PostResponseInterface } from 'src/app/model/postResponseInterface';
 })
 export class AddPostComponent {
 
+  uploadPage:boolean = true;
   file: File = null;
   loading: boolean = false;
   postBtn: boolean = true;
@@ -41,6 +42,7 @@ export class AddPostComponent {
     if (event.target.files.length > 0) {
       this.file = <File>event.target.files[0];
       this.formValues.value.image = this.file;
+      this.uploadPage = false;
     }
 
   }

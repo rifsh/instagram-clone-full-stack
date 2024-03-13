@@ -39,7 +39,7 @@ export class NavBarComponent implements OnInit {
     { title: 'Explore', icon: '../../../assets/side-nav/explore.png', route: '/feature' },
     { title: 'Reels', icon: '../../../assets/side-nav/reel.png', route: '/feature' },
     { title: 'Messages', icon: '../../../assets/side-nav/messages.png', route: '/feature' },
-    { title: 'Notifications', icon: '../../../assets/side-nav/notifications.png', route: '/feature' },
+    { title: 'Notifications', icon: '../../../assets/side-nav/notifications.png', route: '/notification' },
     // { title: 'Create', icon: '../../../assets/side-nav/create.png', route: '/feature' },
   ];
 

@@ -119,11 +119,14 @@ export const viewPostComments = async (postId: string) => {
         console.log(error);
     }
 }
-export const deletePostSSrvc = async (postId: string): Promise<boolean> => {
+export const deletePostSSrvc = async (userId: string, postId: string): Promise<boolean> => {
     const postFinding = await postModel.findById(postId);
+    const userFind = await userSignupModel.findById(userId);
+    
     try {
-        if (postFinding) {
-            const postDeleting = await postModel.findByIdAndDelete(postId);
+        if (postFinding && userFind) {
+            const postDeleting = await postModel.findByIdAndDelete(postId);            
+            postFinding.save();
             return true
         } else {
             return false

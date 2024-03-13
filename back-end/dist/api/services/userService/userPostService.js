@@ -137,11 +137,13 @@ const viewPostComments = (postId) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.viewPostComments = viewPostComments;
-const deletePostSSrvc = (postId) => __awaiter(void 0, void 0, void 0, function* () {
+const deletePostSSrvc = (userId, postId) => __awaiter(void 0, void 0, void 0, function* () {
     const postFinding = yield postSchema_1.postModel.findById(postId);
+    const userFind = yield userSchema_1.userSignupModel.findById(userId);
     try {
-        if (postFinding) {
+        if (postFinding && userFind) {
             const postDeleting = yield postSchema_1.postModel.findByIdAndDelete(postId);
+            postFinding.save();
             return true;
         }
         else {

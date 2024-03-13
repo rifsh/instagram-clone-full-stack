@@ -1,17 +1,26 @@
 <main>
-    <div class="author p-2 d-flex align-items-center">
-        <img class="rounded-circle me-3" [src]="userPofilePic" alt="">
-        <p class="mt-3"> {{userName}} </p>
-    </div>
-    <h1 style="text-align: center;" *ngIf="comments.length===0">No comments</h1>
-    <div class="comments mt-4" *ngFor="let item of comments">
-        <div class="profile d-flex align-items-center ms-3">
-            <div class="profileImg me-3">
-                <img class="rounded-circle" [src]="item.author.profilePic" alt="profile">
-            </div>
-            <div class="commentText"><span
-                    style="font-weight: 500;color: black;">{{item.author.username}}</span>.&nbsp;&nbsp;{{item.text}}
+    <!-- <div class="author p-2 d-flex align-items-center justify-content-between">
+        <div class="authorDetails d-flex">
+            <img class="rounded-circle me-3" [src]="userPofilePic" alt="">
+            <p class="mt-3"> {{userName}} </p>
+        </div>
+        <div class="options">
+            <img src="../../../../assets/post/3-dots.png" style="width: 15px;" (click)="postEdit()" role="button" alt="">
+        </div>
+    </div> -->
+    <h1 style="text-align: center; color: rgb(219, 219, 219); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"
+        *ngIf="comments.length===0">No comments</h1>
+    <form action="">
+
+        <div class="comments mt-4" *ngFor="let item of comments">
+            <div class="profile d-flex align-items-center ms-3">
+                <div class="profileImg me-3">
+                    <img class="rounded-circle" [src]="item.author.profilePic" alt="profile">
+                </div>
+                <div class="commentText"><span
+                        style="font-weight: 500;color: black;">{{item.author.username}}</span>.&nbsp;&nbsp;{{item.text}}
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </main>

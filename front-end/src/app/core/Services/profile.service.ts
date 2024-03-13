@@ -45,7 +45,7 @@ export class ProfileService {
     return this.http.get(`http://localhost:3000/clone/user-followers-list/${id}`)
   }
 
-  getFolling(id: string): Observable<object> {
+  getFollowing(id: string): Observable<object> {
     return this.http.get(`http://localhost:3000/clone/user-following-list/${id}`)
   }
 

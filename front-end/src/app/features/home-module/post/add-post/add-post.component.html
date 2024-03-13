@@ -1,26 +1,34 @@
-<div class="main d-flex flex-column align-items-center justify-content-center" *ngIf="uploadBtn">
-    <form action="" #addPostImg="ngForm">
-        <input type="file" id="file-input" accept=".jpg, .jpeg, .png" name="img" ngModel (change)="selectFile($event)">
+<div class="topMain" *ngIf="uploadPage">
+    <div class="main d-flex flex-column align-items-center justify-content-center" *ngIf="uploadBtn">
+        <div class="heading mb-4">
+            <h5>Create new post</h5>
+        </div>
+        <img class="mb-3" src="../../../../../assets/post/gallery.png" alt="">
+        <p>Drag photos and videos here</p>
+        <form action="" #addPostImg="ngForm">
+            <input type="file" id="file-input" accept=".jpg, .jpeg, .png" name="img" ngModel
+                (change)="selectFile($event)">
 
-        <button class="file-upload-button" onclick="document.getElementById('file-input').click()">
-            Select File
-        </button>
-    </form>
-</div>
-
-<div class="postImg" *ngIf="postImg">
-    <div class="nextBtn">
-        <button (click)="next()">Next</button>
+            <button class="file-upload-button btn btn-primary" onclick="document.getElementById('file-input').click()">
+                Select from computer
+            </button>
+        </form>
     </div>
-    <div class="postingImg">
-        <img [src]="selectedImage" width="80%" alt="">
-    </div>
 </div>
 
-<div class="postCaption" *ngIf="postCaption" style="text-align: center;">
-    <form action="" #addPostImg="ngForm">
-        <input type="text" name="caption" ngModel placeholder="Enter Caption">
-    </form>
-    <button class="mt-4 btn btn-primary" (click)="addPost()"><span *ngIf="postBtn">Add Post</span><span
-            *ngIf="loading">Posting...</span></button>
-</div>
+    <div class="postImg" *ngIf="postImg">
+        <div class="nextBtn">
+            <button (click)="next()">Next</button>
+        </div>
+        <div class="postingImg">
+            <img [src]="selectedImage" width="100%" alt="">
+        </div>
+    </div>
+
+    <div class="postCaption" *ngIf="postCaption" style="text-align: center;">
+        <form action="" #addPostImg="ngForm">
+            <input type="text" name="caption" ngModel placeholder="Enter Caption">
+        </form>
+        <button class="mt-4 btn btn-primary" (click)="addPost()"><span *ngIf="postBtn">Add Post</span><span
+                *ngIf="loading">Posting...</span></button>
+    </div>

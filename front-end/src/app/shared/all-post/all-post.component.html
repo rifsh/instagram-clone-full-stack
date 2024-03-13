@@ -1,6 +1,6 @@
 <div class="main">
     <h1 *ngIf="userPosts.length === 0">No posts</h1>
     <div *ngFor="let item of userPosts" class="item">
-        <img [src]="item.image" alt="">
+        <img role="button" (click)="commentAndPostViewing(item._id)" [src]="item.image" alt="">
     </div>
 </div>

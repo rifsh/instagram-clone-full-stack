@@ -64,14 +64,18 @@ export interface UserFollowersInterface {
         followers: [{
             _id: string,
             username: string,
-            fullname:string,
-            profilePic: string
+            fullname: string,
+            profilePic: string,
+            followers: [string],
+            following: [string]
         }];
         following: [{
             _id: string,
             username: string,
-            fullname:string,
-            profilePic: string
+            fullname: string,
+            profilePic: string,
+            followers: [string],
+            following: [string]
         }];
         dateOfBirth: Date;
         gender: string;
@@ -82,11 +86,12 @@ export interface UserFollowersInterface {
         isDeleted: boolean;
         isLogged: boolean;
     }
-} 
+}
 
 export interface FollowersLiset {
-    _id:string;
+    _id: string;
     profilePic: string;
-    fullname:string;
+    fullname: string;
     username: string;
+    following?: [string]
 }

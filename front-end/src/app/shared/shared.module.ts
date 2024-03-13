@@ -13,6 +13,8 @@ import { PostViewingComponent } from './post-viewing/post-viewing.component';
 import { CommentsComponent } from './post-viewing/comments/comments.component';
 import { SideSearchComponent } from './side-search/side-search.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { NotificationComponent } from './notification/notification.component';
+import { PostEditComponent } from './post-viewing/post-edit/post-edit.component';
 
 
 
@@ -27,7 +29,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     RemoveFollowComponent,
     PostViewingComponent,
     CommentsComponent,
-    SideSearchComponent
+    SideSearchComponent,
+    NotificationComponent,
+    PostEditComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +47,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     FooterComponent,
     FollowUnfollowListComponent,
     RemoveFollowComponent,
-    SideSearchComponent
+    SideSearchComponent,
   ]
 })
 export class SharedModule { }

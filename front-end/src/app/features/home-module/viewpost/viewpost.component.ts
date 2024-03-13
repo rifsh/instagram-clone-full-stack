@@ -17,14 +17,14 @@ export class ViewpostComponent implements OnInit {
 
   liked: boolean = false;
 
-  @ViewChild('addCommentForm') commentForm: NgForm
+  @ViewChild('addCommentForm') commentForm: NgForm;
 
   constructor(private postSrvc: PostService, private route: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.postSrvc.getPost().subscribe((res: GetPostInterface) => {
       res.datas.map((x) => { return this.allPosts.push(x) });
-      // console.log(this.allPosts.map((x) => { x.likes.includes(this.userId) }));
+      this.allPosts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     }, (err) => {
       console.log(err);
     });
@@ -51,8 +51,8 @@ export class ViewpostComponent implements OnInit {
     }
   }
 
-  commentAdding(postId:string) {
-    this.postSrvc.addComment(this.commentForm.value.text,postId).subscribe((res:{message:string})=>{
+  commentAdding(postId: string) {
+    this.postSrvc.addComment(this.commentForm.value.text, postId).subscribe((res: { message: string }) => {
       console.log(res);
       if (res.message === 'Commented') {
         this.commentForm.setValue({
@@ -60,7 +60,7 @@ export class ViewpostComponent implements OnInit {
         })
       }
 
-    },(err)=>{
+    }, (err) => {
       console.log(err);
     })
   }
