@@ -1,7 +1,8 @@
 import { ObjectId } from "mongoose";
 
 export interface UserSighnupInterface {
-    phone: '+91';
+    // phone: '+91';
+    email:string;
     password: string;
     fullname:string;
     username:string;
@@ -24,6 +25,6 @@ export interface UserDobInterface {
     year: string;
 }
 export interface UserLoginInterface {
-    phoneorusername:string;
+    userEmail:string;
     password: string
 }

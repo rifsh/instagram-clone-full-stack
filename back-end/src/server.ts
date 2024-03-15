@@ -20,7 +20,7 @@ io.on("connection",(socket)=>{
     socketRoutes(socket,io)
 })
 
-app.listen(process.env.PORT, () => {
+httpServer.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 })
 

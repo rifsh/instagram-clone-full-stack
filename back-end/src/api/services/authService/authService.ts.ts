@@ -2,14 +2,16 @@ import { Response } from "express";
 import { UserLoginInterface, UserDobInterface, UserSighnupInterface } from "../../model/interfaces/userSighnupInterface";
 import { userSignupModel } from "../../model/schemas/userSchema";
 import otpModel from "../../model/schemas/otpSchema";
-import { userToken } from "../../utils/token";
+import bcrypt from 'bcrypt';
 
 const userSighnupSrvc = async (userDetails: UserSighnupInterface): Promise<UserSighnupInterface> => {
-
+    console.log(userDetails.email);
+    
     try {
         if (userDetails) {
             const userDetail = await userSignupModel.create({
-                phone: `+91${userDetails.phone}`,
+                // phone: `+91${userDetails.phone}`,
+                email:userDetails.email,
                 fullname: userDetails.fullname,
                 username: userDetails.username,
                 password: userDetails.password
@@ -25,12 +27,12 @@ const userOtpValidationSrvc = async (userId?: string, otp?: string): Promise<boo
     try {
         const user = userSignupModel.findById(userId);
 
-        const phNum: string = (await user).phone;
+        const email: string = ((await user).email);
 
-        const validation = await otpModel.findOne({ phoneNumber: phNum });
+        const validation = await otpModel.findOne({ email: email });
 
         const validated = validation.otp === otp;
-        if (!phNum) {
+        if (!email) {
             return false
         }
 
@@ -85,16 +87,17 @@ const userOtpSendingSrvc = async (userId: string) => {
     // }
 }
 const userLoginSrvc = async (res: Response, userValues: UserLoginInterface): Promise<boolean | string> => {
-    const userByUsername = await userSignupModel.findOne({ username: userValues.phoneorusername });
-    const userByUserPhone = await userSignupModel.findOne({ phone: `+91${userValues.phoneorusername}` });
-
+    const userByUsername = await userSignupModel.findOne({ username: userValues.userEmail });
+    const userByUserPhone = await userSignupModel.findOne({ email: userValues.userEmail });
+    console.log(userValues.userEmail);
+    
     if (userByUserPhone || !userByUsername) {
         try {
             if (!await userByUserPhone.comparePassword(userValues.password, userByUserPhone.password) || !userByUserPhone) {
                 return false
             }
             else if (userByUserPhone.isVerified === true) {
-                const isLogged = await userSignupModel.findOneAndUpdate({ phone: `+91${userValues.phoneorusername}` }, { $set: { isLogged: true } });
+                const isLogged = await userSignupModel.findOneAndUpdate({ email: userValues.userEmail }, { $set: { isLogged: true } });
                 isLogged.save();
                 return isLogged.id
 
@@ -110,7 +113,7 @@ const userLoginSrvc = async (res: Response, userValues: UserLoginInterface): Pro
                 return false
             }
             else if (userByUsername.isVerified === true) {
-                const isLogged = await userSignupModel.findOneAndUpdate({ username: userValues.phoneorusername }, { $set: { isLogged: true } });
+                const isLogged = await userSignupModel.findOneAndUpdate({ username: userValues.userEmail }, { $set: { isLogged: true } });
                 isLogged.save();
                 return isLogged.id
             } else {
@@ -121,6 +124,24 @@ const userLoginSrvc = async (res: Response, userValues: UserLoginInterface): Pro
         }
     } else {
         return false
+    }
+}
+const userPasswordResetingSrvc = async (userId: string, prevPassword: string, password: string) => {
+    const userFinding = await userSignupModel.findById(userId);
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    try {
+        if (userFinding) {
+            const passwordMatching = await userFinding.comparePassword(prevPassword, userFinding.password);
+            if (passwordMatching && password.length > 0) {
+                await userSignupModel.findByIdAndUpdate(userId, { password: hashedPassword });
+                return true
+            } else {
+                return false;
+            }
+        }
+    } catch (error) {
+        console.log(error);
     }
 }
 const userDeletingSrvc = async (userId: string): Promise<boolean> => {
@@ -144,5 +165,6 @@ export const userAuthService = {
     phoneNumberCahngeSrvc,
     userOtpSendingSrvc,
     userLoginSrvc,
+    userPasswordResetingSrvc,
     userDeletingSrvc,
 }

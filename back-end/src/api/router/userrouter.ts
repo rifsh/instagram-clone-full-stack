@@ -19,3 +19,4 @@ userRouter
 .post('/user-follower-remove/:id',userController.userFollowerRemove)
 .post('/user-following-remove/:id',userController.userFollowingRemove)
 .delete('/user-profile-remove/:id',userController.profileImgRemove)
+.get('/user-messages/:id',userController.userMessages)

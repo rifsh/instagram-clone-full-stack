@@ -5,6 +5,7 @@ import { SignupComponent } from './signup/signup.component';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AppAuthRoutingModule } from './auth-routing.module';
 
 
 
@@ -17,7 +18,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     FormsModule,
     MatProgressSpinnerModule,
-    SharedModule 
+    SharedModule,
+    AppAuthRoutingModule
   ]
 })
 export class AuthModuleModule { }

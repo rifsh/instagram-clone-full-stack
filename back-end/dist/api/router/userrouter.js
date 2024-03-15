@@ -21,4 +21,5 @@ exports.userRouter
     .get('/user-following-list/:id', userController_1.userController.userFollowingList)
     .post('/user-follower-remove/:id', userController_1.userController.userFollowerRemove)
     .post('/user-following-remove/:id', userController_1.userController.userFollowingRemove)
-    .delete('/user-profile-remove/:id', userController_1.userController.profileImgRemove);
+    .delete('/user-profile-remove/:id', userController_1.userController.profileImgRemove)
+    .get('/user-messages/:id', userController_1.userController.userMessages);

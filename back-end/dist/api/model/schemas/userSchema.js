@@ -16,7 +16,7 @@ exports.userSignupModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const schema = new mongoose_1.default.Schema({
-    phone: {
+    email: {
         type: String,
         required: [true, 'Emial or phone number is required'],
         unique: true

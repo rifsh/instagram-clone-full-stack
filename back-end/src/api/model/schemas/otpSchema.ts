@@ -7,7 +7,8 @@ const otpSchema = new mongoose.Schema<OtpInterface>({
         type: mongoose.Types.ObjectId,
         ref: userSignupModel
     },
-    phoneNumber: String,
+    // phoneNumber: String,
+    email: String,
     otp: String,
     otpExpared: Date
 })

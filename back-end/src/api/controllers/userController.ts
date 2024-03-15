@@ -133,6 +133,23 @@ export const profileImgRemove = catchAsync(async (req: Request, res: Response, n
         next(new CustomeError('Something went wrong', 404));
     }
 })
+export const userMessages = catchAsync(async (req: Request, res: Response, next: NextFunction) => { 
+    const userChatId:string=req.params.id;
+    const senderId:string=req.user._id;
+    const datas = await userService.userMessageSrvc(userChatId,senderId);
+    console.log(datas);
+    
+    if (datas) {
+        res.status(200).json({
+            status:'success',
+            message:datas.messages
+        })
+    }else {
+        res.status(404).json({
+            message:"Something sent wrong"
+        })
+    }
+})
 
 
 export const userController = {
@@ -146,5 +163,6 @@ export const userController = {
     userFollowingList,
     userFollowerRemove,
     userFollowingRemove,
+    userMessages,
     userById
 }   

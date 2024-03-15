@@ -8,10 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userService = exports.userByIdSrvc = exports.userFollowingRemoveSrvc = exports.userFollowerRemoveSrvc = exports.userFollowingList = exports.userFollowersList = exports.userUnfollow = exports.userFollowingSrvc = exports.userProfileImgRemovesrvc = exports.userProfileImgChangeSrvc = exports.userProfileSrvc = exports.allUsers = void 0;
+exports.userService = exports.userMessageSrvc = exports.userByIdSrvc = exports.userFollowingRemoveSrvc = exports.userFollowerRemoveSrvc = exports.userFollowingList = exports.userFollowersList = exports.userUnfollow = exports.userFollowingSrvc = exports.userProfileImgRemovesrvc = exports.userProfileImgChangeSrvc = exports.userProfileSrvc = exports.allUsers = void 0;
 const userSchema_1 = require("../../model/schemas/userSchema");
 const customeErrorHandler_1 = require("../../utils/customeErrorHandler");
+const conversationSchema_1 = __importDefault(require("../../model/schemas/conversationSchema"));
 const allUsers = () => __awaiter(void 0, void 0, void 0, function* () {
     const users = userSchema_1.userSignupModel.find({});
     return users;
@@ -238,6 +242,11 @@ const userByIdSrvc = (usrId, next) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.userByIdSrvc = userByIdSrvc;
+const userMessageSrvc = (userCahtId, senderId) => __awaiter(void 0, void 0, void 0, function* () {
+    const converstions = yield conversationSchema_1.default.findOne({ participants: { $all: [senderId, userCahtId] } }).populate("messages");
+    return converstions;
+});
+exports.userMessageSrvc = userMessageSrvc;
 exports.userService = {
     allUsers: exports.allUsers,
     userProfileSrvc: exports.userProfileSrvc,
@@ -249,5 +258,6 @@ exports.userService = {
     userFollowingList: exports.userFollowingList,
     userFollowerRemoveSrvc: exports.userFollowerRemoveSrvc,
     userFollowingRemoveSrvc: exports.userFollowingRemoveSrvc,
+    userMessageSrvc: exports.userMessageSrvc,
     userByIdSrvc: exports.userByIdSrvc
 };

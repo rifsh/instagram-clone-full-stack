@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ResponseInterface } from '../../../model/responseInterrfaace';
+import { OtpResponseInterface, ResponseInterface } from '../../../model/responseInterrfaace';
 import { AuthServiceService } from 'src/app/core/Services/auth-service.service';
 import { UserSignupInterface } from 'src/app/model/userInterface';
 
@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit {
   next: boolean = true;
   OtpValidationPage: boolean = false;
   changeNumberPage: boolean = false;
-  phone: string;
+  email: string;
 
   @ViewChild('signupForm') signupForm: NgForm;
   @ViewChild('dobForm') dobForm: NgForm;
@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
   years: number[] = [...Array(200).keys()].map((i) => 2024 - i);
 
   ngOnInit(): void {
-    this.phone = localStorage.getItem('phone').slice(3, 13);
+    this.email = localStorage.getItem('phone');
 
   }
 
@@ -45,9 +45,9 @@ export class SignupComponent implements OnInit {
 
   signup() {
     this.authSrvc.signUpSrvc(this.signupForm).subscribe((res: UserSignupInterface) => {
-      console.log(res.datas._id);
+      console.log(res);
       if (res.status === 200) {
-        localStorage.setItem('phone', res.datas.phone);
+        localStorage.setItem('email', res.datas.email);
         localStorage.setItem('userId', res.datas._id);
         this.dobPage = true;
         this.signupPage = false;
@@ -80,9 +80,10 @@ export class SignupComponent implements OnInit {
   }
 
   otpValidation() {
-    this.phone = localStorage.getItem('phone').slice(3, 13);
-    this.authSrvc.otpValidationSrvc(this.otpForm).subscribe((res: ResponseInterface) => {
+    this.email = localStorage.getItem('email');
+    this.authSrvc.otpValidationSrvc(this.otpForm).subscribe((res: OtpResponseInterface) => {
       if (res.message === 'Otp verified') {
+        localStorage.setItem('token',res.token);
         alert('OTP verified');
         this.route.navigate(['feature']);
       } else {

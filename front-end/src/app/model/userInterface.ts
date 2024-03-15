@@ -3,7 +3,7 @@ export interface UserSignupInterface {
     message: String;
     datas: {
         _id: string;
-        phone: '+91';
+        email: string;
         password: string;
         fullname: string;
         username: string;

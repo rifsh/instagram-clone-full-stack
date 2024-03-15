@@ -4,7 +4,7 @@ import { UserSighnupInterface } from "../interfaces/userSighnupInterface";
 import { NextFunction } from "express";
 
 const schema = new mongoose.Schema<UserSighnupInterface>({
-    phone: {
+    email: {
         type: String,
         required: [true, 'Emial or phone number is required'],
         unique: true
@@ -21,33 +21,33 @@ const schema = new mongoose.Schema<UserSighnupInterface>({
     username: {
         type: String,
         required: [true, 'Username is required'],
-        unique:true
+        unique: true
 
     },
-    profilePic:{
-        type:String,
-        default:"https://imgs.search.brave.com/NLpgWA-anJ89n8ggNMg1F78gPFBzCLCKFaGd-SBIVHE/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1LzA5LzU5Lzc1/LzM2MF9GXzUwOTU5/NzUzMl9SS1V1WXNF/UmhPRG1reGtaZDgy/cFNIbkZ0REF0Z2J6/Si5qcGc"
+    profilePic: {
+        type: String,
+        default: "https://imgs.search.brave.com/NLpgWA-anJ89n8ggNMg1F78gPFBzCLCKFaGd-SBIVHE/rs:fit:860:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1LzA5LzU5Lzc1/LzM2MF9GXzUwOTU5/NzUzMl9SS1V1WXNF/UmhPRG1reGtaZDgy/cFNIbkZ0REF0Z2J6/Si5qcGc"
     },
-    followers:{
+    followers: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'userSignup',
     },
-    following:{
+    following: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'userSignup',
     },
-    links:[{
-        type:String
+    links: [{
+        type: String
     }],
-    gender:{
-        type:String
+    gender: {
+        type: String
     },
-    dateOfBirth:{
-        type:Date,
+    dateOfBirth: {
+        type: Date,
     },
-    bio:{
-        type:String,
-        default:""
+    bio: {
+        type: String,
+        default: ""
     },
     createdOn: {
         type: Date,

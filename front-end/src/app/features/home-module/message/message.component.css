@@ -1,0 +1,120 @@
+main {
+    /* background-color: lightcoral; */
+    height: 100vh;
+    width: 1000px;
+    display: flex;
+    position: relative;
+}
+
+.users {
+    height: 90%;
+    position: fixed;
+    margin-left: -10px;
+    top: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    border-radius: 10px;
+    padding: 0px;
+    overflow: scroll;
+    overflow-x: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chats {    
+    /* background-color: lightblue; */
+    position: absolute;
+    right: 0;
+    top: 20px;
+    height: 90%;
+    width: 710px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.userDetails {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.userThings {
+    /* width: 100px; */
+    object-fit: cover;
+    overflow: hidden;
+    color: black;
+    display: flex;
+    align-items: center;
+}
+
+.userThings img {
+    width: 60px;
+}
+
+.chatMain {
+    /* height: 85%; */
+}
+.otherUser {
+    text-align: left;
+    padding: 5px;
+    /* background-color: lightblue; */
+}
+.currentUser{
+    /* background-color: lightcoral; */
+    text-align: right;
+    padding: 5px;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+.notification {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.notification img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    float: left;
+}
+
+.notification-content {
+    overflow: hidden;
+}
+
+.addComment input {
+    /* border: none; */
+    /* width: 600px; */
+    padding: 5px 0px;
+    font-weight: 300;
+}
+
+.addComment input:focus {
+    outline: none;
+    /* background-color: white; */
+}
+
+.addComment {
+    /* box-shadow: 0px 8px 8px -5px rgba(196, 196, 196, 0.75); */
+    /* Box shadow properties */
+    display: flex;
+}
+
+
+.addComment button {
+    color: #007bff;
+    font-weight: 500;
+    background-color: white;
+    border: none;
+}
+
+@media screen and (max-width: 600px) {
+    .notification img {
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -19,7 +19,7 @@
             </div>
             <div class="form" style="height: 200px; text-align: center;">
                 <form class="d-flex flex-column justify-content-between" #signupForm="ngForm" style="height: 170px;">
-                    <input type="text" placeholder="Mobile Number or Email" required name="phone" ngModel>
+                    <input type="email" placeholder="Email" required name="email" ngModel>
                     <input type="text" placeholder="Full Name" required name="fullname" ngModel>
                     <input type="text" placeholder="Username" required name="username" ngModel>
                     <input type="password" placeholder="Password" required name="password" ngModel>
@@ -123,7 +123,7 @@
                 <h6>Just one more step
                 </h6>
             </div>
-            <p style="font-size: 17px;">Enter the 6-digit code we sent to: {{phone}} </p>
+            <p style="font-size: 17px;">Enter the 6-digit code we sent to: {{email}} </p>
             <div class="form" style="text-align: center;">
                 <form #dobForm="ngForm" #otpForm="ngForm">
                     <input maxlength="6" class="otp-Inp" type="otp" placeholder="######" name="otp" required ngModel>
@@ -159,7 +159,7 @@
                 <h6>Change phone number
                 </h6>
             </div>
-            <p style="font-size: 17px;">Current phone number: {{phone}}</p>
+            <p style="font-size: 17px;">Current phone number: {{email}}</p>
             <div class="form" style="text-align: center;">
                 <form #dobForm="ngForm" #changeNumberFrom="ngForm">
                     <input class="otp-Inp" type="otp" placeholder="New phone number" name="phone" required ngModel>

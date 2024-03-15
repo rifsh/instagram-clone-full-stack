@@ -11,5 +11,7 @@ userAuthRouter.post('/user-signup', UserAuthController.userOtpSend)
 .post('/change-phone-number/:id',UserAuthController.userPhoneNumberChange)
 .post('/otp-send/:id',UserAuthController.otpSending)
 .post('/login',UserAuthController.userLogin)
+.post('/reset-password/:id', UserAuthController.userPaaswordReseting)
+.post('/forgot-password/:id', UserAuthController.userForgotPassword)
 .delete('/userDeleting/:id',UserAuthController.userDelting)
 // .post

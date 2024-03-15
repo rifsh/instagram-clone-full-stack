@@ -19,7 +19,8 @@ const otpSchema = new mongoose_1.default.Schema({
         type: mongoose_1.default.Types.ObjectId,
         ref: userSchema_1.userSignupModel
     },
-    phoneNumber: String,
+    // phoneNumber: String,
+    email: String,
     otp: String,
     otpExpared: Date
 });

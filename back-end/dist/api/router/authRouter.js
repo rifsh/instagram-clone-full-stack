@@ -15,5 +15,7 @@ exports.userAuthRouter.post('/user-signup', authController_1.UserAuthController.
     .post('/change-phone-number/:id', authController_1.UserAuthController.userPhoneNumberChange)
     .post('/otp-send/:id', authController_1.UserAuthController.otpSending)
     .post('/login', authController_1.UserAuthController.userLogin)
+    .post('/reset-password/:id', authController_1.UserAuthController.userPaaswordReseting)
+    .post('/forgot-password/:id', authController_1.UserAuthController.userForgotPassword)
     .delete('/userDeleting/:id', authController_1.UserAuthController.userDelting);
 // .post

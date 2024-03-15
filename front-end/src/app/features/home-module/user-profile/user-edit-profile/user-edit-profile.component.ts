@@ -20,9 +20,9 @@ export class UserEditProfileComponent implements OnInit {
   profileImg: string = '';
   userBio: string = '';
   gender: string = '';
-  
 
-  constructor(private homeSrvc: HomeService, private dialog: MatDialog, private profileSrvc:ProfileService) { }
+
+  constructor(private homeSrvc: HomeService, private dialog: MatDialog, private profileSrvc: ProfileService) { }
 
   ngOnInit(): void {
     this.homeSrvc.getUser().subscribe((res: UserSignupInterface) => {
@@ -32,7 +32,13 @@ export class UserEditProfileComponent implements OnInit {
       this.profileImg = res.datas.profilePic;
       // this.userBio = res.datas.bio;
       // this.gender = res.datas.gender;
-      
+      this.profileEdit.setValue({
+        fullname: res.datas.fullname,
+        username: res.datas.username,
+        bio: res.datas.bio,
+        gender: res.datas.gender
+
+      })
     }, (err) => {
       console.log(err);
     })
@@ -43,11 +49,11 @@ export class UserEditProfileComponent implements OnInit {
   }
 
   submit() {
-    this.profileSrvc.updateProfile(this.profileEdit).subscribe((res)=>{
+    this.profileSrvc.updateProfile(this.profileEdit).subscribe((res) => {
       console.log(res);
-    },(err)=>{
+    }, (err) => {
       console.log(err);
-      
+
     })
   }
 

@@ -4,6 +4,13 @@ import catchAsync from "./asyncHandler";
 import { CustomeError } from "../utils/customeErrorHandler";
 import { userSignupModel } from '../model/schemas/userSchema';
 
+declare global {
+    namespace Express {
+        interface Request {
+            user?;
+        }
+    }
+}
 
 export const userRouteProtector = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     let token: string;
@@ -25,6 +32,8 @@ export const userRouteProtector = catchAsync(async (req: Request, res: Response,
     if (!user) {
         next(new CustomeError('User is not present', 401));
     }
+
+    req.user = user
 
     next()
 

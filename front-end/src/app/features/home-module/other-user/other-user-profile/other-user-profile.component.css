@@ -40,16 +40,16 @@ a {
     width: 300px;
 }
 
-.userDetails button {
-    background-color: rgb(234, 234, 234);
-    border: none;
-    border-radius: 5px;
-    padding: 2px 10px;
-}
+    .userDetails button {
+        background-color: rgb(234, 234, 234);
+        border: none;
+        border-radius: 5px;
+        padding: 2px 10px;
+    }
 
-.userDetails button:hover {
-    background-color: rgb(200, 200, 200);
-}
+    .userDetails button:hover {
+        background-color: rgb(200, 200, 200);
+    }
 
 .user-values,
 .user-status,

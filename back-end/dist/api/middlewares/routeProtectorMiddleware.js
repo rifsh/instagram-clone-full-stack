@@ -33,5 +33,6 @@ exports.userRouteProtector = (0, asyncHandler_1.default)((req, res, next) => __a
     if (!user) {
         next(new customeErrorHandler_1.CustomeError('User is not present', 401));
     }
+    req.user = user;
     next();
 }));

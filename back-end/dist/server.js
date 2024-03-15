@@ -20,6 +20,6 @@ const io = new socket_io_1.Server(httpServer, {
 io.on("connection", (socket) => {
     (0, route_1.default)(socket, io);
 });
-_1.default.listen(process.env.PORT, () => {
+httpServer.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });

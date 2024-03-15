@@ -8,7 +8,7 @@
                 <p class="me-5" style="font-weight: 500;"> {{fullName}} </p>
                 <button *ngIf="followBtn" [ngClass]="{'class1': followBtnClass, 'class2':!followBtnClass}"
                     (click)="followAndUnFollow()">{{ buttonType === 'follow' ? 'Follow' : 'Following' }} </button>
-                <button>Message</button>
+                <button (click)="gotToMessage()">Message</button>
             </div>
             <div class="user-status d-flex align-items-start justify-content-between">
                 <p>post</p>

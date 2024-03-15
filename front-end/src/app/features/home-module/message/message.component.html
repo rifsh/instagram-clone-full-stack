@@ -1,0 +1,39 @@
+<main>
+    <div class="users">
+        <div class="container">
+            <div role="button" (click)="userMessaging(item._id)" class="notification" *ngFor="let item of allusers">
+                <img [src]="item.profilePic" alt="Profile Picture">
+                <div class="notification-content">
+                    <p><strong>{{item.username}}</strong></p>
+                    <p>Message to {{item.fullname}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chats">
+        <div class="userDetails mt-2 p-1">
+            <div class="userThings ms-3">
+                <img class="rounded-circle" [src]="userProfile" alt="profile">
+                <p class="mt-2 ms-3">{{userName}}</p>
+            </div>
+        </div>
+
+        <!-- message -->
+        <div class="chatMain mt-3" *ngFor="let item of messageArray">
+            <div class="otherUser" *ngIf="item.reciever === userId">
+                <p>{{item.message}}</p>
+                <small class="text-gray-300 block">{{ item.createdAt | date:'shortTime' }}</small>
+            </div>
+            <div class="currentUser" *ngIf="item.sender === userId">
+                <p>{{item.message}}</p>
+                <small class="text-gray-300 block">{{ item.createdAt | date:'shortTime' }}</small>
+            </div>
+        </div>
+        <form action="" #messageForm="ngForm">
+            <div class="addComment mb-2">
+                <input type="text" name="message" ngModel required>
+                <button (click)="sendMessage()">Send</button>
+            </div>
+        </form>
+    </div>
+</main>

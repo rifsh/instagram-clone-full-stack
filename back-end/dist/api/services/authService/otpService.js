@@ -14,70 +14,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.otpService = exports.otpVerfying = exports.sentOtp = void 0;
 const twilio_1 = __importDefault(require("twilio"));
-const phoneValidation_1 = __importDefault(require("../../utils/phoneValidation"));
 const generateOtp_1 = __importDefault(require("../../utils/generateOtp"));
 const otpSchema_1 = __importDefault(require("../../model/schemas/otpSchema"));
 const userSchema_1 = require("../../model/schemas/userSchema");
+const emailSending_1 = require("../../utils/emailSending");
 const client = (0, twilio_1.default)(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 const sentOtp = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield userSchema_1.userSignupModel.findById(userId);
-        const phNumber = user.phone.slice(3, 13);
-        if (!(0, phoneValidation_1.default)(phNumber)) {
-            return false;
+        const Otp = yield (0, generateOtp_1.default)();
+        yield (0, emailSending_1.otpEmailSend)(user.email, Otp);
+        const emailFinding = yield otpSchema_1.default.findOne({ email: user.email });
+        if (emailFinding) {
+            const updatingOtp = yield otpSchema_1.default.findOneAndUpdate({ email: user.email }, { $set: { otp: Otp } });
+            updatingOtp.save();
+            const userVerified = yield userSchema_1.userSignupModel.findOneAndUpdate({ email: user.email }, { $set: { isVerified: false } });
+            userVerified.save();
         }
         else {
-            const Otp = yield (0, generateOtp_1.default)();
-            const numberFinding = yield otpSchema_1.default.findOne({ phoneNumber: `+91${phNumber}` });
-            if (numberFinding) {
-                const updatingOtp = yield otpSchema_1.default.findOneAndUpdate({ phoneNumber: `+91${phNumber}` }, { $set: { otp: Otp } });
-                updatingOtp.save();
-                const userVerified = yield userSchema_1.userSignupModel.findOneAndUpdate({ phone: `+91${phNumber}` }, { $set: { isVerified: false } });
-                userVerified.save();
-                // return updatingOtp
-            }
-            else {
-                const otpData = new otpSchema_1.default({ userID: userId, phoneNumber: `+91${phNumber}`, otp: Otp, otpExpared: new Date() });
-                otpData.save();
-            }
-            // otp send to twilio
-            yield client.messages.create({
-                body: `${Otp} this is your otp, it will expires in 4 minutes`,
-                from: '+19136018157',
-                to: `+91${phNumber}`
-            });
-            return true;
+            const otpData = new otpSchema_1.default({ userID: userId, email: user.email, otp: Otp, otpExpared: new Date() });
+            otpData.save();
         }
     }
     catch (error) {
-        console.log(error.message);
-        return false;
+        console.log(error);
     }
-    // try {
-    //     const transporter = nodemailer.createTransport({
-    //         host: 'sandbox.smtp.mailtrap.io',
-    //         port: 2525,
-    //         auth: {
-    //             user: 'ef704883df0cbb',
-    //             pass: 'eeef2dc98a8440'
-    //         }
-    //     })
-    //     const mailOptions = {
-    //         from: 'rifashrifah617@gmail.com',
-    //         to: phNumber,
-    //         subject: `Your ot is ${otpGenerate}`,
-    //         text:"Sending"
-    //     }
-    //     await transporter.sendMail(mailOptions, (error, info) => {
-    //         if (error) {
-    //             console.log(error.message);
-    //         } else {
-    //             console.log("Email has been sent", info.response);
-    //         }
-    //     })
-    // } catch (error) {
-    //     console.log(error.message);
-    // }
 });
 exports.sentOtp = sentOtp;
 const otpVerfying = (userId) => __awaiter(void 0, void 0, void 0, function* () {

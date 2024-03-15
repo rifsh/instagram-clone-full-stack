@@ -3,6 +3,9 @@ import { UserProfileInterface } from "../../model/interfaces/userInterfaces"
 import { userSignupModel } from "../../model/schemas/userSchema"
 import { CustomeError } from "../../utils/customeErrorHandler";
 import { ObjectId } from "mongoose";
+import conversation from "../../model/schemas/conversationSchema";
+import { ConversationInstance } from "twilio/lib/rest/conversations/v1/conversation";
+import { ConversationInterface } from "../../model/interfaces/messageInterface";
 
 
 
@@ -206,6 +209,10 @@ export const userByIdSrvc = async (usrId: string, next: NextFunction) => {
         return users;
     }
 }
+export const userMessageSrvc = async (userCahtId: string, senderId: string):Promise<ConversationInterface> => {
+    const converstions:ConversationInterface = await conversation.findOne({ participants: { $all: [senderId, userCahtId] } }).populate("messages");
+    return converstions
+}
 
 
 
@@ -220,5 +227,6 @@ export const userService = {
     userFollowingList,
     userFollowerRemoveSrvc,
     userFollowingRemoveSrvc,
+    userMessageSrvc,
     userByIdSrvc
 }

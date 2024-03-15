@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserAuthController = exports.userOtpSend = void 0;
 const asyncHandler_1 = __importDefault(require("../middlewares/asyncHandler"));
 const otpService_1 = require("../services/authService/otpService");
+const emailSending_1 = require("../utils/emailSending");
 const authService_ts_1 = require("../services/authService/authService.ts");
 const customeErrorHandler_1 = require("../utils/customeErrorHandler");
 const token_1 = require("../utils/token");
@@ -92,6 +93,25 @@ const userLogin = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void
         });
     }
 }));
+const userPaaswordReseting = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.params.id;
+    const prevPassword = req.body.prevPassword;
+    const newPassword = req.body.password;
+    const cahnged = yield authService_ts_1.userAuthService.userPasswordResetingSrvc(userId, prevPassword, newPassword);
+    if (cahnged) {
+        res.status(200).json({
+            message: "Password changed"
+        });
+    }
+    else {
+        res.status(404).json({
+            message: "Entered password is not match"
+        });
+    }
+}));
+const userForgotPassword = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    (0, emailSending_1.sentMail)(req.body.email);
+}));
 const userDelting = (0, asyncHandler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.params.id;
     const userDeleting = authService_ts_1.userAuthService.userDeletingSrvc(userId);
@@ -110,5 +130,7 @@ exports.UserAuthController = {
     userPhoneNumberChange,
     otpSending,
     userLogin,
+    userPaaswordReseting,
+    userForgotPassword,
     userDelting
 };

@@ -15,11 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userAuthService = void 0;
 const userSchema_1 = require("../../model/schemas/userSchema");
 const otpSchema_1 = __importDefault(require("../../model/schemas/otpSchema"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const userSighnupSrvc = (userDetails) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(userDetails.email);
     try {
         if (userDetails) {
             const userDetail = yield userSchema_1.userSignupModel.create({
-                phone: `+91${userDetails.phone}`,
+                // phone: `+91${userDetails.phone}`,
+                email: userDetails.email,
                 fullname: userDetails.fullname,
                 username: userDetails.username,
                 password: userDetails.password
@@ -34,10 +37,10 @@ const userSighnupSrvc = (userDetails) => __awaiter(void 0, void 0, void 0, funct
 const userOtpValidationSrvc = (userId, otp) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = userSchema_1.userSignupModel.findById(userId);
-        const phNum = (yield user).phone;
-        const validation = yield otpSchema_1.default.findOne({ phoneNumber: phNum });
+        const email = ((yield user).email);
+        const validation = yield otpSchema_1.default.findOne({ email: email });
         const validated = validation.otp === otp;
-        if (!phNum) {
+        if (!email) {
             return false;
         }
         if (validated) {
@@ -91,15 +94,16 @@ const userOtpSendingSrvc = (userId) => __awaiter(void 0, void 0, void 0, functio
     // }
 });
 const userLoginSrvc = (res, userValues) => __awaiter(void 0, void 0, void 0, function* () {
-    const userByUsername = yield userSchema_1.userSignupModel.findOne({ username: userValues.phoneorusername });
-    const userByUserPhone = yield userSchema_1.userSignupModel.findOne({ phone: `+91${userValues.phoneorusername}` });
+    const userByUsername = yield userSchema_1.userSignupModel.findOne({ username: userValues.userEmail });
+    const userByUserPhone = yield userSchema_1.userSignupModel.findOne({ email: userValues.userEmail });
+    console.log(userValues.userEmail);
     if (userByUserPhone || !userByUsername) {
         try {
             if (!(yield userByUserPhone.comparePassword(userValues.password, userByUserPhone.password)) || !userByUserPhone) {
                 return false;
             }
             else if (userByUserPhone.isVerified === true) {
-                const isLogged = yield userSchema_1.userSignupModel.findOneAndUpdate({ phone: `+91${userValues.phoneorusername}` }, { $set: { isLogged: true } });
+                const isLogged = yield userSchema_1.userSignupModel.findOneAndUpdate({ email: userValues.userEmail }, { $set: { isLogged: true } });
                 isLogged.save();
                 return isLogged.id;
             }
@@ -117,7 +121,7 @@ const userLoginSrvc = (res, userValues) => __awaiter(void 0, void 0, void 0, fun
                 return false;
             }
             else if (userByUsername.isVerified === true) {
-                const isLogged = yield userSchema_1.userSignupModel.findOneAndUpdate({ username: userValues.phoneorusername }, { $set: { isLogged: true } });
+                const isLogged = yield userSchema_1.userSignupModel.findOneAndUpdate({ username: userValues.userEmail }, { $set: { isLogged: true } });
                 isLogged.save();
                 return isLogged.id;
             }
@@ -131,6 +135,25 @@ const userLoginSrvc = (res, userValues) => __awaiter(void 0, void 0, void 0, fun
     }
     else {
         return false;
+    }
+});
+const userPasswordResetingSrvc = (userId, prevPassword, password) => __awaiter(void 0, void 0, void 0, function* () {
+    const userFinding = yield userSchema_1.userSignupModel.findById(userId);
+    const hashedPassword = yield bcrypt_1.default.hash(password, 12);
+    try {
+        if (userFinding) {
+            const passwordMatching = yield userFinding.comparePassword(prevPassword, userFinding.password);
+            if (passwordMatching && password.length > 0) {
+                yield userSchema_1.userSignupModel.findByIdAndUpdate(userId, { password: hashedPassword });
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+    catch (error) {
+        console.log(error);
     }
 });
 const userDeletingSrvc = (userId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -154,5 +177,6 @@ exports.userAuthService = {
     phoneNumberCahngeSrvc,
     userOtpSendingSrvc,
     userLoginSrvc,
+    userPasswordResetingSrvc,
     userDeletingSrvc,
 };
