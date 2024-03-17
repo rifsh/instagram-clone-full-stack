@@ -3,14 +3,12 @@
         <div class="notification" *ngFor="let item of allusers">
             <img [src]="item.profilePic" alt="Profile Picture">
             <div class="notification-content">
-                <p><strong>{{item.username}}</strong> Who you might know is on social media</p>
+                <p role="button" (click)="viewProfile(item._id)"><strong>{{item.username}}</strong> Who you might know is on social media</p>
                 <p>2h ago</p>
             </div>
-            <div class="buttons">
-                <!-- <button *ngIf="followBtn" -->
-                    <!-- (click)="followAndUnFollow(item._id)">{{ buttonType === 'follow' ? 'Follow' : 'Following' }} </button> -->
-                    <button class="me-2" *ngIf="!item.followers.includes(userId)">follow</button>
-                    <button class="me-2" *ngIf="item.followers.includes(userId)">following</button>
+            <div class="buttons d-flex">
+                    <p class="me-2 text-primary" *ngIf="!item.followers.includes(userId)">follow<p>
+                    <p class="me-2" *ngIf="item.followers.includes(userId)">following<p>
                 <button (click)="gotToMessage()">Message</button>
             </div>
         </div>

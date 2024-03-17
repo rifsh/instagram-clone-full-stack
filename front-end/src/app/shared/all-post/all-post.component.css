@@ -3,21 +3,26 @@
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 5px;
     /* min-height: 200px; */
+    /* background-color: lightblue; */
+    
 }
 
 h1 {
+    /* margin-left: 400px; */
     color: lightgray;
+    /* background-color: lightblue; */
 }
 
 .item {
     text-align: center;
-    /* width: 250px; */
-    height: 250px;
+    min-height: 250px;
+    max-width: 200px;
     object-fit: cover;
     overflow: hidden;
+    background-color: lightblue;
 }
 
 .item img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    min-height: 100%;
 }

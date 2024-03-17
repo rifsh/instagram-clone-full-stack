@@ -31,7 +31,7 @@ export class AllPostComponent {
 
   commentAndPostViewing(id: string) {
     this.dialog.open(PostViewingComponent, {
-      data: { id: id }
+      data: { id: id,editBtn:"userPost" }
     })
   }
 

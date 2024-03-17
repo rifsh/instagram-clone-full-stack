@@ -32,15 +32,11 @@ export class NavBarComponent implements OnInit {
     })
   }
 
-  navOptions: string[] = ['Home', 'Search', 'Explore', 'Reels', 'Message', 'Notifications', 'Create', 'Profile'];
   navigationItems = [
-    // { title: 'Home', icon: '../../../assets/side-nav/home.png', route: '/home' },
-    // { title: 'Search', icon: '../../../assets/side-nav/search.png', route: '/user-search' },
-    { title: 'Explore', icon: '../../../assets/side-nav/explore.png', route: '/feature' },
-    { title: 'Reels', icon: '../../../assets/side-nav/reel.png', route: '/feature' },
+    // { title: 'Explore', icon: '../../../assets/side-nav/explore.png', route: '/feature' },
+    // { title: 'Reels', icon: '../../../assets/side-nav/reel.png', route: '/feature' },
     { title: 'Messages', icon: '../../../assets/side-nav/messages.png', route: '/messaging' },
     { title: 'Notifications', icon: '../../../assets/side-nav/notifications.png', route: '/notification' },
-    // { title: 'Create', icon: '../../../assets/side-nav/create.png', route: '/feature' },
   ];
 
   addPost() {

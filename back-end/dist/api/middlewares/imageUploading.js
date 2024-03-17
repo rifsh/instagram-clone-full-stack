@@ -27,6 +27,7 @@ const upload = (0, multer_1.default)({
     storage,
     limits: { fileSize: 1024 * 1024 }
 });
+const postUpload = (0, multer_1.default)({ storage: storage });
 const cloudin = cloudinary_1.default.v2;
 cloudin.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -62,7 +63,7 @@ const userProfileimgUpload = (req, res, next) => __awaiter(void 0, void 0, void 
 });
 exports.userProfileimgUpload = userProfileimgUpload;
 const userAddPostimgUpload = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    upload.single("img")(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
+    postUpload.single("img")(req, res, (err) => __awaiter(void 0, void 0, void 0, function* () {
         // const file = req.file;
         // console.log(req.file);
         if (err) {
@@ -71,6 +72,9 @@ const userAddPostimgUpload = (req, res, next) => __awaiter(void 0, void 0, void 
         try {
             const result = yield cloudin.uploader.upload(req.file.path, {
                 folder: "Posts",
+                transformations: [
+                    { width: 800, height: 600, crop: 'fit' } // Example resize to 800x600 with fit crop
+                ]
             });
             req.body.image = result.secure_url;
             fs_1.default.unlink(req.file.path, (unlinker) => {

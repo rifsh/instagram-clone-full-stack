@@ -6,7 +6,7 @@
     <!-- [(ngModel)]="searchValue" -->
     <input class="mt-2" type="text" placeholder="Search" (input)="searchOperation()">
     <div class="top pe-2">
-        <h1 *ngIf="followerList.length === 0">No followers</h1>
+        <h1 *ngIf="followerList.length === 0">No followings</h1>
         <div class="list mt-2" *ngFor="let item of followerList">
             <div class="first">
                 <div class="profilePic me-2"><img [src]="item.profilePic" alt="profile">
@@ -20,11 +20,9 @@
                 <button *ngIf="followerHeading" (click)="removeFollower('removefollower',item._id)">Remove</button>
                 <button *ngIf="followingHeading" (click)="removeFollower('removefollowing',item._id)">Following</button>
             </div>
-            <div class="second" *ngIf="otherUserButtons  && item._id !== userId && !item.following.includes(userId)">
-                <button>Following</button>
-            </div>
-            <div class="second" *ngIf="item.following.includes(userId) && item._id !== userId">
-                <button>Follow</button>
+
+            <div class="second" *ngIf="!userButtons">
+                <button (click)="viewProfile(item._id)">View profile</button>
             </div>
         </div>
     </div>

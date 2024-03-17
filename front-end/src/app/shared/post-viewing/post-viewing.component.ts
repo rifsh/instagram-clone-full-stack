@@ -12,9 +12,12 @@ import { PostEditComponent } from './post-edit/post-edit.component';
 })
 export class PostViewingComponent implements OnInit {
   @Input() id: string;
+  @Input() editBtn:string;
   postPic: string;
   userPofilePic: string;
   userName: string;
+  userPostEditbtn:boolean = false;
+
   allComments: PostCommentInterface[] = [];
 
   @ViewChild('addCommentForm') commentForm: NgForm;
@@ -22,6 +25,11 @@ export class PostViewingComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private postSrvc: PostService,private dialog:MatDialog) { }
 
   ngOnInit(): void {
+    if (this.data.editBtn==='userPost') {
+      this.userPostEditbtn = true;
+    } else {
+      this.userPostEditbtn = false;
+    }
     this.postSrvc.getPostById(this.data.id).subscribe((res: PostResponseInterface) => {
       this.postPic = res.datas.image;
     }, (err) => {

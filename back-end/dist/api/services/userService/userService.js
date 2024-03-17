@@ -242,9 +242,19 @@ const userByIdSrvc = (usrId, next) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.userByIdSrvc = userByIdSrvc;
-const userMessageSrvc = (userCahtId, senderId) => __awaiter(void 0, void 0, void 0, function* () {
-    const converstions = yield conversationSchema_1.default.findOne({ participants: { $all: [senderId, userCahtId] } }).populate("messages");
-    return converstions;
+const userMessageSrvc = (reciever, sender) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const converstions = yield conversationSchema_1.default.findOne({ participants: { $all: [sender, reciever] } }).populate("messages");
+        console.log(converstions);
+        if (converstions) {
+            return converstions;
+        }
+        else {
+            return converstions;
+        }
+    }
+    catch (error) {
+    }
 });
 exports.userMessageSrvc = userMessageSrvc;
 exports.userService = {

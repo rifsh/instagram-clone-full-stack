@@ -14,7 +14,9 @@ import { CommentsComponent } from './post-viewing/comments/comments.component';
 import { SideSearchComponent } from './side-search/side-search.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NotificationComponent } from './notification/notification.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PostEditComponent } from './post-viewing/post-edit/post-edit.component';
+import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
 
 
 
@@ -32,12 +34,14 @@ import { PostEditComponent } from './post-viewing/post-edit/post-edit.component'
     SideSearchComponent,
     NotificationComponent,
     PostEditComponent,
+    BottomNavComponent,
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
     FormsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSnackBarModule,
   ],
   exports:[
     GetAppComponent,
@@ -48,6 +52,7 @@ import { PostEditComponent } from './post-viewing/post-edit/post-edit.component'
     FollowUnfollowListComponent,
     RemoveFollowComponent,
     SideSearchComponent,
+    BottomNavComponent
   ]
 })
 export class SharedModule { }

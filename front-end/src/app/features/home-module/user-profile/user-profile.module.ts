@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserEditProfileComponent } from './user-edit-profile/user-edit-profile.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfilImgeUpdationComponent } from './profil-imge-updation/profil-imge-updation.component';
 import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
@@ -11,6 +11,8 @@ import { UserProfileRoutingModule } from './profile-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SearchUsersComponent } from './search-users/search-users.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 
@@ -30,7 +32,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     SharedModule,
     MatProgressSpinnerModule, 
     MatSidenavModule,
-    UserProfileRoutingModule
+    UserProfileRoutingModule,
+    MatSnackBarModule,
+    ReactiveFormsModule
   ]
 })
 export class UserProfileModule { }

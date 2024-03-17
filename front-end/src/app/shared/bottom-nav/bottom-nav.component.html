@@ -1,0 +1,37 @@
+<nav class="navbar navbar-dark fixed-bottom">
+    <ul class="nav justify-content-between" style="width: 100%;">
+        <li class="nav-item">
+            <a [routerLink]="'/home'" class="nav-link active" style="text-align: center;">
+                <img src="../../../assets/side-nav/home.png" width="30px" alt="">
+            </a>
+        </li>
+        <li class="nav-item">
+            <a [routerLink]="'/user-search'" class="nav-link">
+                <img src="../../../assets/side-nav/search.png" width="25px" alt="">
+            </a>
+        </li>
+        <li [routerLink]="'/messaging'" class="nav-item">
+            <a class="nav-link">
+                <img src="../../../assets/side-nav/messages.png" width="29px" alt="">
+            </a>
+        </li>
+        <li (click)="addPost()" class="nav-item">
+            <a class="nav-link">
+                <img src="../../../assets/side-nav/create.png" width="29px" alt="">
+            </a>
+        </li>
+        <li [routerLink]="'/notification'" class="nav-item">
+            <a class="nav-link">
+                <img src="../../../assets/side-nav/notifications.png" width="29px" alt="">
+            </a>
+        </li>
+        <li class="nav-item">
+            <a [routerLink]="'/profile'" class="nav-link">
+                <img src="../../../assets/side-nav/user.png" width="29px" alt="">
+            </a>
+        </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+        </li> -->
+    </ul>
+</nav>

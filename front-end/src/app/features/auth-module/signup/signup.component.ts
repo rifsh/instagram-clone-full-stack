@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { OtpResponseInterface, ResponseInterface } from '../../../model/responseInterrfaace';
 import { AuthServiceService } from 'src/app/core/Services/auth-service.service';
 import { UserSignupInterface } from 'src/app/model/userInterface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class SignupComponent implements OnInit {
 
   }
 
-  constructor(private authSrvc: AuthServiceService, private route: Router) {
+  constructor(private authSrvc: AuthServiceService, private route: Router,private snack:MatSnackBar) {
 
   }
 
@@ -84,10 +85,16 @@ export class SignupComponent implements OnInit {
     this.authSrvc.otpValidationSrvc(this.otpForm).subscribe((res: OtpResponseInterface) => {
       if (res.message === 'Otp verified') {
         localStorage.setItem('token',res.token);
-        alert('OTP verified');
+        this.snack.open('OTP verified','Ok',{
+          duration: 2000,
+          direction:'ltr'
+        })
         this.route.navigate(['feature']);
       } else {
-        alert('Something went wrong');
+        this.snack.open('Enter a vlid OTP','Ok',{
+          duration: 2000,
+          direction:'ltr'
+        })
       }
     }, (err) => {
       console.log(err);

@@ -2,7 +2,7 @@
 .main {
     padding: 30px;
     margin-top: -70px;
-    margin-right: 160px;
+    /* margin-right: 160px; */
     border: 1px solid rgb(212, 212, 212);
     width: 340px;
     display: flex;
@@ -39,7 +39,7 @@ a {
     /* background-color: lightblue; */
     padding: 20px;
     margin-top: 10px;
-    margin-right: 160px;
+    /* margin-right: 160px; */
     border: 1px solid rgb(212, 212, 212);
     width: 340px;
     display: flex;

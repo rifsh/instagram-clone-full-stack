@@ -1,1 +1,19 @@
-<p>Search</p>
+<main>
+    <div class="search-container">
+        <!-- <form action=""[formGroup]="searchForm"></form>
+        <input type="text" formControlName="searchValue" placeholder="Search for users..."> -->
+        <input type="text" placeholder="Search for users..." (input)="searchOperation()">
+    </div>
+    <ul class="search-results">
+        <li class="d-flex align-items-center justify-content-center ">
+            <div class="profilePic">
+                <img class="rounded-circle" width="60px" src="../../../../../assets/photo-1633886897663-44c707d71904.jpg" alt="profile">
+            </div>
+            <div class="username mt-3">
+                <p class="ms-3">username</p>
+                <p class="ms-3">username</p>
+            </div>
+        </li>
+        <!-- Add more search results as needed -->
+    </ul>
+</main>

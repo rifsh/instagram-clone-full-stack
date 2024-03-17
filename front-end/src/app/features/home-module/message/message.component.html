@@ -1,4 +1,5 @@
-<main>
+<div class="main">
+
     <div class="users">
         <div class="container">
             <div role="button" (click)="userMessaging(item._id)" class="notification" *ngFor="let item of allusers">
@@ -10,30 +11,33 @@
             </div>
         </div>
     </div>
-    <div class="chats">
+
+    <!-- chats -->
+    <div class="chats" *ngIf="chatPage">
         <div class="userDetails mt-2 p-1">
-            <div class="userThings ms-3">
+            <div class="userThings ms-3" role="button" (click)="otherProfile()">
                 <img class="rounded-circle" [src]="userProfile" alt="profile">
                 <p class="mt-2 ms-3">{{userName}}</p>
             </div>
         </div>
-
-        <!-- message -->
-        <div class="chatMain mt-3" *ngFor="let item of messageArray">
-            <div class="otherUser" *ngIf="item.reciever === userId">
-                <p>{{item.message}}</p>
-                <small class="text-gray-300 block">{{ item.createdAt | date:'shortTime' }}</small>
-            </div>
-            <div class="currentUser" *ngIf="item.sender === userId">
-                <p>{{item.message}}</p>
-                <small class="text-gray-300 block">{{ item.createdAt | date:'shortTime' }}</small>
+        <div class="topChat">
+            <div class="chatMain mt-3" *ngFor="let item of messageArray">
+                <div class="currentUser" *ngIf="item.sender === userId">
+                    <p>{{item.message}}</p>
+                    <small class="text-gray-300 block">{{ item.createdAt | date:'shortTime' }}</small>
+                </div>
+                <div class="otherUser" *ngIf="item.reciever === userId">
+                    <p>{{item.message}}</p>
+                    <small class="text-gray-300 block">{{ item.createdAt | date:'shortTime' }}</small>
+                </div>
             </div>
         </div>
         <form action="" #messageForm="ngForm">
-            <div class="addComment mb-2">
-                <input type="text" name="message" ngModel required>
-                <button (click)="sendMessage()">Send</button>
+            <div class="chat-input-container">
+                <input type="text" name="message" ngModel placeholder="Type your message...">
+                <button (click)="sendMessage()">&#10148;</button>
             </div>
         </form>
     </div>
-</main>
+
+</div>

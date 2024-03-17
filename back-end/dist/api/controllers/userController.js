@@ -152,7 +152,7 @@ exports.userMessages = (0, asyncHandler_1.default)((req, res, next) => __awaiter
     const userChatId = req.params.id;
     const senderId = req.user._id;
     const datas = yield userService_1.userService.userMessageSrvc(userChatId, senderId);
-    console.log(datas);
+    console.log(senderId);
     if (datas) {
         res.status(200).json({
             status: 'success',
@@ -160,8 +160,9 @@ exports.userMessages = (0, asyncHandler_1.default)((req, res, next) => __awaiter
         });
     }
     else {
-        res.status(404).json({
-            message: "Something sent wrong"
+        res.status(200).json({
+            status: 'no messages',
+            // message:datas.messages
         });
     }
 }));

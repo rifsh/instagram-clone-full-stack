@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthServiceService } from 'src/app/core/Services/auth-service.service';
 import { LoginResponseInterface } from 'src/app/model/responseInterrfaace';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent {
   loader: boolean = false;
   loginbtn: boolean = true
 
-  constructor(private router: Router, private authSrvc: AuthServiceService) {
+  constructor(private router: Router, private authSrvc: AuthServiceService,private snack:MatSnackBar) {
 
   }
 
@@ -31,13 +32,19 @@ export class LoginComponent {
         this.loader = false;
         this.loginbtn = true;
         this.router.navigate(['feature/home']);
-        alert('Logged successfully')
+        this.snack.open('Logged successfully','Ok',{
+          duration: 2000,
+          direction:'ltr'
+        })
       }
     }, (err) => {
       console.log(err);
       this.loader = false;
       this.loginbtn = true
-      alert('Something went wrong')
+      this.snack.open('Username or password is incorrect','Ok',{
+        duration: 2000,
+        direction:'ltr'
+      })
     });
   }
 

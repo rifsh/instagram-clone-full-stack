@@ -93,5 +93,5 @@ export interface FollowersLiset {
     profilePic: string;
     fullname: string;
     username: string;
-    following?: [string]
+    followers: [string]
 }

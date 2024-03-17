@@ -8,5 +8,6 @@ export interface MessageInterface {
 }
 
 export interface MessageResponseInterface {
+    status:string;
     message:MessageInterface[]
 }

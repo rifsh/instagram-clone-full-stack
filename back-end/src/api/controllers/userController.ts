@@ -137,7 +137,7 @@ export const userMessages = catchAsync(async (req: Request, res: Response, next:
     const userChatId:string=req.params.id;
     const senderId:string=req.user._id;
     const datas = await userService.userMessageSrvc(userChatId,senderId);
-    console.log(datas);
+    console.log(senderId);
     
     if (datas) {
         res.status(200).json({
@@ -145,8 +145,9 @@ export const userMessages = catchAsync(async (req: Request, res: Response, next:
             message:datas.messages
         })
     }else {
-        res.status(404).json({
-            message:"Something sent wrong"
+        res.status(200).json({
+            status:'no messages',
+            // message:datas.messages
         })
     }
 })

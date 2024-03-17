@@ -4,6 +4,7 @@ import { NgModule } from "@angular/core";
 
 const router: Routes = [
     // { path: 'userPosts', component: UserPostComponent, outlet: 'userPosts' },
+    
 
 ]
 

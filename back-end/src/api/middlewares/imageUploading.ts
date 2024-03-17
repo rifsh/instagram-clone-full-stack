@@ -16,6 +16,8 @@ const upload = multer({
     limits: { fileSize: 1024 * 1024 }
 });
 
+const postUpload = multer({ storage: storage });
+
 const cloudin = cloudinary.v2;
 cloudin.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -51,7 +53,7 @@ export const userProfileimgUpload = async (req: Request, res: Response, next: Ne
 }
 
 export const userAddPostimgUpload = async (req: Request, res: Response, next: NextFunction) => {
-    upload.single("img")(req, res, async (err) => {
+    postUpload.single("img")(req, res, async (err) => {
         // const file = req.file;
         // console.log(req.file);
         if (err) {
@@ -60,7 +62,9 @@ export const userAddPostimgUpload = async (req: Request, res: Response, next: Ne
         try {
             const result = await cloudin.uploader.upload(req.file.path, {
                 folder: "Posts",
-                
+                transformations: [
+                    { width: 800, height: 600, crop: 'fit' } // Example resize to 800x600 with fit crop
+                ]
             })
             req.body.image = result.secure_url;
             fs.unlink(req.file.path, (unlinker) => {

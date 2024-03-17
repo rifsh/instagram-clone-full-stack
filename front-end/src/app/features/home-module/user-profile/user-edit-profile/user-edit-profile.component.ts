@@ -5,6 +5,7 @@ import { HomeService } from 'src/app/core/Services/home.service';
 import { UserSignupInterface } from 'src/app/model/userInterface';
 import { ProfilImgeUpdationComponent } from '../profil-imge-updation/profil-imge-updation.component';
 import { ProfileService } from 'src/app/core/Services/profile.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-edit-profile',
@@ -22,7 +23,7 @@ export class UserEditProfileComponent implements OnInit {
   gender: string = '';
 
 
-  constructor(private homeSrvc: HomeService, private dialog: MatDialog, private profileSrvc: ProfileService) { }
+  constructor(private homeSrvc: HomeService, private dialog: MatDialog, private profileSrvc: ProfileService, private snack: MatSnackBar) { }
 
   ngOnInit(): void {
     this.homeSrvc.getUser().subscribe((res: UserSignupInterface) => {
@@ -49,8 +50,18 @@ export class UserEditProfileComponent implements OnInit {
   }
 
   submit() {
-    this.profileSrvc.updateProfile(this.profileEdit).subscribe((res) => {
-      console.log(res);
+    this.profileSrvc.updateProfile(this.profileEdit).subscribe((res: { message: string }) => {
+      if (res.message === 'Success') {
+        this.snack.open('Profile Updated','Ok',{
+          duration: 2000,
+          direction:'ltr'
+        })
+      } else {
+        this.snack.open('Something went wrong','Ok',{
+          duration: 2000,
+          direction:'ltr'
+        })
+      }
     }, (err) => {
       console.log(err);
 

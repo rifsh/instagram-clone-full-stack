@@ -1,72 +1,20 @@
-main {
-    /* background-color: lightcoral; */
-    height: 100vh;
+.main {
+    /* background-color: lightblue; */
     width: 1000px;
+    height: 100vh;
     display: flex;
-    position: relative;
 }
 
 .users {
     height: 90%;
-    position: fixed;
-    margin-left: -10px;
-    top: 20px;
-    display: flex;
-    flex-direction: row;
-    width: 300px;
+    /* background-color: lightblue; */
+    min-width: 350px;
+    margin-top: 40px;
     border-radius: 10px;
-    padding: 0px;
-    overflow: scroll;
-    overflow-x: hidden;
+    /* overflow: scroll;
+    overflow-x: hidden; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
         0 6px 10px rgba(0, 0, 0, 0.1);
-}
-
-.chats {    
-    /* background-color: lightblue; */
-    position: absolute;
-    right: 0;
-    top: 20px;
-    height: 90%;
-    width: 710px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
-        0 6px 10px rgba(0, 0, 0, 0.1);
-}
-
-.userDetails {
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-.userThings {
-    /* width: 100px; */
-    object-fit: cover;
-    overflow: hidden;
-    color: black;
-    display: flex;
-    align-items: center;
-}
-
-.userThings img {
-    width: 60px;
-}
-
-.chatMain {
-    /* height: 85%; */
-}
-.otherUser {
-    text-align: left;
-    padding: 5px;
-    /* background-color: lightblue; */
-}
-.currentUser{
-    /* background-color: lightcoral; */
-    text-align: right;
-    padding: 5px;
-}
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 5px;
 }
 
 .notification {
@@ -86,35 +34,136 @@ main {
     overflow: hidden;
 }
 
-.addComment input {
-    /* border: none; */
-    /* width: 600px; */
-    padding: 5px 0px;
-    font-weight: 300;
+
+.chats {
+    position: absolute;
+    height: 90%;
+    right: 225px;
+    margin-top: 40px;
+    width: 690px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 6px 10px rgba(0, 0, 0, 0.1);
 }
 
-.addComment input:focus {
-    outline: none;
-    /* background-color: white; */
+.userDetails {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-.addComment {
-    /* box-shadow: 0px 8px 8px -5px rgba(196, 196, 196, 0.75); */
-    /* Box shadow properties */
+.userThings {
+    /* width: 100px; */
+    object-fit: cover;
+    overflow: hidden;
+    color: black;
     display: flex;
+    align-items: center;
 }
 
+.userThings img {
+    width: 60px;
+}
 
-.addComment button {
-    color: #007bff;
-    font-weight: 500;
-    background-color: white;
+.topChat {
+    height: 520px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.otherUser {
+    text-align: left;
+    padding: 5px;
+    flex: 1;
     border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    font-size: 16px;
+    color: #333;
 }
 
-@media screen and (max-width: 600px) {
-    .notification img {
-        width: 40px;
-        height: 40px;
+.currentUser {
+    /* background-color: lightcoral; */
+    text-align: right;
+    padding: 5px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+/* input */
+
+.chat-input-container {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    bottom: 6px;
+    left: 5px;
+    width: 690px;
+    position: absolute;
+    box-shadow: 0 2px 4px rgba(255, 194, 194, 0.1);
+}
+
+.chat-input-container input[type="text"] {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: transparent;
+    font-size: 16px;
+    color: #333;
+}
+
+.chat-input-container input[type="text"]::placeholder {
+    color: #999;
+}
+
+.chat-input-container button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-input-container button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 990px) {
+
+    .users {
+        left: 10px;
     }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    80% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.users {
+    animation: pop 0.3s ease-in-out;
 }

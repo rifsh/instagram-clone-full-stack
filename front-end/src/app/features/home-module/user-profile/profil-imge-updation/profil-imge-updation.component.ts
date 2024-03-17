@@ -1,6 +1,7 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProfileService } from 'src/app/core/Services/profile.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class ProfilImgeUpdationComponent implements OnChanges {
   submitBtn: boolean = true
   file: File = null;
 
-  constructor(private profileSrvc: ProfileService, private dialogRef: DialogRef) {
+  constructor(private profileSrvc: ProfileService, private dialogRef: DialogRef, private snack: MatSnackBar) {
 
   }
   selectImage(event) {
@@ -36,12 +37,15 @@ export class ProfilImgeUpdationComponent implements OnChanges {
     this.loader = true;
     this.submitBtn = false;
 
-    this.profileSrvc.imageUpdating(this.formValues, this.file).subscribe((res: any) => {
-      console.log(res);
+    this.profileSrvc.imageUpdating(this.formValues, this.file).subscribe((res: { Message: string }) => {
+      console.log(res.Message === 'Successfully updated');
       if (res) {
         this.loader = false;
         this.submitBtn = true;
-        alert('Success');
+        this.snack.open('Image Updated', 'Ok', {
+          duration: 2000,
+          direction: 'ltr'
+        })
         this.dialogRef.close();
 
       }

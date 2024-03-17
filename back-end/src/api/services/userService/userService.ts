@@ -209,9 +209,18 @@ export const userByIdSrvc = async (usrId: string, next: NextFunction) => {
         return users;
     }
 }
-export const userMessageSrvc = async (userCahtId: string, senderId: string):Promise<ConversationInterface> => {
-    const converstions:ConversationInterface = await conversation.findOne({ participants: { $all: [senderId, userCahtId] } }).populate("messages");
-    return converstions
+export const userMessageSrvc = async (reciever: string, sender: string):Promise<ConversationInterface> => {
+    try {
+    const converstions:ConversationInterface = await conversation.findOne({ participants: { $all: [sender, reciever] } }).populate("messages");
+    console.log(converstions);
+    if (converstions) {
+        return converstions
+    } else {
+        return converstions
+    }
+    } catch (error) {
+        
+    }
 }
 
 

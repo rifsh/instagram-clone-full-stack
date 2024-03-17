@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ProfileService } from 'src/app/core/Services/profile.service';
 import { FollowersLiset, UserFollowersInterface } from 'src/app/model/userInterface';
 import { RemoveFollowComponent } from '../remove-follow/remove-follow.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-follow-unfollow-list',
@@ -25,7 +26,7 @@ export class FollowUnfollowListComponent implements OnInit {
   userId: string = localStorage.getItem('userId');
 
 
-  constructor(private profileSrvc: ProfileService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) { }
+  constructor(private profileSrvc: ProfileService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog,private route:Router) { }
 
   ngOnInit(): void {
     if (this.data.componentValue === 'user') {
@@ -42,28 +43,18 @@ export class FollowUnfollowListComponent implements OnInit {
       this.followerHeading = true;
       this.followingHeading = false;
       this.profileSrvc.getFollowers(this.data.id).subscribe((res: UserFollowersInterface) => {
-        res.datas.followers.map((x) => { return this.followerList.push(x) });
-        // console.log(res.datas.followers.map((x)=>{return x.following.filter((x)=>{return x._id === this.userId})}));
-        // console.log(this.followerList.map((x)=>{return x.following}).filter((x)=>{return x}))
-
-        // console.log(res.datas.followers.filter((x)=>{return x._id === this.userId}));
+        res.datas.followers.map((x) => { return this.followerList.push(x) })
+        console.log(this.followerList.map((x) => { return x._id === this.userId }));
 
       }, (err) => {
         console.log(err);
       })
-      // this.profileSrvc.getFollowing(this.userId).subscribe((res: UserFollowersInterface) => {
-      //   res.datas.followers.map((x) => { return this.followerList.push(x) });
-
-      // }, (err) => {
-      //   console.log(err);
-      // })
 
     } else if (this.data.followValue === "following") {
       this.followingHeading = true;
       this.followerHeading = false;
       this.profileSrvc.getFollowing(this.data.id).subscribe((res: UserFollowersInterface) => {
-        // res.datas.following.map((x) => { return this.followerList.push(x) });
-
+        res.datas.following.map((x) => { return this.followerList.push(x) });
       }, (err) => {
         console.log(err);
       })
@@ -89,7 +80,14 @@ export class FollowUnfollowListComponent implements OnInit {
         name: fullName
       }
     })
+  }
 
+  viewProfile(id:string) {
+    if (localStorage.getItem('userId') === id) {
+      this.route.navigate(['profile'])
+    } else {
+      this.route.navigate([`other-user-profile/${id}`]);
+    }
   }
 
 }

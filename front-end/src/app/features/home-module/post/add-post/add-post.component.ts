@@ -1,6 +1,7 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostService } from 'src/app/core/Services/post.service';
 import { PostResponseInterface } from 'src/app/model/postResponseInterface';
 
@@ -11,7 +12,7 @@ import { PostResponseInterface } from 'src/app/model/postResponseInterface';
 })
 export class AddPostComponent {
 
-  uploadPage:boolean = true;
+  uploadPage: boolean = true;
   file: File = null;
   loading: boolean = false;
   postBtn: boolean = true;
@@ -23,7 +24,7 @@ export class AddPostComponent {
 
   @ViewChild('addPostImg') formValues: NgForm;
 
-  constructor(private postsrvc: PostService, private dailogRef: DialogRef) { }
+  constructor(private postsrvc: PostService, private dailogRef: DialogRef, private snack: MatSnackBar) { }
 
   selectFile(event) {
     const reader = new FileReader();
@@ -62,7 +63,11 @@ export class AddPostComponent {
         console.log('sksjdksd');
         this.loading = false;
         this.postBtn = true;
-        alert('Successfully Posted')
+        this.snack.open('Post added', 'Ok', {
+          duration: 2000,
+          direction: 'ltr'
+        })
+        this.dailogRef.close()
       }
     }, (err) => {
       console.log(err);

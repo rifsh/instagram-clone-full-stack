@@ -1,0 +1,26 @@
+.navbar {
+    height: 56px;
+    /* Adjust height as needed */
+    background-color: white;
+}
+
+.navbar-brand {
+    margin-right: 0 !important;
+}
+
+.navbar-nav {
+    flex-direction: row;
+}
+
+.nav-item {
+    margin: 0 10px;
+}
+a {
+    cursor: pointer;
+}
+@media (max-width: 767px) {
+    .navbar-nav {
+        justify-content: center;
+    }
+}
+
