@@ -80,18 +80,21 @@ const getPostByidSrvc = (postId) => __awaiter(void 0, void 0, void 0, function* 
 exports.getPostByidSrvc = getPostByidSrvc;
 const postLikeSrvc = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     const user = userId;
-    const post = yield postSchema_1.postModel.findById(postId);
+    const post = yield postSchema_1.postModel.findById(postId).populate({
+        path: "postedBy",
+        select: ["username", "profilePic"],
+    });
     try {
         if (post.likes.includes(user)) {
             const index = post.likes.indexOf(user);
             post.likes.splice(index, 1);
             post.save();
-            return false;
+            return post;
         }
         else {
             const like = post.likes.push(user);
             post.save();
-            return true;
+            return post;
         }
         // console.log(post.likes.includes(user));
     }

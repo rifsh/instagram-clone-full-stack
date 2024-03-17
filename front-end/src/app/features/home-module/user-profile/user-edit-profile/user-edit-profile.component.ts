@@ -37,7 +37,7 @@ export class UserEditProfileComponent implements OnInit {
         fullname: res.datas.fullname,
         username: res.datas.username,
         bio: res.datas.bio,
-        gender: res.datas.gender
+        gender: res.datas.gender,
 
       })
     }, (err) => {

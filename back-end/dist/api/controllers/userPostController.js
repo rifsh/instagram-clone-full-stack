@@ -62,12 +62,14 @@ exports.likePost = (0, asyncHandler_1.default)((req, res, next) => __awaiter(voi
     const like = yield userPostService_1.userPostService.postLikeSrvc(postId, req.body.userId);
     if (like) {
         res.status(200).json({
-            message: "Liked"
+            message: "Liked",
+            like
         });
     }
     else {
         res.status(200).json({
-            message: "Like removed"
+            message: "Like removed",
+            like
         });
     }
 }));

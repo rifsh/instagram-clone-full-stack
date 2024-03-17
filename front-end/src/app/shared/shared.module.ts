@@ -17,6 +17,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PostEditComponent } from './post-viewing/post-edit/post-edit.component';
 import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -42,6 +43,8 @@ import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
     FormsModule,
     MatSidenavModule,
     MatSnackBarModule,
+    BrowserAnimationsModule,
+
   ],
   exports:[
     GetAppComponent,

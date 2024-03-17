@@ -7,11 +7,13 @@ import { ProfilImgeViewComponent } from '../profil-imge-view/profil-imge-view.co
 import { PostService } from 'src/app/core/Services/post.service';
 import { GetPostInterface, userPostsInterface } from 'src/app/model/postResponseInterface';
 import { FollowUnfollowListComponent } from 'src/app/shared/follow-unfollow-list/follow-unfollow-list.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+  
 })
 export class ProfileComponent {
 

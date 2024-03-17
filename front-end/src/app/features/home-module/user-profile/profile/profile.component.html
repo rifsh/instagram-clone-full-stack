@@ -6,7 +6,7 @@
         <div class="userDetails">
             <div class="user-values d-flex align-items-start ">
                 <p class="me-5"><span style="font-weight: bold;">{{item.fullname}}</span></p>
-                <button (click)="editProfile()">Edit Profile</button>
+                <button class="edit-profile-button" (click)="editProfile()">Edit Profile</button>
             </div>
             <div class="user-status d-flex align-items-start justify-content-between">
                 <p><span style="font-weight: bold;">{{userPosts.length}}</span> post</p>
@@ -25,16 +25,16 @@
             <span class="posts"></span>
             POST
         </button>
-        <button class="mx-4" (click)="saved()">
+        <!-- <button class="mx-4" (click)="saved()">
             <span class="saved"></span>
             SAVED
-        </button>
+        </button> -->
         <!-- <button>
             <span class="tagged"></span>
             TAGGED
         </button> -->
     </div>
     <app-all-posts *ngIf="postTemplate" [userIds]="userId"></app-all-posts>
-    <app-all-saved *ngIf="savedTemplate"></app-all-saved>
+    <!-- <app-all-saved *ngIf="savedTemplate"></app-all-saved> -->
 </main>
 <app-footer class="container"></app-footer>

@@ -13,14 +13,14 @@
                 </a>
             </div>
 
-            <div class="nav-options list-group list-group-flush mx-2 mt-3">
+            <!-- <div class="nav-options list-group list-group-flush mx-2 mt-3">
                 <a [routerLink]="'/user-search'" outlet="primary"
                     class="list-group-item list-group-item-action py-2 ripple d-flex align-items-center"
                     aria-current="true">
                     <img style="width: 25px;" src="../../../assets/side-nav/search.png" alt="">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Search</span>
                 </a>
-            </div>
+            </div> -->
 
             <div class="nav-options list-group list-group-flush mx-2 mt-3" *ngFor="let options of navigationItems">
                 <a [routerLink]="options.route" outlet="primary"

@@ -62,19 +62,22 @@ export const getPostByidSrvc = async (postId: string): Promise<UserPostInterface
 
     }
 }
-export const postLikeSrvc = async (postId: string, userId: string): Promise<boolean> => {
+export const postLikeSrvc = async (postId: string, userId: string): Promise<any> => {
     const user: any = userId
-    const post = await postModel.findById(postId);
+    const post = await postModel.findById(postId).populate({
+        path: "postedBy",
+        select: ["username", "profilePic"],
+    });
     try {
         if (post.likes.includes(user)) {
             const index: any = post.likes.indexOf(user);
             post.likes.splice(index, 1);
             post.save();
-            return false;
+            return post;
         } else {
             const like = post.likes.push(user);
             post.save();
-            return true;
+            return post;
         }
         // console.log(post.likes.includes(user));
 
@@ -122,10 +125,10 @@ export const viewPostComments = async (postId: string) => {
 export const deletePostSSrvc = async (userId: string, postId: string): Promise<boolean> => {
     const postFinding = await postModel.findById(postId);
     const userFind = await userSignupModel.findById(userId);
-    
+
     try {
         if (postFinding && userFind) {
-            const postDeleting = await postModel.findByIdAndDelete(postId);            
+            const postDeleting = await postModel.findByIdAndDelete(postId);
             postFinding.save();
             return true
         } else {

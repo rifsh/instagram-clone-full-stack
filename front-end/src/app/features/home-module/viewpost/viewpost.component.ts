@@ -14,8 +14,10 @@ import { PostViewingComponent } from 'src/app/shared/post-viewing/post-viewing.c
 export class ViewpostComponent implements OnInit {
   allPosts: ViewpostInterface[] = [];
   Likes: LikesInterface[] = [];
+  likesCount: number = 0;
 
   liked: boolean = false;
+  userId: string = localStorage.getItem('userId');
 
   @ViewChild('addCommentForm') commentForm: NgForm;
 
@@ -31,12 +33,18 @@ export class ViewpostComponent implements OnInit {
   }
 
   likeBtn(id: string, userId: string) {
-    this.postSrvc.postLiking(id).subscribe((res: PostInterface) => {
+    this.postSrvc.postLiking(id).subscribe((likeRes: { message: string, like: ViewpostInterface }) => {
+
+      if (likeRes.message) {
+        const index = this.allPosts.findIndex((x) => { return x._id === likeRes.like._id });
+        if (index !== -1) {
+          this.allPosts[index] = likeRes.like;
+        }
+      }
     }, (err) => {
       console.log(err);
     })
     this.postSrvc.getPostById(id).subscribe((res: GetPostInterface) => {
-      // console.log(res.datas);
     }, (err) => {
       console.log(err);
     })

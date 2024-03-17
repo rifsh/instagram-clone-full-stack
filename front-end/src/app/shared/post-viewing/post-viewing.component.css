@@ -27,18 +27,19 @@ main {
 .postImg {
     flex: 1;
     display: flex;
-    min-height: 500px;
+    /* min-height: 500px; */
     align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
     text-align: center;
     overflow: hidden;
     object-fit: cover;
-    background-color: transparent;
+    background-color: black;
 }
 
 .postImg img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 
@@ -47,7 +48,7 @@ main {
     min-height: 500px;
     flex: 1;
     /* height: 100%; */
-    /* background-color: lightcoral; */
+    background-color: lightcoral;
     position: relative;
     overflow: scroll;
     overflow-x: hidden;
@@ -81,3 +82,22 @@ button {
 input:focus {
     outline: none;
 }
+
+@media (max-width: 990px) {
+    
+    main {
+        overflow: hidden;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+    .postImg {
+        min-width: 100%;
+    }
+    .comment {
+        visibility: hidden;
+    }
+    form {
+        visibility: hidden;
+    }
+}
+

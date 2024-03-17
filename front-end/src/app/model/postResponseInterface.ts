@@ -1,4 +1,5 @@
 export interface PostInterface {
+    _id:string;
     postedBy: string;
     caption: string;
     mediaType: string;
@@ -31,11 +32,7 @@ export interface ViewpostInterface {
     mediaType: string;
     image: string;
     hashtags: [string];
-    likes: [{
-        _id: string,
-        username: string,
-        profilePic: string
-    }];
+    likes: [string];
     comments: [string];
     createdAt: Date;
     updatedAt: Date;

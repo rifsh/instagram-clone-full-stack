@@ -34,7 +34,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSidenavModule,
     UserProfileRoutingModule,
     MatSnackBarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class UserProfileModule { }

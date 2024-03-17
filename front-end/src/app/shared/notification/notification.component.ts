@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { ProfileService } from 'src/app/core/Services/profile.service';
@@ -6,7 +7,18 @@ import { UserDetailInterface, UserSignupInterface } from 'src/app/model/userInte
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.css']
+  styleUrls: ['./notification.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('1000ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('4000ms', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class NotificationComponent implements OnInit {
   @Input() buttonType: string;
@@ -48,6 +60,7 @@ export class NotificationComponent implements OnInit {
   }
 
   gotToMessage() {
+    this.route.navigate([`messaging`]);
 
   }
 
