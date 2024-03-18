@@ -15,8 +15,6 @@ export class OtherUserProfileComponent implements OnInit {
   @Input() buttonType: string;
 
   followBtn: string[] = [];
-  // followingBtn: boolean = false;
-
   followBtnClass: boolean;
   userIds: string = '';
   userName: string = '';

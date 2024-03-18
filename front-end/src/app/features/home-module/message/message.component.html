@@ -14,7 +14,7 @@
 
     <!-- chats -->
     <div class="chats" *ngIf="chatPage">
-        <div class="userDetails mt-2 p-1">
+        <div class="userDetails mt-2 p-1" [@fadeInOut]>
             <div class="userThings ms-3" role="button" (click)="otherProfile()">
                 <img class="rounded-circle" [src]="userProfile" alt="profile">
                 <p class="mt-2 ms-3">{{userName}}</p>

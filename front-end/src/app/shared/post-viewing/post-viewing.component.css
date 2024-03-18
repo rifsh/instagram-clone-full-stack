@@ -48,7 +48,6 @@ main {
     min-height: 500px;
     flex: 1;
     /* height: 100%; */
-    background-color: lightcoral;
     position: relative;
     overflow: scroll;
     overflow-x: hidden;

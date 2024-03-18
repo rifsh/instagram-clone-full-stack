@@ -15,8 +15,8 @@ h1 {
 
 .item {
     text-align: center;
-    min-height: 250px;
-    max-width: 200px;
+    min-height: 200px;
+    max-width: 250px;
     object-fit: cover;
     overflow: hidden;
     background-color: lightblue;

@@ -104,7 +104,7 @@ const userPaaswordReseting = (0, asyncHandler_1.default)((req, res, next) => __a
         });
     }
     else {
-        res.status(404).json({
+        res.status(200).json({
             message: "Entered password is not match"
         });
     }

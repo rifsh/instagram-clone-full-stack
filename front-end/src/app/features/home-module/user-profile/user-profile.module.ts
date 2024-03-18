@@ -12,6 +12,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SearchUsersComponent } from './search-users/search-users.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ChangePasswordComponent } from './user-edit-profile/change-password/change-password.component';
 
 
 
@@ -23,6 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ProfilImgeUpdationComponent,
     ProfilImgeViewComponent,
     SearchUsersComponent,
+    ChangePasswordComponent,
 
   ],
   imports: [

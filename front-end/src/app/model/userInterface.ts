@@ -94,4 +94,5 @@ export interface FollowersLiset {
     fullname: string;
     username: string;
     followers: [string]
+    following:[string]
 }

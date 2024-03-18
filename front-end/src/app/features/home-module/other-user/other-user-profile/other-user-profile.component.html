@@ -6,7 +6,7 @@
         <div class="userDetails">
             <div class="user-values d-flex align-items-start justify-content-between mb-2">
                 <p class="me-5" style="font-weight: 500;"> {{fullName}} </p>
-                <button *ngIf="followBtn" [ngClass]="{'class1': followBtnClass, 'class2':!followBtnClass}"
+                <button class="me-2" *ngIf="followBtn" [ngClass]="{'class1': followBtnClass, 'class2':!followBtnClass}"
                     (click)="followAndUnFollow()">{{ buttonType === 'follow' ? 'Follow' : 'Following' }} </button>
                 <button (click)="gotToMessage()">Message</button>
             </div>

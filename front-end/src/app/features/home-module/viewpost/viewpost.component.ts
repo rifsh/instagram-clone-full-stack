@@ -3,7 +3,8 @@ import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/core/Services/post.service';
-import { GetPostInterface, LikesInterface, PostInterface, ViewCommentsInterface, ViewpostInterface } from 'src/app/model/postResponseInterface';
+import { GetPostInterface, LikesInterface, ViewpostInterface } from 'src/app/model/postResponseInterface';
+// import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PostViewingComponent } from 'src/app/shared/post-viewing/post-viewing.component';
 
 @Component({
@@ -16,7 +17,7 @@ export class ViewpostComponent implements OnInit {
   Likes: LikesInterface[] = [];
   likesCount: number = 0;
 
-  liked: boolean = false;
+  // liked: boolean = false;  
   userId: string = localStorage.getItem('userId');
 
   @ViewChild('addCommentForm') commentForm: NgForm;

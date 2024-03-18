@@ -3,16 +3,15 @@
         <h6 *ngIf="followerHeading">Followers</h6>
         <h6 *ngIf="followingHeading">Following</h6>
     </div>
-    <!-- [(ngModel)]="searchValue" -->
-    <input class="mt-2" type="text" placeholder="Search" (input)="searchOperation()">
-    <div class="top pe-2">
+    <!-- <input class="mt-2" type="text" [(ngModel)]="searchValue" placeholder="Search" (input)="searchOperation()"> -->
+    <div class="top pe-2 mt-4">
         <h1 *ngIf="followerList.length === 0">No followings</h1>
         <div class="list mt-2" *ngFor="let item of followerList">
             <div class="first">
                 <div class="profilePic me-2"><img [src]="item.profilePic" alt="profile">
                 </div>
                 <div class="userDetials d-flex flex-column">
-                    <p>{{item.fullname}}</p>
+                    <p role="button" (click)="viewProfile(item._id)">{{item.fullname}}</p>
                     <p style="color: grey; font-size: 13px;">{{item.username}}</p>
                 </div>
             </div>
@@ -22,7 +21,12 @@
             </div>
 
             <div class="second" *ngIf="!userButtons">
-                <button (click)="viewProfile(item._id)">View profile</button>
+                <!-- <button *ngIf="item._id !== userId && !item.followers.includes(userId)">Follow</button>
+                <button *ngIf="item._id !== userId && item.followers.includes(userId)">Following</button> -->
+                <button *ngIf="followBtn && item._id !== userId"
+                    [ngClass]="{'class1': followBtnClass, 'class2':!followBtnClass}" (click)="followAndUnFollow(item._id)">{{
+                    buttonType === 'follow' ? 'Follow' : 'Following' && !item.followers.includes(userId)?'Follow':'Following'}}
+                </button>
             </div>
         </div>
     </div>

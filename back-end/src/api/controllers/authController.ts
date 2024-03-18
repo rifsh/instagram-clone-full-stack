@@ -84,13 +84,14 @@ const userPaaswordReseting = catchAsync(async (req: Request, res: Response, next
     const userId: string = req.params.id;
     const prevPassword: string = req.body.prevPassword;
     const newPassword: string = req.body.password;
+    
     const cahnged = await userAuthService.userPasswordResetingSrvc(userId, prevPassword, newPassword);
     if (cahnged) {
         res.status(200).json({
             message: "Password changed"
         })
     } else {
-        res.status(404).json({
+        res.status(200).json({
             message: "Entered password is not match"
         })
     }

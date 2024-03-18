@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,6 +11,17 @@ import { UserDetailInterface } from 'src/app/model/userInterface';
   selector: 'app-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('1000ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('4000ms', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class MessageComponent implements OnInit {
   allusers: UserDetailInterface[] = [];
@@ -49,7 +61,7 @@ export class MessageComponent implements OnInit {
     // this.chatSrvc.getMessages(this.userId).subscribe((res: MessageResponseInterface) => {
     //   this.messageArray = res.message;
     // })
-    
+
 
   }
 
@@ -72,7 +84,7 @@ export class MessageComponent implements OnInit {
       }
     })
     console.log(this.messageArray);
-    
+
     // this.chatSrvc.getMessages(this.userId).subscribe((res: MessageResponseInterface) => {
     //   console.log(res.message);
 

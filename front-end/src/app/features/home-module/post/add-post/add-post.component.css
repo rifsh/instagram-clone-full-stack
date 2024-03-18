@@ -50,6 +50,11 @@ img {
     text-align: center;
 }
 
+.postImg img {
+    width: 100%;
+    height: 90%;
+}
+
 .postImg button {
     background-color: white;
     border: none;

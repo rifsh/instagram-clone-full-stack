@@ -6,6 +6,7 @@ import { UserSignupInterface } from 'src/app/model/userInterface';
 import { ProfilImgeUpdationComponent } from '../profil-imge-updation/profil-imge-updation.component';
 import { ProfileService } from 'src/app/core/Services/profile.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @Component({
   selector: 'app-user-edit-profile',
@@ -64,8 +65,11 @@ export class UserEditProfileComponent implements OnInit {
       }
     }, (err) => {
       console.log(err);
-
     })
+  }
+
+  changePassword() {
+    this.dialog.open(ChangePasswordComponent)
   }
 
 }

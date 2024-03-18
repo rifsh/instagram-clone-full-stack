@@ -40,3 +40,9 @@ main {
     background-color: rgb(243, 243, 243);
     border-radius: 10px;
 }
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    /* color: ; */
+}

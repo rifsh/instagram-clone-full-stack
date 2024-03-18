@@ -40,16 +40,16 @@
 }
 
 .userDetails {
-    width: 94px;
+    width: 100%;
 }
 
 .profileImg {
-    border-radius: 50%;
+    width: 130px;
     overflow: hidden;
 }
 
 .profileImg img {
-    width: 100%;
+    width: 60px;
 }
 
 .post {

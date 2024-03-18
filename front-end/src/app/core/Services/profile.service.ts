@@ -57,4 +57,7 @@ export class ProfileService {
     const followingUser = { followingUser: id };
     return this.http.post(`http://localhost:3000/clone/user-following-remove/${this.userId}`,followingUser)
   }
+  changePassword(values:{prevPassword:string,password:string}):Observable<object> {
+    return this.http.post(`http://localhost:3000/clone/reset-password/${this.userId}`,values)
+  }
 }

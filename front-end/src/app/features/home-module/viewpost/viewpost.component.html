@@ -4,12 +4,14 @@
         <form action="" #addCommentForm="ngForm">
             <div class="postMain mt-3" *ngFor="let item of allPosts">
                 <div class="userDetails mb-2 d-flex justify-content-between align-items-center">
-                    <div class="profileImg me-2">
-                        <img [src]="item.postedBy.profilePic" alt="profileImg">
+                    <div class="profileImg me-2 d-flex">
+                        <img [src]="item.postedBy.profilePic" alt="profileImg" class="rounded-circle me-3">
+                        <div class="userName d-flex align-items-center justify-content-center">
+                            <a (click)="otherProfile(item.postedBy._id)"> {{item.postedBy.username}} </a>
+                        </div>
                     </div>
-                    <div class="userName">
-                        <a (click)="otherProfile(item.postedBy._id)"> {{item.postedBy.username}} </a>
-                    </div>
+                    <p class="mt-3 text-secondary">{{item.createdAt | timeAgo}}</p>
+
                 </div>
 
                 <div class="post">

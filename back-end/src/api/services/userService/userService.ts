@@ -152,7 +152,7 @@ export const userFollowingList = async (userId: string, next: NextFunction) => {
         } else {
             const followrsList = await userSignupModel.findById(userId).populate({
                 path: "following",
-                select: ["username", "profilePic", "fullname"],
+                select: ["username", "profilePic", "fullname", "followers", "following"],
             })
             return followrsList
         }
@@ -209,17 +209,17 @@ export const userByIdSrvc = async (usrId: string, next: NextFunction) => {
         return users;
     }
 }
-export const userMessageSrvc = async (reciever: string, sender: string):Promise<ConversationInterface> => {
+export const userMessageSrvc = async (reciever: string, sender: string): Promise<ConversationInterface> => {
     try {
-    const converstions:ConversationInterface = await conversation.findOne({ participants: { $all: [sender, reciever] } }).populate("messages");
-    console.log(converstions);
-    if (converstions) {
-        return converstions
-    } else {
-        return converstions
-    }
+        const converstions: ConversationInterface = await conversation.findOne({ participants: { $all: [sender, reciever] } }).populate("messages");
+        console.log(converstions);
+        if (converstions) {
+            return converstions
+        } else {
+            return converstions
+        }
     } catch (error) {
-        
+
     }
 }
 
