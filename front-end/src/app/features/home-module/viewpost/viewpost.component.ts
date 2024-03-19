@@ -34,7 +34,7 @@ export class ViewpostComponent implements OnInit {
         console.error('Error fetching data:', error);
       },
       complete: () => {
-        // console.log('Data fetching complete');
+        
       }
     });
   }
@@ -51,6 +51,7 @@ export class ViewpostComponent implements OnInit {
     }, (err) => {
       console.log(err);
     })
+
     this.postSrvc.getPostById(id).subscribe((res: GetPostInterface) => {
     }, (err) => {
       console.log(err);
