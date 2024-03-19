@@ -13,7 +13,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  
+
 })
 export class ProfileComponent {
 
@@ -28,15 +28,22 @@ export class ProfileComponent {
   constructor(private homeSrvc: HomeService, private postSrvc: PostService, private router: Router, private dialog: MatDialog, private route: Router) { }
 
   ngOnInit(): void {
-    this.homeSrvc.getUser().subscribe((res: UserSignupInterface) => {
-      this.userDetails.push(res.datas);
-    }, (err) => {
-      console.log(err);
+    this.homeSrvc.refreshSubject.subscribe(()=>{
+      // this.getUserProfile()
     })
+
+    this.getUserProfile();
+
     this.postSrvc.getPost().subscribe((res: GetPostInterface) => {
       this.userPosts = res.datas.filter((x) => { return x.postedBy._id === this.userId });
     }, (err) => {
       console.log(err);
+    })
+  }
+
+  getUserProfile() {
+    this.homeSrvc.getUser().subscribe((res: UserSignupInterface)=>{
+      this.userDetails.push(res.datas);
     })
   }
 
@@ -56,7 +63,7 @@ export class ProfileComponent {
       data: {
         followValue: value,
         id: this.userId,
-        componentValue:'user'
+        componentValue: 'user'
       }
     });
   }

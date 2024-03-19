@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, interval, switchMap } from 'rxjs';
 import { GetPostInterface, userPostsInterface } from 'src/app/model/postResponseInterface';
 
 @Injectable({
@@ -47,7 +47,7 @@ export class PostService {
 
   addComment(comment: string, postId: string): Observable<object> {
     const text = { text: comment, postId: postId };
-
+    
     return this.http.post(`http://localhost:3000/post/add-comment/${this.userId}`, text)
   }
 
@@ -55,11 +55,11 @@ export class PostService {
     return this.http.get(`http://localhost:3000/post/post-comment/${postId}`)
   }
 
-  postDelete(postid:string): Observable<object> {
+  postDelete(postid: string): Observable<object> {
     console.log(this.userId);
-    
+
     const postId = { postId: postid };
-    return this.http.post(`http://localhost:3000/post/delete-post/${this.userId}`,postId)
+    return this.http.post(`http://localhost:3000/post/delete-post/${this.userId}`, postId)
   }
 
 }

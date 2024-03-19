@@ -1,5 +1,5 @@
 import mongoose, { ObjectId } from "mongoose";
-import { UserPostInterface } from "../../model/interfaces/userInterfaces";
+import { PostComment, UserPostInterface } from "../../model/interfaces/userInterfaces";
 import { postModel } from "../../model/schemas/postSchema";
 import { userSignupModel } from "../../model/schemas/userSchema";
 import postCommentModel from "../../model/schemas/commentSchema";
@@ -129,7 +129,10 @@ export const deletePostSSrvc = async (userId: string, postId: string): Promise<b
     try {
         if (postFinding && userFind) {
             const postDeleting = await postModel.findByIdAndDelete(postId);
-            postFinding.save();
+            const commentFinding: PostComment[] = await postCommentModel.find({ post: postId });
+            for (const i of commentFinding) {
+                const commentDeleting = await postCommentModel.findOneAndDelete({ post: postId });
+            }
             return true
         } else {
             return false

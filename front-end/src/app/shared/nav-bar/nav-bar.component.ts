@@ -20,10 +20,18 @@ export class NavBarComponent implements OnInit {
     this.isVisible = !this.isVisible;
   }
 
-  constructor(private router: Router, private homeSrvc: HomeService,private dialog: MatDialog) { }
+  constructor(private router: Router, private homeSrvc: HomeService, private dialog: MatDialog) { }
 
 
   ngOnInit(): void {
+    this.homeSrvc.refreshSubject.subscribe(()=>{
+      this.getUserDetials()
+    })
+
+    this.getUserDetials();
+  }
+
+  getUserDetials() {
     this.homeSrvc.getUser().subscribe((res: UserSignupInterface) => {
       this.navProfilePic = res.datas.profilePic;
     }, (err) => {

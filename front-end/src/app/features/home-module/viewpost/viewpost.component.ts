@@ -25,11 +25,17 @@ export class ViewpostComponent implements OnInit {
   constructor(private postSrvc: PostService, private route: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.postSrvc.getPost().subscribe((res: GetPostInterface) => {
-      res.datas.map((x) => { return this.allPosts.push(x) });
-      this.allPosts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    }, (err) => {
-      console.log(err);
+    this.postSrvc.getPost().subscribe({
+      next: (res: GetPostInterface) => {
+        res.datas.map((x) => { return this.allPosts.push(x) });
+        this.allPosts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      },
+      error: (error) => {
+        console.error('Error fetching data:', error);
+      },
+      complete: () => {
+        // console.log('Data fetching complete');
+      }
     });
   }
 

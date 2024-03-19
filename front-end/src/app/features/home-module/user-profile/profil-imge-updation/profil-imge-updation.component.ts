@@ -59,6 +59,11 @@ export class ProfilImgeUpdationComponent implements OnChanges {
   imageRemoving() {
     this.profileSrvc.imgRemoving().subscribe((res) => {
       console.log(res);
+      this.snack.open('Image Removed', 'Ok', {
+        duration: 2000,
+        direction: 'ltr'
+      })
+      this.dialogRef.close();
     }, (err) => {
       console.log(err);
 

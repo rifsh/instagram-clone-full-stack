@@ -27,13 +27,19 @@ export class UserEditProfileComponent implements OnInit {
   constructor(private homeSrvc: HomeService, private dialog: MatDialog, private profileSrvc: ProfileService, private snack: MatSnackBar) { }
 
   ngOnInit(): void {
+
+    this.homeSrvc.refreshSubject.subscribe(()=>{
+      this.updatingUserCredentials()
+    })
+
+    this.updatingUserCredentials();
+  }
+
+  updatingUserCredentials() {
     this.homeSrvc.getUser().subscribe((res: UserSignupInterface) => {
-      // this.userDetails = res.datas;
       this.userName = res.datas.username;
       this.fullName = res.datas.fullname;
       this.profileImg = res.datas.profilePic;
-      // this.userBio = res.datas.bio;
-      // this.gender = res.datas.gender;
       this.profileEdit.setValue({
         fullname: res.datas.fullname,
         username: res.datas.username,
@@ -47,20 +53,23 @@ export class UserEditProfileComponent implements OnInit {
   }
 
   imageUpdating() {
-    this.dialog.open(ProfilImgeUpdationComponent)
+    this.dialog.open(ProfilImgeUpdationComponent);
+    // this.updatingUserCredentials();
   }
+
+
 
   submit() {
     this.profileSrvc.updateProfile(this.profileEdit).subscribe((res: { message: string }) => {
       if (res.message === 'Success') {
-        this.snack.open('Profile Updated','Ok',{
+        this.snack.open('Profile Updated', 'Ok', {
           duration: 2000,
-          direction:'ltr'
+          direction: 'ltr'
         })
       } else {
-        this.snack.open('Something went wrong','Ok',{
+        this.snack.open('Something went wrong', 'Ok', {
           duration: 2000,
-          direction:'ltr'
+          direction: 'ltr'
         })
       }
     }, (err) => {

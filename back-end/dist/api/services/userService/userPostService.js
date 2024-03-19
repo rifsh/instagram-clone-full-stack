@@ -146,7 +146,10 @@ const deletePostSSrvc = (userId, postId) => __awaiter(void 0, void 0, void 0, fu
     try {
         if (postFinding && userFind) {
             const postDeleting = yield postSchema_1.postModel.findByIdAndDelete(postId);
-            postFinding.save();
+            const commentFinding = yield commentSchema_1.default.find({ post: postId });
+            for (const i of commentFinding) {
+                const commentDeleting = yield commentSchema_1.default.findOneAndDelete({ post: postId });
+            }
             return true;
         }
         else {

@@ -12,20 +12,20 @@ import { PostEditComponent } from './post-edit/post-edit.component';
 })
 export class PostViewingComponent implements OnInit {
   @Input() id: string;
-  @Input() editBtn:string;
+  @Input() editBtn: string;
   postPic: string;
   userPofilePic: string;
   userName: string;
-  userPostEditbtn:boolean = false;
+  userPostEditbtn: boolean = false;
 
   allComments: PostCommentInterface[] = [];
 
   @ViewChild('addCommentForm') commentForm: NgForm;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private postSrvc: PostService,private dialog:MatDialog) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private postSrvc: PostService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    if (this.data.editBtn==='userPost') {
+    if (this.data.editBtn === 'userPost') {
       this.userPostEditbtn = true;
     } else {
       this.userPostEditbtn = false;
@@ -40,7 +40,11 @@ export class PostViewingComponent implements OnInit {
     }, (err) => {
       console.log(err);
     })
+    this.allUsersComments();
 
+  }
+
+  allUsersComments() {
     this.postSrvc.viewComments(this.data.id).subscribe((res: ViewCommentsInterface) => {
       res.datas.map((x) => { this.allComments.push(x) });
 
@@ -52,6 +56,7 @@ export class PostViewingComponent implements OnInit {
 
   commentAdding() {
     this.postSrvc.addComment(this.commentForm.value.text, this.data.id).subscribe((res: { message: string }) => {
+      
       if (res.message === 'Commented') {
         this.commentForm.setValue({
           text: ''
@@ -65,7 +70,7 @@ export class PostViewingComponent implements OnInit {
 
   postEdit() {
     this.dialog.open(PostEditComponent, {
-      data:{postId: this.data.id}
+      data: { postId: this.data.id }
     })
   }
 

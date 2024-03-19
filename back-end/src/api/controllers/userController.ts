@@ -69,16 +69,6 @@ export const userFollowing = catchAsync(async (req: Request, res: Response, next
     //     next(new CustomeError('Something sent wrong', 404));    
     // }
 })
-export const userUnfollow = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    // const followingUserId: any = req.params.id;
-    // const followerUserId: any = req.body.followerId;
-    // const userUnfollowing = await userService.userUnfollow(followingUserId, followerUserId);
-    // if (userUnfollowing) {
-    //     res.status(200).json({
-    //         message: "Unfollowed"
-    //     })
-    // }
-})
 export const userFollowersList = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const userId: string = req.params.id;
     const datas = await userService.userFollowersList(userId, next);
@@ -159,7 +149,6 @@ export const userController = {
     profileImgChange,
     profileImgRemove,
     userFollowing,
-    userUnfollow,
     userFollowersList,
     userFollowingList,
     userFollowerRemove,

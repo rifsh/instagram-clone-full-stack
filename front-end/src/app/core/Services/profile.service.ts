@@ -1,12 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
+
+  subject = new Subject<void>();
+
+
+  get refreshSubject() {
+    return this.subject
+  }
+
 
   http: HttpClient = inject(HttpClient)
 
@@ -21,7 +29,9 @@ export class ProfileService {
     const profileImg = new FormData();
     profileImg.append('profilePic', file);
 
-    return this.http.put(`http://localhost:3000/clone/user-profile-img/${this.userId}`, profileImg)
+    return this.http.put(`http://localhost:3000/clone/user-profile-img/${this.userId}`, profileImg).pipe(tap(() => {
+      this.refreshSubject.next();
+    }))
   }
 
   imgRemoving(): Observable<object> {
@@ -33,7 +43,9 @@ export class ProfileService {
   }
 
   userById(userId: string): Observable<object> {
-    return this.http.get(`http://localhost:3000/clone/user-by-id/${userId}`)
+    return this.http.get(`http://localhost:3000/clone/user-by-id/${userId}`).pipe(tap(() => {
+      this.refreshSubject.next();
+    }))
   }
 
   following(id: string): Observable<object> {
@@ -53,11 +65,11 @@ export class ProfileService {
     const followerId = { followerId: id };
     return this.http.post(`http://localhost:3000/clone/user-follower-remove/${this.userId}`, followerId)
   }
-  removeFollowing(id:string): Observable<object> {
+  removeFollowing(id: string): Observable<object> {
     const followingUser = { followingUser: id };
-    return this.http.post(`http://localhost:3000/clone/user-following-remove/${this.userId}`,followingUser)
+    return this.http.post(`http://localhost:3000/clone/user-following-remove/${this.userId}`, followingUser)
   }
-  changePassword(values:{prevPassword:string,password:string}):Observable<object> {
-    return this.http.post(`http://localhost:3000/clone/reset-password/${this.userId}`,values)
+  changePassword(values: { prevPassword: string, password: string }): Observable<object> {
+    return this.http.post(`http://localhost:3000/clone/reset-password/${this.userId}`, values)
   }
 }

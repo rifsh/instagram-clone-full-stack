@@ -27,7 +27,7 @@ export class OtherUserProfileComponent implements OnInit {
   userId: string;
   user: UserDetailInterface[] = [];
 
-  constructor(private route: ActivatedRoute, private profileSrvc: ProfileService, private dialog: MatDialog,private router:Router) {
+  constructor(private route: ActivatedRoute, private profileSrvc: ProfileService, private dialog: MatDialog, private router: Router) {
 
   }
 
@@ -36,13 +36,13 @@ export class OtherUserProfileComponent implements OnInit {
       this.userId = params['id'];
     });
 
+    this.fetchingUserData();
+
+  }
+
+  fetchingUserData() {
     const mainUserId: string = localStorage.getItem('userId');
 
-    this.profileSrvc.allUsers().subscribe((res: UserByIdInterface) => {
-      this.user.push(res.datas);
-    }, (err) => {
-      console.log(err);
-    })
     this.profileSrvc.userById(this.userId).subscribe((res: UserByIdInterface) => {
       this.userIds = res.datas._id;
       this.userName = res.datas.username;
@@ -53,12 +53,10 @@ export class OtherUserProfileComponent implements OnInit {
       this.following = res.datas.following.length;
       this.followBtn = res.datas.followers.filter((X) => { return X === mainUserId });
       this.user.push(res.datas);
-
       if (this.followBtn.length === 0) {
         this.buttonType = "follow";
       } else {
         this.buttonType = "following";
-
       }
     }, (err) => {
       console.log(err);
@@ -70,10 +68,12 @@ export class OtherUserProfileComponent implements OnInit {
     this.profileSrvc.following(this.userIds).subscribe((res: { message: string }) => {
       if (res.message === "Following") {
         this.buttonType = "following";
+        this.fetchingUserData()
       } else if (res.message === "unFollowed") {
         this.buttonType = "follow";
+        this.fetchingUserData()
         this.followBtnClass = true;
-      }      
+      }
     }, (err) => {
       console.log(err);
     })
@@ -92,7 +92,7 @@ export class OtherUserProfileComponent implements OnInit {
       data: {
         followValue: value,
         id: this.userId,
-        componentValue:'otheruser'
+        componentValue: 'otheruser'
       }
     });
   }

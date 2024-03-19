@@ -20,8 +20,8 @@
                 <div class="postlike d-flex align-items-center justify-content-between mt-2" style="width: 110px;">
                     <div class="like">
                         <button (click)="likeBtn(item._id,item.postedBy._id)">
-                            <span [ngClass]="{'liked': item.likes.includes(userId)}" class="like-icon"></span>
-                            <!-- <span class="like-icon"></span> -->
+                            <!-- <span class="liked"></span> -->
+                            <span class="like-icon"></span>
                         </button>
                     </div>
                     <div class="comments">
