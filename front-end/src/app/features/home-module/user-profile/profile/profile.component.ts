@@ -28,14 +28,13 @@ export class ProfileComponent {
   constructor(private homeSrvc: HomeService, private postSrvc: PostService, private router: Router, private dialog: MatDialog, private route: Router) { }
 
   ngOnInit(): void {
-    this.homeSrvc.refreshSubject.subscribe(()=>{
-      // this.getUserProfile()
+    this.homeSrvc.getUser().subscribe((res: UserSignupInterface)=>{
+      this.userDetails.push(res.datas);
     })
-
-    this.getUserProfile();
-
     this.postSrvc.getPost().subscribe((res: GetPostInterface) => {
       this.userPosts = res.datas.filter((x) => { return x.postedBy._id === this.userId });
+      // console.log(this.userPosts);
+      
     }, (err) => {
       console.log(err);
     })
@@ -44,7 +43,9 @@ export class ProfileComponent {
   getUserProfile() {
     this.homeSrvc.getUser().subscribe((res: UserSignupInterface)=>{
       this.userDetails.push(res.datas);
+      console.log(res.datas);
     })
+    
   }
 
   viewingProfile() {

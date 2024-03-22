@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/core/Services/post.service';
 import { GetPostInterface, LikesInterface, ViewpostInterface } from 'src/app/model/postResponseInterface';
+import { FollowUnfollowListComponent } from 'src/app/shared/follow-unfollow-list/follow-unfollow-list.component';
 // import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PostViewingComponent } from 'src/app/shared/post-viewing/post-viewing.component';
 
@@ -25,18 +26,22 @@ export class ViewpostComponent implements OnInit {
   constructor(private postSrvc: PostService, private route: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.getPosts();
+  }
+
+  getPosts() {
     this.postSrvc.getPost().subscribe({
       next: (res: GetPostInterface) => {
         res.datas.map((x) => { return this.allPosts.push(x) });
         this.allPosts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        // console.log(this.allPosts);
       },
       error: (error) => {
         console.error('Error fetching data:', error);
       },
       complete: () => {
-        
       }
-    });
+    })
   }
 
   likeBtn(id: string, userId: string) {
@@ -86,6 +91,4 @@ export class ViewpostComponent implements OnInit {
       data: { id: id }
     })
   }
-
-
 }

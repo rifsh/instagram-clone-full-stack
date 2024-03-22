@@ -6,6 +6,8 @@ import { RemoveFollowComponent } from '../remove-follow/remove-follow.component'
 import { Router } from '@angular/router';
 import { DialogRef } from '@angular/cdk/dialog';
 import { Location } from '@angular/common'
+import { PostService } from 'src/app/core/Services/post.service';
+import { PostInterface } from 'src/app/model/postResponseInterface';
 
 @Component({
   selector: 'app-follow-unfollow-list',
@@ -26,14 +28,17 @@ export class FollowUnfollowListComponent implements OnInit {
   searchValue: string;
   followerHeading: boolean = false;
   followingHeading: boolean = false;
+  likeHeading: boolean = false;
   userButtons: boolean;
   otherUserButtons: boolean;
   userId: string = localStorage.getItem('userId');
 
 
-  constructor(private profileSrvc: ProfileService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private route: Router, private closeModal: DialogRef, private location: Location) { }
+  constructor(private profileSrvc: ProfileService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private route: Router, private closeModal: DialogRef, private location: Location,private postSrvc:PostService) { }
 
   ngOnInit(): void {
+    
+    
     if (this.data.componentValue === 'user') {
       this.userButtons = true;
       this.otherUserButtons = false;
@@ -42,6 +47,12 @@ export class FollowUnfollowListComponent implements OnInit {
     if (this.data.componentValue === 'otheruser') {
       this.userButtons = false;
       this.otherUserButtons = true;
+    }
+
+    if (this.data.followValue === 'likes') {
+      this.postSrvc.getPostById(this.data.id).subscribe((res:{message:string,datas:PostInterface})=>{
+        console.log(res.datas.likes);
+      })
     }
 
     if (this.data.followValue === "followers") {

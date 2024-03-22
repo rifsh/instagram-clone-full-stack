@@ -21,6 +21,13 @@ export class AllPostComponent {
   constructor(private postSrvc: PostService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    // this.postSrvc.refreshSubject.subscribe(()=>{
+    //   this.getAllposts()
+    // })
+    this.getAllposts();
+  }
+
+  getAllposts() {
     this.postSrvc.getPost().subscribe((res: GetPostInterface) => {
       this.userPosts = res.datas.filter((x) => { return x.postedBy._id === this.userIds });
 
@@ -31,10 +38,10 @@ export class AllPostComponent {
 
   commentAndPostViewing(id: string) {
     this.dialog.open(PostViewingComponent, {
-      data: { id: id,editBtn:"userPost" }
+      data: { id: id, editBtn: "userPost" }
     })
   }
 
-  
+
 
 }

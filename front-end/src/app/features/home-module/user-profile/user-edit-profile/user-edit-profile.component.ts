@@ -31,7 +31,7 @@ export class UserEditProfileComponent implements OnInit {
     this.homeSrvc.refreshSubject.subscribe(()=>{
       this.updatingUserCredentials()
     })
-
+    this.updatingUserCredentials()
     this.updatingUserCredentials();
   }
 
@@ -40,13 +40,13 @@ export class UserEditProfileComponent implements OnInit {
       this.userName = res.datas.username;
       this.fullName = res.datas.fullname;
       this.profileImg = res.datas.profilePic;
-      this.profileEdit.setValue({
-        fullname: res.datas.fullname,
-        username: res.datas.username,
-        bio: res.datas.bio,
-        gender: res.datas.gender,
+      // this.profileEdit.setValue({
+      //   fullname: res.datas.fullname,
+      //   username: res.datas.username,
+      //   bio: res.datas.bio,
+      //   gender: res.datas.gender,
 
-      })
+      // })
     }, (err) => {
       console.log(err);
     })

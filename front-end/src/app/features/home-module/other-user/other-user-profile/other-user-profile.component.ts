@@ -54,9 +54,7 @@ export class OtherUserProfileComponent implements OnInit {
       this.followBtn = res.datas.followers.filter((X) => { return X === mainUserId });
       this.user.push(res.datas);
       if (this.followBtn.length === 0) {
-        this.buttonType = "follow";
-      } else {
-        this.buttonType = "following";
+        this.buttonType = 'follow';
       }
     }, (err) => {
       console.log(err);

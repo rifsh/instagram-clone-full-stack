@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable, interval, switchMap } from 'rxjs';
+import { Observable, Subject, interval, switchMap, tap } from 'rxjs';
 import { GetPostInterface, userPostsInterface } from 'src/app/model/postResponseInterface';
 
 @Injectable({
@@ -10,9 +10,14 @@ import { GetPostInterface, userPostsInterface } from 'src/app/model/postResponse
 export class PostService {
 
   http: HttpClient = inject(HttpClient);
+  // subject = new Subject<void>();
   userId: string = localStorage.getItem('userId');
 
   constructor() { }
+
+  // get refreshSubject() {
+  //   return this.subject
+  // }
 
   addPostSrvc(formValues: NgForm, file: File): Observable<object> {
     const postImg: FormData = new FormData()
@@ -47,7 +52,7 @@ export class PostService {
 
   addComment(comment: string, postId: string): Observable<object> {
     const text = { text: comment, postId: postId };
-    
+
     return this.http.post(`http://localhost:3000/post/add-comment/${this.userId}`, text)
   }
 

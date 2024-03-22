@@ -51,7 +51,10 @@ export const getPostSrvc = async (): Promise<object> => {
 }
 export const getPostByidSrvc = async (postId: string): Promise<UserPostInterface | boolean> => {
     try {
-        const postFinding = await postModel.findById(postId);
+        const postFinding = await postModel.findById(postId).populate({
+            path: "likes",
+            select: ["username", "profilePic"],
+        });
         if (postFinding) {
             return postFinding
         } else {

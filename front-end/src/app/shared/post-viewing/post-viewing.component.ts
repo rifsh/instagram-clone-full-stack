@@ -40,7 +40,9 @@ export class PostViewingComponent implements OnInit {
     }, (err) => {
       console.log(err);
     })
-    this.allUsersComments();
+    // this.postSrvc.refreshSubject.subscribe(() => {
+    //   this.allUsersComments()
+    // })
 
   }
 
@@ -56,7 +58,7 @@ export class PostViewingComponent implements OnInit {
 
   commentAdding() {
     this.postSrvc.addComment(this.commentForm.value.text, this.data.id).subscribe((res: { message: string }) => {
-      
+
       if (res.message === 'Commented') {
         this.commentForm.setValue({
           text: ''

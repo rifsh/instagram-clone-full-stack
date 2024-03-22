@@ -29,9 +29,7 @@ export class ProfileService {
     const profileImg = new FormData();
     profileImg.append('profilePic', file);
 
-    return this.http.put(`http://localhost:3000/clone/user-profile-img/${this.userId}`, profileImg).pipe(tap(() => {
-      this.refreshSubject.next();
-    }))
+    return this.http.put(`http://localhost:3000/clone/user-profile-img/${this.userId}`, profileImg)
   }
 
   imgRemoving(): Observable<object> {
@@ -42,10 +40,12 @@ export class ProfileService {
     return this.http.put(`http://localhost:3000/clone/user-profile/${this.userId}`, values.value)
   }
 
+  // .pipe(tap(() => {
+  //   this.refreshSubject.next();
+  // }))
+
   userById(userId: string): Observable<object> {
-    return this.http.get(`http://localhost:3000/clone/user-by-id/${userId}`).pipe(tap(() => {
-      this.refreshSubject.next();
-    }))
+    return this.http.get(`http://localhost:3000/clone/user-by-id/${userId}`)
   }
 
   following(id: string): Observable<object> {

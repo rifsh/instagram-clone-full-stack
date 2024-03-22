@@ -65,7 +65,10 @@ const getPostSrvc = () => __awaiter(void 0, void 0, void 0, function* () {
 exports.getPostSrvc = getPostSrvc;
 const getPostByidSrvc = (postId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const postFinding = yield postSchema_1.postModel.findById(postId);
+        const postFinding = yield postSchema_1.postModel.findById(postId).populate({
+            path: "likes",
+            select: ["username", "profilePic"],
+        });
         if (postFinding) {
             return postFinding;
         }

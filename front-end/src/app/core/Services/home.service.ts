@@ -7,7 +7,7 @@ import { Subject, tap } from 'rxjs';
 })
 export class HomeService {
 
-  subject = new Subject<void>();
+  subject = new Subject<void>;
   http: HttpClient = inject(HttpClient)
 
   constructor() {
@@ -20,7 +20,7 @@ export class HomeService {
 
   getUser() {
     const userId: string = localStorage.getItem('userId');
-    return this.http.get(`http://localhost:3000/clone/user-by-id/${userId}`).pipe(tap(() => {
+    return this.http.get(`http://localhost:3000/clone/user-by-id/${userId}`).pipe(tap(()=>{
       this.refreshSubject.next();
     }))
   }
