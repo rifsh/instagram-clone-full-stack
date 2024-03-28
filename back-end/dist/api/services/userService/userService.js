@@ -23,6 +23,7 @@ const allUsers = () => __awaiter(void 0, void 0, void 0, function* () {
 exports.allUsers = allUsers;
 const userProfileSrvc = (profileDetails, userId, next) => __awaiter(void 0, void 0, void 0, function* () {
     const userFinding = yield userSchema_1.userSignupModel.findById(userId);
+    console.log(profileDetails);
     if (userFinding.username === profileDetails.username) {
         return next(new customeErrorHandler_1.CustomeError('Username is already present', 404));
     }

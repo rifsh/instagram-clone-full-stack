@@ -1,21 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { HomeService } from 'src/app/core/Services/home.service';
-import { UserSignupInterface } from 'src/app/model/userInterface';
+import { UserProfileDetailsInterace, UserSignupInterface } from 'src/app/model/userInterface';
 import { ProfilImgeUpdationComponent } from '../profil-imge-updation/profil-imge-updation.component';
 import { ProfileService } from 'src/app/core/Services/profile.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-edit-profile',
   templateUrl: './user-edit-profile.component.html',
   styleUrls: ['./user-edit-profile.component.css']
 })
-export class UserEditProfileComponent implements OnInit {
+export class UserEditProfileComponent implements OnInit, OnDestroy {
 
   @ViewChild('profileEdit') profileEdit: NgForm;
+  private refreshSubscription: Subscription;
+
+
+  userprofileDetials: UserProfileDetailsInterace[] = [];
 
   userName: string = '';
   fullName: string = '';
@@ -28,25 +33,24 @@ export class UserEditProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.homeSrvc.refreshSubject.subscribe(()=>{
-      this.updatingUserCredentials()
-    })
+    // this.homeSrvc.refreshSubject.subscribe(() => {
+      // this.updatingUserCredentials();
+      // console.log('llll');
+
+    // })
     this.updatingUserCredentials()
-    this.updatingUserCredentials();
   }
 
   updatingUserCredentials() {
+    let value: string;
     this.homeSrvc.getUser().subscribe((res: UserSignupInterface) => {
+      this.userprofileDetials.push(res.datas);
+
       this.userName = res.datas.username;
       this.fullName = res.datas.fullname;
       this.profileImg = res.datas.profilePic;
-      // this.profileEdit.setValue({
-      //   fullname: res.datas.fullname,
-      //   username: res.datas.username,
-      //   bio: res.datas.bio,
-      //   gender: res.datas.gender,
-
-      // })
+      value = 'wo'
+      
     }, (err) => {
       console.log(err);
     })
@@ -79,6 +83,12 @@ export class UserEditProfileComponent implements OnInit {
 
   changePassword() {
     this.dialog.open(ChangePasswordComponent)
+  }
+
+  ngOnDestroy(): void {
+    // if (this.refreshSubscription) {
+    //   this.refreshSubscription.unsubscribe();
+    // }
   }
 
 }

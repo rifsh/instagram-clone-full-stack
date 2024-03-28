@@ -15,7 +15,8 @@ export const allUsers = async () => {
 }
 export const userProfileSrvc = async (profileDetails: UserProfileInterface, userId: string, next: NextFunction) => {
     const userFinding = await userSignupModel.findById(userId);
-
+    console.log(profileDetails);
+    
     if (userFinding.username === profileDetails.username) {
         return next(new CustomeError('Username is already present', 404));
     }

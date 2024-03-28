@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/core/Services/home.service';
-import { UserDetailInterface, UserProfileDetailsInterace, UserSignupInterface } from 'src/app/model/userInterface';
+import { UserDetailInterface, UserSignupInterface } from 'src/app/model/userInterface';
 import { ProfilImgeViewComponent } from '../profil-imge-view/profil-imge-view.component';
 import { PostService } from 'src/app/core/Services/post.service';
 import { GetPostInterface, userPostsInterface } from 'src/app/model/postResponseInterface';

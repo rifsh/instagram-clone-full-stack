@@ -24,10 +24,9 @@ export class NavBarComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.homeSrvc.refreshSubject.subscribe(()=>{
-      this.getUserDetials()
-    })
-
+    // this.homeSrvc.refreshSubject.subscribe(()=>{
+    //   this.getUserDetials()
+    // })
     this.getUserDetials();
   }
 

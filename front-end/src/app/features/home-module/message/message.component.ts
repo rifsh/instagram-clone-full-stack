@@ -104,7 +104,10 @@ export class MessageComponent implements OnInit {
       message: this.messageData.value.message,
       roomId: this.roomId
     }
-    this.chatSrvc.sentMessage(data)
+    this.chatSrvc.sentMessage(data);
+    this.messageData.setValue({
+      message:''
+    })
   }
 
   otherProfile() {

@@ -44,12 +44,12 @@ export interface UserByIdInterface {
 }
 
 export interface UserProfileDetailsInterace {
-    userName: string;
-    userBio: string;
-    fullName: string;
-    profileImg: string;
-    followers: number;
-    following: number;
+    fullname: string;
+    username: string; 
+    bio: string;
+    profilePic: string;
+    gender: string;
+
 }
 
 export interface UserFollowersInterface {
@@ -94,5 +94,5 @@ export interface FollowersLiset {
     fullname: string;
     username: string;
     followers: [string]
-    following:[string]
+    following: [string]
 }

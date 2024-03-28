@@ -12,6 +12,7 @@ import { OtherUserModule } from './other-user/other-user.module';
 import { StoryIconComponent } from './story/story-icon/story-icon.component';
 import { MessageComponent } from './message/message.component';
 import { TimeAgoPipe } from 'src/app/time-ago.pipe';
+import { RightSideComponent } from './viewpost/right-side/right-side.component';
 
 
 
@@ -22,7 +23,8 @@ import { TimeAgoPipe } from 'src/app/time-ago.pipe';
     StoryComponent,
     StoryIconComponent,
     MessageComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    RightSideComponent
   ],
   imports: [
     CommonModule,
