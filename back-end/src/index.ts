@@ -3,7 +3,7 @@ import { userAuthRouter } from './api/router/authRouter';
 import { CustomeError } from './api/utils/customeErrorHandler';
 import bodyparser from 'body-parser'
 import cors from 'cors'
-import { userRouter } from './api/router/userRouter';
+import { userRouter } from './api/router/userrouter';
 import { postRouter } from './api/router/userPostRouter';
 
 const app:Express = exp();
