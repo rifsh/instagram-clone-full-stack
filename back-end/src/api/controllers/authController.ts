@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import catchAsync from "../middlewares/asyncHandler";
 import { UserDobInterface, UserSighnupInterface } from "../model/interfaces/userSighnupInterface";
 import { otpService } from "../services/authService/otpService";
-import {otpEmailSend, sentMail} from '../utils/emailSending'
+import { sentMail } from '../utils/emailSending'
 import { userAuthService } from "../services/authService/authService.ts";
 import { CustomeError } from "../utils/customeErrorHandler";
 import { userToken } from "../utils/token";
@@ -84,7 +84,7 @@ const userPaaswordReseting = catchAsync(async (req: Request, res: Response, next
     const userId: string = req.params.id;
     const prevPassword: string = req.body.prevPassword;
     const newPassword: string = req.body.password;
-    
+
     const cahnged = await userAuthService.userPasswordResetingSrvc(userId, prevPassword, newPassword);
     if (cahnged) {
         res.status(200).json({
@@ -98,7 +98,7 @@ const userPaaswordReseting = catchAsync(async (req: Request, res: Response, next
 })
 const userForgotPassword = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     sentMail(req.body.email)
-}) 
+})
 const userDelting = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const userId: string = req.params.id
     const userDeleting = userAuthService.userDeletingSrvc(userId);

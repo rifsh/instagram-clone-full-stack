@@ -1,5 +1,4 @@
 import twilio, { Twilio } from "twilio";
-import validatePhoneNumber from "../../utils/phoneValidation";
 import otpGenerate from "../../utils/generateOtp";
 import otpModel from "../../model/schemas/otpSchema";
 import { userSignupModel } from "../../model/schemas/userSchema";
