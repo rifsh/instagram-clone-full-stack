@@ -13,23 +13,24 @@ export class AuthServiceService {
   constructor() { }
 
   signUpSrvc(signupValues: NgForm) {
-    return this.http.post('http://localhost:3000/clone/user-signup', signupValues.value)
+    // https://chatternet.site/post/get-post
+    return this.http.post('https://chatternet.site/clone/user-signup', signupValues.value)
   }
 
   dobSrvc(values: NgForm) {
     const phone: string = localStorage.getItem('phone');
     const id: string = localStorage.getItem('userId');
-    return this.http.post(`http://localhost:3000/clone/userdob/${id}`, values.value)
+    return this.http.post(`https://chatternet.site/clone/userdob/${id}`, values.value)
   }
 
   otpValidationSrvc(otp: NgForm) {
     const userId: string = localStorage.getItem('userId');
-    return this.http.post(`http://localhost:3000/clone/otpvalidation/${userId}`, otp.value);
+    return this.http.post(`https://chatternet.site/clone/otpvalidation/${userId}`, otp.value);
   }
 
   changePhoneNumberSrvc(changeNumber: NgForm) {
     const userId: string = localStorage.getItem('userId');
-    this.http.post(`http://localhost:3000/clone/change-phone-number/${userId}`, changeNumber.value).subscribe((res) => {
+    this.http.post(`https://chatternet.site/clone/change-phone-number/${userId}`, changeNumber.value).subscribe((res) => {
       console.log(res);
       if (res) {
         this.http.post
@@ -41,7 +42,7 @@ export class AuthServiceService {
   }
 
   loginSrvc(loginValues: NgForm) {
-    return this.http.post('http://localhost:3000/clone/login', loginValues)
+    return this.http.post('https://chatternet.site/clone/login', loginValues)
   }
 
 }

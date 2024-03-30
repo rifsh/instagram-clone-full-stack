@@ -2,7 +2,7 @@ import { connection } from "./dbconnection";
 import app from ".";
 import http from 'http'
 import { errorHandler } from "./api/middlewares/errorMiddleare";
-import { Server, Socket } from 'socket.io';
+import { Server } from 'socket.io';
 import socketRoutes from './api/socket/route'
 
 app.use(errorHandler);

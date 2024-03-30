@@ -20,7 +20,7 @@ export class HomeService {
 
   getUser() {
     const userId: string = localStorage.getItem('userId');
-    return this.http.get(`http://localhost:3000/clone/user-by-id/${userId}`).pipe(tap(()=>{
+    return this.http.get(`https://chatternet.site/clone/user-by-id/${userId}`).pipe(tap(()=>{
       this.refreshSubject.next();
     }))
   }

@@ -23,21 +23,21 @@ export class ProfileService {
   userId: string = localStorage.getItem('userId');
 
   allUsers(): Observable<object> {
-    return this.http.get('http://localhost:3000/clone/users');
+    return this.http.get('https://chatternet.site/clone/users');
   }
   imageUpdating(fomrValues: NgForm, file: File): Observable<object> {
     const profileImg = new FormData();
     profileImg.append('profilePic', file);
 
-    return this.http.put(`http://localhost:3000/clone/user-profile-img/${this.userId}`, profileImg)
+    return this.http.put(`https://chatternet.site/clone/user-profile-img/${this.userId}`, profileImg)
   }
 
   imgRemoving(): Observable<object> {
-    return this.http.delete(`http://localhost:3000/clone/user-profile-remove/${this.userId}`)
+    return this.http.delete(`https://chatternet.site/clone/user-profile-remove/${this.userId}`)
   }
 
   updateProfile(values: NgForm): Observable<object> {
-    return this.http.put(`http://localhost:3000/clone/user-profile/${this.userId}`, values.value)
+    return this.http.put(`https://chatternet.site/clone/user-profile/${this.userId}`, values.value)
   }
 
   // .pipe(tap(() => {
@@ -45,31 +45,31 @@ export class ProfileService {
   // }))
 
   userById(userId: string): Observable<object> {
-    return this.http.get(`http://localhost:3000/clone/user-by-id/${userId}`)
+    return this.http.get(`https://chatternet.site/clone/user-by-id/${userId}`)
   }
 
   following(id: string): Observable<object> {
     const followerId = { followerId: id };
-    return this.http.post(`http://localhost:3000/clone/user-following/${this.userId}`, followerId)
+    return this.http.post(`https://chatternet.site/clone/user-following/${this.userId}`, followerId)
   }
 
   getFollowers(id: string): Observable<object> {
-    return this.http.get(`http://localhost:3000/clone/user-followers-list/${id}`)
+    return this.http.get(`https://chatternet.site/clone/user-followers-list/${id}`)
   }
 
   getFollowing(id: string): Observable<object> {
-    return this.http.get(`http://localhost:3000/clone/user-following-list/${id}`)
+    return this.http.get(`https://chatternet.site/clone/user-following-list/${id}`)
   }
 
   removeFollower(id: string): Observable<object> {
     const followerId = { followerId: id };
-    return this.http.post(`http://localhost:3000/clone/user-follower-remove/${this.userId}`, followerId)
+    return this.http.post(`https://chatternet.site/clone/user-follower-remove/${this.userId}`, followerId)
   }
   removeFollowing(id: string): Observable<object> {
     const followingUser = { followingUser: id };
-    return this.http.post(`http://localhost:3000/clone/user-following-remove/${this.userId}`, followingUser)
+    return this.http.post(`https://chatternet.site/clone/user-following-remove/${this.userId}`, followingUser)
   }
   changePassword(values: { prevPassword: string, password: string }): Observable<object> {
-    return this.http.post(`http://localhost:3000/clone/reset-password/${this.userId}`, values)
+    return this.http.post(`https://chatternet.site/clone/reset-password/${this.userId}`, values)
   }
 }

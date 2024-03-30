@@ -12,7 +12,7 @@ export class MessageService {
   http: HttpClient = inject(HttpClient);
 
   constructor() {
-    this.socket = io('http://localhost:3000')
+    this.socket = io('https://chatternet.site')
   }
 
   joinRoom(roomId) {
@@ -35,7 +35,7 @@ export class MessageService {
   }
 
   getMessages(userId:string):Observable<object> {
-    return this.http.get(`http://localhost:3000/clone/user-messages/${userId}`)
+    return this.http.get(`https://chatternet.site/clone/user-messages/${userId}`)
   }
 
 }
