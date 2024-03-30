@@ -14,7 +14,7 @@ _1.default.use(errorMiddleare_1.errorHandler);
 const httpServer = http_1.default.createServer(_1.default);
 const io = new socket_io_1.Server(httpServer, {
     cors: {
-        origin: ["http://localhost:4200"]
+        origin: ["https://instagram-clone-full-stack-2lhn.vercel.app"]
     }
 });
 io.on("connection", (socket) => {

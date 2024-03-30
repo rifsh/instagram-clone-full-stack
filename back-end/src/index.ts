@@ -7,10 +7,15 @@ import { userRouter } from './api/router/userrouter';
 import { postRouter } from './api/router/userPostRouter';
 
 const app:Express = exp();
+const corsOptions = {
+    origin:"https://instagram-clone-full-stack-2lhn.vercel.app",
+    credentials: true,
+    optionSuccessStatus:200,
+}
 
 app.use(bodyparser.json())
 app.use(exp.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use('/clone',userAuthRouter,userRouter);
 app.use('/post',postRouter);

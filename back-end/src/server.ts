@@ -12,7 +12,7 @@ const httpServer = http.createServer(app);
 
 const io = new Server(httpServer, {
     cors: {
-        origin: ["http://localhost:4200"]
+        origin: ["https://instagram-clone-full-stack-2lhn.vercel.app"]
     }
 })
 
